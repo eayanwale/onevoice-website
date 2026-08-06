@@ -4,32 +4,32 @@ const YOUTUBE_URL = "https://youtu.be/MdD71CNCSEw";
 
 export default function LatestWork() {
   return (
-    <section id="music" className="relative overflow-hidden bg-charcoal scroll-mt-16 sm:scroll-mt-[76px]">
-      <div className="relative h-[72vh] w-full overflow-hidden">
+    <section id="music" className="relative flex min-h-screen flex-col justify-end overflow-hidden bg-charcoal scroll-mt-16 sm:scroll-mt-[76px]">
+      <div className="absolute inset-0 overflow-hidden">
         <DuotonePhoto
           src="/images/lov-youtube-cover.jpg"
           alt="One Voice — praise &amp; worship mashup, live at Lift Our Voices"
           parallax
           objectPosition="50% 40%"
-          className="absolute inset-x-0 -top-[10%] h-[120%] w-full"
+          className="absolute inset-x-0 -top-[25%] h-[150%] w-full"
         />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, rgba(26,26,26,0.86) 0%, rgba(71,50,55,0.35) 45%, transparent 100%)",
+              "linear-gradient(to top, rgba(26,26,26,0.9) 0%, rgba(71,50,55,0.4) 38%, rgba(26,26,26,0.1) 68%, transparent 100%)",
           }}
         />
       </div>
 
-      <div className="relative z-10 w-full px-6 pb-20 pt-14 sm:px-10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-5">
+      <div className="relative z-10 w-full px-6 pb-14 pt-14 sm:px-10 sm:pb-16">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:gap-5">
           <div data-reveal className="label-text text-warm-sage">
             on youtube &middot; lift our voices 2026
           </div>
           <h3
             data-reveal
-            className="text-[40px] font-semibold leading-[0.95] text-off-white sm:text-[64px] lg:text-[88px]"
+            className="text-[32px] font-semibold leading-[0.95] text-off-white sm:text-[52px] lg:text-[72px]"
           >
             praise &amp; worship mashup
           </h3>
@@ -40,7 +40,7 @@ export default function LatestWork() {
           </p>
           <div
             data-reveal
-            className="mt-4 flex flex-wrap items-center gap-7"
+            className="mt-3 flex flex-wrap items-center gap-7"
           >
             <a
               href={YOUTUBE_URL}

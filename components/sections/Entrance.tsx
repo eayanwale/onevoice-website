@@ -11,7 +11,7 @@ export default function Entrance() {
           priority
           parallax
           objectPosition="50% 12%"
-          className="absolute inset-x-0 -top-[10%] h-[120%] w-full"
+          className="absolute inset-x-0 -top-[25%] h-[150%] w-full"
         />
         <div className="absolute inset-0 bg-charcoal/55" />
         <div

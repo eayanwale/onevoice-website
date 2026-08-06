@@ -1,37 +1,28 @@
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-const TILES = [
-  {
-    src: "/images/visual-world-1.jpg",
-    label: "worship, all voices",
-    span: "col-span-6 row-span-4 sm:col-span-4",
-    objectPosition: "50% 30%",
-  },
-  {
-    src: "/images/visual-world-2.jpg",
-    label: "solo, before the set",
-    span: "col-span-3 row-span-2 sm:col-span-2",
-    objectPosition: "50% 25%",
-  },
-  {
-    src: "/images/visual-world-3.jpg",
-    label: "a quiet moment, backstage",
-    span: "col-span-3 row-span-2 sm:col-span-2",
-    objectPosition: "50% 20%",
-  },
-  {
-    src: "/images/visual-world-4.jpg",
-    label: "hands on the keys",
-    span: "col-span-2 row-span-3 sm:col-span-2",
-    objectPosition: "50% 30%",
-  },
-  {
-    src: "/images/visual-world-5.jpg",
-    label: "lifted, mid-song",
-    span: "col-span-4 row-span-3 sm:col-span-4",
-    objectPosition: "50% 15%",
-  },
+const FEATURE = {
+  src: "/images/visual-world-1.jpg",
+  label: "worship, all voices",
+};
+
+const PORTRAITS = [
+  { src: "/images/visual-world-2.jpg", label: "solo, before the set" },
+  { src: "/images/visual-world-3.jpg", label: "a quiet moment, backstage" },
+  { src: "/images/visual-world-4.jpg", label: "hands on the keys" },
+  { src: "/images/visual-world-5.jpg", label: "lifted, mid-song" },
 ];
+
+function Tile({ src, label }: { src: string; label: string }) {
+  return (
+    <div data-reveal className="relative h-full w-full overflow-hidden">
+      <DuotonePhoto src={src} alt={label} className="h-full w-full" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
+      <span className="label-text absolute bottom-4 left-4 text-off-white/80">
+        {label}
+      </span>
+    </div>
+  );
+}
 
 export default function VisualWorld() {
   return (
@@ -41,21 +32,17 @@ export default function VisualWorld() {
           the visual world
         </div>
 
-        <div className="grid auto-rows-[110px] grid-cols-6 gap-4 sm:auto-rows-[130px] sm:gap-5">
-          {TILES.map((tile) => (
-            <div key={tile.src} data-reveal className={`relative ${tile.span}`}>
-              <DuotonePhoto
-                src={tile.src}
-                alt={tile.label}
-                objectPosition={tile.objectPosition}
-                className="h-full w-full"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
-              <span className="label-text absolute bottom-4 left-4 text-off-white/80">
-                {tile.label}
-              </span>
-            </div>
-          ))}
+        <div className="flex flex-col gap-4 sm:gap-5">
+          <div className="relative aspect-[3/2] w-full overflow-hidden">
+            <Tile src={FEATURE.src} label={FEATURE.label} />
+          </div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5">
+            {PORTRAITS.map((tile) => (
+              <div key={tile.src} className="relative aspect-[2/3] overflow-hidden">
+                <Tile src={tile.src} label={tile.label} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
