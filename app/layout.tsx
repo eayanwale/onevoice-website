@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Sans, Manrope } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import Header from "@/components/Header";
 
 // Only two weights are used anywhere on the page (400 + 600) — see
 // CLAUDE.md's "no more than two font weights per page" rule.
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${instrument.variable} ${manrope.variable}`}>
       <body>
+        <Header />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
