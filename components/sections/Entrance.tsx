@@ -10,6 +10,7 @@ export default function Entrance() {
           alt="The One Voice collective"
           priority
           parallax
+          objectPosition="50% 12%"
           className="absolute inset-x-0 -top-[10%] h-[120%] w-full"
         />
         <div className="absolute inset-0 bg-charcoal/55" />
@@ -27,15 +28,6 @@ export default function Entrance() {
               "linear-gradient(to bottom, rgba(26,26,26,0.55) 0%, rgba(26,26,26,0) 22%, rgba(26,26,26,0) 70%, rgba(26,26,26,0.65) 100%)",
           }}
         />
-      </div>
-
-      <div className="absolute inset-x-6 top-6 z-10 flex flex-col gap-1 sm:inset-x-10 sm:top-8 sm:flex-row sm:items-start sm:justify-between">
-        <span className="label-text text-off-white/60">
-          three voices. one mission.
-        </span>
-        <span className="label-text text-off-white/60 sm:text-right">
-          gospel music collective
-        </span>
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center text-center">
@@ -57,36 +49,15 @@ export default function Entrance() {
           <br />
           we&rsquo;re still here — singing.
         </p>
+      </div>
 
-        <div
-          data-reveal
-          className="mt-24 flex flex-col items-center gap-2.5 sm:mt-32"
-        >
-          <span className="label-text text-off-white/45">scroll</span>
-          <svg
-            width="14"
-            height="20"
-            viewBox="0 0 14 20"
-            fill="none"
-            className="animate-pulse"
-            aria-hidden="true"
-          >
-            <path
-              d="M1 1L7 8L13 1"
-              stroke="#BEB7A7"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M1 11L7 18L13 11"
-              stroke="#BEB7A7"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-9 z-10 flex justify-center pb-[env(safe-area-inset-bottom)] sm:bottom-12"
+      >
+        <span className="relative block h-14 w-px overflow-hidden bg-off-white/20">
+          <span className="scroll-cue-dot absolute inset-x-0 top-0 h-3.5 w-px bg-warm-sage" />
+        </span>
       </div>
     </section>
   );

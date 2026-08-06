@@ -8,6 +8,8 @@ type DuotonePhotoProps = {
   parallax?: boolean;
   priority?: boolean;
   sizes?: string;
+  /** CSS object-position for the cover crop, e.g. "50% 15%" to favor the top of the frame. */
+  objectPosition?: string;
 };
 
 const DUOTONE_FILTER =
@@ -24,6 +26,7 @@ export default function DuotonePhoto({
   parallax = false,
   priority = false,
   sizes = "100vw",
+  objectPosition = "50% 50%",
 }: DuotonePhotoProps) {
   return (
     <div
@@ -37,7 +40,7 @@ export default function DuotonePhoto({
         priority={priority}
         sizes={sizes}
         className="object-cover"
-        style={{ filter: DUOTONE_FILTER }}
+        style={{ filter: DUOTONE_FILTER, objectPosition }}
       />
       <svg
         className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.1] mix-blend-overlay"

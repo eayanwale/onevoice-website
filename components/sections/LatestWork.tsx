@@ -2,7 +2,7 @@ import PlaceholderImage from "@/components/PlaceholderImage";
 
 export default function LatestWork() {
   return (
-    <section className="relative overflow-hidden bg-charcoal">
+    <section id="music" className="relative overflow-hidden bg-charcoal scroll-mt-16 sm:scroll-mt-[76px]">
       <div className="relative h-[72vh] w-full overflow-hidden">
         <PlaceholderImage
           label="cover art — three friends, backlit, wide frame"
@@ -39,7 +39,7 @@ export default function LatestWork() {
           >
             <a
               href="#"
-              className="flex items-center gap-2.5 rounded-full bg-warm-sage py-2 pl-2 pr-4.5 font-display text-sm font-semibold text-charcoal transition-opacity duration-200 hover:opacity-70"
+              className="flex items-center gap-2.5 rounded-full bg-warm-sage py-2 pl-2 pr-6 font-display text-sm font-semibold text-charcoal transition-opacity duration-200 hover:opacity-70"
             >
               <svg width="26" height="26" viewBox="0 0 30 30" fill="none" aria-hidden="true">
                 <circle cx="15" cy="15" r="14" fill="#1A1A1A" />

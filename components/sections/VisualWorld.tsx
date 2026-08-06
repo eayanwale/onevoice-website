@@ -2,7 +2,7 @@ import PlaceholderImage from "@/components/PlaceholderImage";
 
 export default function VisualWorld() {
   return (
-    <section className="relative bg-off-white px-6 py-28 sm:px-10 lg:py-36">
+    <section id="visuals" className="relative bg-off-white px-6 py-28 sm:px-10 lg:py-36 scroll-mt-16 sm:scroll-mt-[76px]">
       <div className="mx-auto max-w-6xl">
         <div data-reveal className="label-text mb-10 text-deep-brown">
           the visual world

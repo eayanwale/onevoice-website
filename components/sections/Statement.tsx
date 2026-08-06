@@ -5,8 +5,9 @@ const STATEMENT = "some things don't need to shout to be true.";
 export default function Statement() {
   return (
     <section
+      id="about"
       data-pin-section
-      className="relative flex min-h-screen items-center justify-center bg-bone px-6 py-24 sm:px-10"
+      className="relative flex min-h-screen items-center justify-center bg-bone px-6 py-24 sm:px-10 scroll-mt-16 sm:scroll-mt-[76px]"
     >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
         <div>
