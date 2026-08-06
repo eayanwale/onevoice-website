@@ -1,6 +1,6 @@
-import PlaceholderImage from "@/components/PlaceholderImage";
+import DuotonePhoto from "@/components/DuotonePhoto";
 
-const STATEMENT = "some things don't need to shout to be true.";
+const WORDS = "some things don't need to shout to be true.".split(" ");
 
 export default function Statement() {
   return (
@@ -18,11 +18,18 @@ export default function Statement() {
             data-split-heading
             className="max-w-xl text-[32px] font-semibold leading-[1.05] text-charcoal sm:text-[46px] lg:text-[58px]"
           >
-            {STATEMENT.split("").map((ch, i) => (
-              <span key={i} data-char className="inline-block whitespace-pre">
-                {ch}
-              </span>
-            ))}
+            {WORDS.flatMap((word, wi) => {
+              const wordSpan = (
+                <span key={`w-${wi}`} className="inline-block whitespace-nowrap">
+                  {word.split("").map((ch, ci) => (
+                    <span key={ci} data-char className="inline-block">
+                      {ch}
+                    </span>
+                  ))}
+                </span>
+              );
+              return wi < WORDS.length - 1 ? [wordSpan, " "] : [wordSpan];
+            })}
           </h2>
           <p
             data-reveal
@@ -36,9 +43,10 @@ export default function Statement() {
         </div>
 
         <div data-reveal className="relative aspect-[4/5] overflow-hidden rounded-sm">
-          <PlaceholderImage
-            label="the three of them, unposed"
-            variant={1}
+          <DuotonePhoto
+            src="/images/MNFD6096-.jpg"
+            alt="The One Voice collective"
+            objectPosition="50% 15%"
             className="h-full w-full"
           />
         </div>
