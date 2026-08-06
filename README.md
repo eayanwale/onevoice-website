@@ -72,6 +72,5 @@ fixed elements. See each section component for viewport-specific classes.
 
 ## Contributing
 
-Before shipping a UI change, check it against generic-template tells (Inter/Roboto,
-purple gradients, cookie-cutter card grids) and confirm both desktop and mobile with
-`npm run screenshot`.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for branch/commit conventions, the UI review
+checklist, and design guardrails.
