@@ -1,4 +1,37 @@
-import PlaceholderImage from "@/components/PlaceholderImage";
+import DuotonePhoto from "@/components/DuotonePhoto";
+
+const TILES = [
+  {
+    src: "/images/visual-world-1.jpg",
+    label: "worship, all voices",
+    span: "col-span-6 row-span-4 sm:col-span-4",
+    objectPosition: "50% 30%",
+  },
+  {
+    src: "/images/visual-world-2.jpg",
+    label: "solo, before the set",
+    span: "col-span-3 row-span-2 sm:col-span-2",
+    objectPosition: "50% 25%",
+  },
+  {
+    src: "/images/visual-world-3.jpg",
+    label: "a quiet moment, backstage",
+    span: "col-span-3 row-span-2 sm:col-span-2",
+    objectPosition: "50% 20%",
+  },
+  {
+    src: "/images/visual-world-4.jpg",
+    label: "hands on the keys",
+    span: "col-span-2 row-span-3 sm:col-span-2",
+    objectPosition: "50% 30%",
+  },
+  {
+    src: "/images/visual-world-5.jpg",
+    label: "lifted, mid-song",
+    span: "col-span-4 row-span-3 sm:col-span-4",
+    objectPosition: "50% 15%",
+  },
+];
 
 export default function VisualWorld() {
   return (
@@ -9,41 +42,20 @@ export default function VisualWorld() {
         </div>
 
         <div className="grid auto-rows-[110px] grid-cols-6 gap-4 sm:auto-rows-[130px] sm:gap-5">
-          <div data-reveal className="relative col-span-6 row-span-4 sm:col-span-4">
-            <PlaceholderImage
-              label="the collective, together"
-              variant={1}
-              className="h-full w-full"
-            />
-          </div>
-          <div data-reveal className="relative col-span-3 row-span-2 sm:col-span-2">
-            <PlaceholderImage
-              label="wheat field, golden hour"
-              variant={3}
-              className="h-full w-full"
-            />
-          </div>
-          <div data-reveal className="relative col-span-3 row-span-2 sm:col-span-2">
-            <PlaceholderImage
-              label="one voice, mid-song"
-              variant={0}
-              className="h-full w-full"
-            />
-          </div>
-          <div data-reveal className="relative col-span-2 row-span-3 sm:col-span-2">
-            <PlaceholderImage
-              label="hands on strings"
-              variant={2}
-              className="h-full w-full"
-            />
-          </div>
-          <div data-reveal className="relative col-span-4 row-span-3 sm:col-span-4">
-            <PlaceholderImage
-              label="three friends walking, dusk"
-              variant={1}
-              className="h-full w-full"
-            />
-          </div>
+          {TILES.map((tile) => (
+            <div key={tile.src} data-reveal className={`relative ${tile.span}`}>
+              <DuotonePhoto
+                src={tile.src}
+                alt={tile.label}
+                objectPosition={tile.objectPosition}
+                className="h-full w-full"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
+              <span className="label-text absolute bottom-4 left-4 text-off-white/80">
+                {tile.label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
