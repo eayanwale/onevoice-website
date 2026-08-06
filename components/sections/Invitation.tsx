@@ -16,7 +16,7 @@ export default function Invitation() {
   };
 
   return (
-    <section id="connect" className="relative flex min-h-screen flex-col items-center justify-center bg-charcoal px-6 py-24 text-center sm:px-10 scroll-mt-16 sm:scroll-mt-[76px]">
+    <section id="connect" className="relative flex flex-col items-center bg-charcoal px-6 py-24 text-center sm:px-10 scroll-mt-16 sm:scroll-mt-[76px]">
       <div data-reveal className="mb-9 h-14 w-px bg-warm-sage" />
       <h2
         data-reveal
