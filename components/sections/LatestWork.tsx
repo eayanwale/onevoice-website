@@ -1,13 +1,16 @@
-import PlaceholderImage from "@/components/PlaceholderImage";
+import DuotonePhoto from "@/components/DuotonePhoto";
+
+const YOUTUBE_URL = "https://youtu.be/MdD71CNCSEw";
 
 export default function LatestWork() {
   return (
     <section id="music" className="relative overflow-hidden bg-charcoal scroll-mt-16 sm:scroll-mt-[76px]">
       <div className="relative h-[72vh] w-full overflow-hidden">
-        <PlaceholderImage
-          label="cover art — three friends, backlit, wide frame"
-          variant={2}
+        <DuotonePhoto
+          src="/images/lov-youtube-cover.jpg"
+          alt="One Voice — praise &amp; worship mashup, live at Lift Our Voices"
           parallax
+          objectPosition="50% 40%"
           className="absolute inset-x-0 -top-[10%] h-[120%] w-full"
         />
         <div
@@ -22,42 +25,48 @@ export default function LatestWork() {
       <div className="relative z-10 w-full px-6 pb-20 pt-14 sm:px-10">
         <div className="mx-auto flex max-w-6xl flex-col gap-5">
           <div data-reveal className="label-text text-warm-sage">
-            new release &middot; out now
+            on youtube &middot; lift our voices 2026
           </div>
           <h3
             data-reveal
             className="text-[40px] font-semibold leading-[0.95] text-off-white sm:text-[64px] lg:text-[88px]"
           >
-            into the quiet
+            praise &amp; worship mashup
           </h3>
           <p data-reveal className="max-w-lg text-base leading-[1.6] text-off-white/70">
-            eight songs written in the space between doubt and morning.
+            six songs, sung together, live: holy forever, king of heaven,
+            that great name, to our god, baruch hashem adonai, and good good
+            father.
           </p>
           <div
             data-reveal
             className="mt-4 flex flex-wrap items-center gap-7"
           >
             <a
-              href="#"
+              href={YOUTUBE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2.5 rounded-full bg-warm-sage py-2 pl-2 pr-6 font-display text-sm font-semibold text-charcoal transition-opacity duration-200 hover:opacity-70"
             >
               <svg width="26" height="26" viewBox="0 0 30 30" fill="none" aria-hidden="true">
                 <circle cx="15" cy="15" r="14" fill="#1A1A1A" />
                 <path d="M12 10L20 15L12 20V10Z" fill="#BEB7A7" />
               </svg>
-              play
+              watch
+            </a>
+            <a
+              href={YOUTUBE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-off-white/70 transition-opacity duration-200 hover:opacity-70"
+            >
+              youtube
             </a>
             <a href="#" className="text-sm text-off-white/70 transition-opacity duration-200 hover:opacity-70">
-              spotify
-            </a>
-            <a href="#" className="text-sm text-off-white/70 transition-opacity duration-200 hover:opacity-70">
-              apple music
-            </a>
-            <a href="#" className="text-sm text-off-white/70 transition-opacity duration-200 hover:opacity-70">
-              youtube music
+              instagram
             </a>
             <span className="label-text ml-auto text-off-white/40">
-              01 / 08
+              30 min
             </span>
           </div>
         </div>

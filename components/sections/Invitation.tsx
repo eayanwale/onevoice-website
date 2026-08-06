@@ -60,11 +60,11 @@ export default function Invitation() {
 
       <div className="flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 border-t border-warm-sage/20 pt-7">
         <Image
-          src="/logo/one-voice-mark-light.png"
+          src="/logo/one-voice-lockup-light-trimmed.png"
           alt="One Voice — est. 2023, USA"
-          width={1563}
-          height={1563}
-          className="h-11 w-11 object-contain"
+          width={981}
+          height={405}
+          className="h-6 w-auto object-contain"
         />
         <span className="text-xs tracking-wide text-off-white/40">
           &copy; 2026 one voice. all rights reserved.

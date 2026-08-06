@@ -33,12 +33,12 @@ export default function Entrance() {
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center text-center">
         <div data-reveal className="mb-7">
           <Image
-            src="/logo/one-voice-mark-light.png"
+            src="/logo/one-voice-lockup-light-trimmed.png"
             alt="One Voice"
-            width={1563}
-            height={1563}
+            width={981}
+            height={405}
             priority
-            className="h-20 w-20 object-contain sm:h-24 sm:w-24"
+            className="h-14 w-auto object-contain sm:h-20"
           />
         </div>
         <p
