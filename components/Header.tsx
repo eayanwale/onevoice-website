@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { href: "#about", label: "about" },
   { href: "#music", label: "music" },
   { href: "#visuals", label: "visuals" },
-  { href: "#connect", label: "connect" },
+  { href: "/connect", label: "connect" },
 ];
 
 export default function Header() {
