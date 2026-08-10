@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
@@ -16,14 +17,25 @@ const NAV_LINKS = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+  // the bare-transparent start state only reads well over the home page's
+  // dark hero photo — every other route has no dark backdrop behind the
+  // header, so it starts (and stays) in the glass state there.
+  const hasHero = pathname === "/";
+
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(!hasHero);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
     setReducedMotion(
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
+
+    if (!hasHero) {
+      setScrolled(true);
+      return;
+    }
 
     let raf = 0;
     const update = () => {
@@ -39,7 +51,7 @@ export default function Header() {
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [hasHero]);
 
   const glassTransition = { duration: reducedMotion ? 0 : 0.55, ease: EASE };
 
