@@ -21,9 +21,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "One Voice — three friends, one mission",
+  title: "One Voice — one mind, one voice",
   description:
-    "One Voice is a gospel music collective making honest music and visuals. Three friends, no noise — just what's true.",
+    "One Voice is a gospel music collective making honest music and visuals. A community of friends, no noise — just what's true.",
 };
 
 export default function RootLayout({

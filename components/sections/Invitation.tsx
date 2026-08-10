@@ -70,7 +70,7 @@ export default function Invitation() {
           &copy; 2026 one voice. all rights reserved.
         </span>
         <span className="text-xs tracking-wide text-off-white/40">
-          three voices. one mission.
+          one mind. one voice.
         </span>
       </div>
     </section>
