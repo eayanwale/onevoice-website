@@ -47,6 +47,7 @@ export default function Statement() {
             src="/images/MNFD6096-.jpg"
             alt="The One Voice collective"
             objectPosition="50% 15%"
+            sizes="(min-width: 768px) 480px, 100vw"
             className="h-full w-full"
           />
         </div>
