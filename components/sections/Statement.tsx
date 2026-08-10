@@ -35,10 +35,10 @@ export default function Statement() {
             data-reveal
             className="mt-8 max-w-md text-[17px] leading-[1.65] text-deep-brown/90"
           >
-            we&rsquo;re a community of friends who happened to make an album. these
-            are the songs that came out of long nights, longer prayers, and
-            the kind of friendship that doesn&rsquo;t need an audience to be
-            real.
+            we&rsquo;re a community of friends who happened to start singing
+            together. what you&rsquo;ll find here came out of long nights,
+            longer prayers, and the kind of friendship that doesn&rsquo;t
+            need an audience to be real.
           </p>
         </div>
 

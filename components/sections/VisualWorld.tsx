@@ -27,7 +27,6 @@ const TILES: { src: string; label: string; size: Size }[] = [
   { src: "/images/visual-world/candid-laptop-huddle.jpg", label: "figuring it out together", size: "normal" },
   { src: "/images/visual-world/solo-dark-portrait.jpg", label: "still, before we start", size: "normal" },
   { src: "/images/visual-world/candid-duo-backstage.jpg", label: "before we go on", size: "normal" },
-  { src: "/images/visual-world/candid-playful-backdrop.jpg", label: "just us, being us", size: "normal" },
 ];
 
 const TILE_SIZES =

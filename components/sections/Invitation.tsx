@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Invitation() {
   const [email, setEmail] = useState("");
@@ -45,6 +46,14 @@ export default function Invitation() {
           {subscribed ? "thank you" : "subscribe"} &rarr;
         </button>
       </form>
+
+      <Link
+        href="/connect"
+        data-reveal
+        className="mb-10 inline-flex items-center gap-2 text-[14px] font-semibold text-warm-sage transition-opacity duration-200 hover:opacity-70"
+      >
+        want us there? tell us about your event &rarr;
+      </Link>
 
       <div data-reveal className="mb-24 flex gap-7">
         <a href="#" className="text-[13.5px] tracking-wide text-off-white/50 transition-opacity duration-200 hover:opacity-70">
