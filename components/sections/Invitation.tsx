@@ -28,7 +28,7 @@ export default function Invitation() {
       <form
         onSubmit={handleSubmit}
         data-reveal
-        className="mb-14 flex w-full max-w-md items-center gap-3 rounded-full border border-warm-sage/25 bg-off-white/[0.06] py-1.5 pl-5 pr-1.5"
+        className="mb-14 flex w-full max-w-md items-center gap-3 rounded-full border border-warm-sage/25 bg-off-white/[0.06] py-2 pl-5 pr-2"
       >
         <input
           type="email"
@@ -36,11 +36,11 @@ export default function Invitation() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="email address"
           aria-label="email address"
-          className="flex-1 bg-transparent py-1.5 text-[15px] text-off-white placeholder:text-off-white/40 focus:outline-none"
+          className="min-h-11 flex-1 bg-transparent py-1.5 text-[15px] text-off-white placeholder:text-off-white/40 focus:outline-none"
         />
         <button
           type="submit"
-          className="flex items-center gap-2 rounded-full bg-warm-sage px-5 py-2.5 font-display text-sm font-semibold text-charcoal transition-opacity duration-200 hover:opacity-80"
+          className="flex min-h-11 items-center gap-2 rounded-full bg-warm-sage px-5 py-2.5 font-display text-sm font-semibold text-charcoal transition-opacity duration-200 hover:opacity-80"
         >
           {subscribed ? "thank you" : "subscribe"} &rarr;
         </button>
