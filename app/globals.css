@@ -27,6 +27,15 @@
   .label-text {
     @apply font-display text-[12.5px] font-semibold uppercase tracking-label;
   }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* GSAP's pin spacer reserves scroll space around the pinned Statement
