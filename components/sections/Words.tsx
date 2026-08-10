@@ -9,17 +9,17 @@ export default function Words() {
           data-reveal
           className="mb-10 text-[26px] font-semibold leading-[1.15] text-charcoal sm:text-[36px] lg:text-[44px]"
         >
-          &ldquo;we didn&rsquo;t set out to make an album about doubt. it
-          found us anyway, somewhere between the third rewrite and the
-          fourth sleepless night.&rdquo;
+          &ldquo;we didn&rsquo;t set out to sound like anything in
+          particular. we just kept showing up — same room, same songs,
+          until they started sounding like us.&rdquo;
         </p>
         <p data-reveal className="mb-8 text-[17px] leading-[1.7] text-deep-brown/90">
-          most of these songs started as voice memos — half a melody hummed
-          in a parking lot, a line one of us couldn&rsquo;t stop repeating.
-          we didn&rsquo;t plan a theme. we just kept writing the truest
-          thing we could, and it turned out the truest thing, most nights,
-          was that we weren&rsquo;t sure. that we were tired. that we still
-          believed anyway.
+          most of what we do starts in a living room or a church hallway —
+          someone humming a harmony, someone else finding the right key.
+          we don&rsquo;t rehearse to perform. we rehearse because it&rsquo;s
+          how we spend time together. most nights the truest thing
+          wasn&rsquo;t a lyric — it was just that we showed up, tired, and
+          sang anyway.
         </p>
         <a
           href="#"
