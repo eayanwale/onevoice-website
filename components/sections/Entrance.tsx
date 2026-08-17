@@ -1,4 +1,3 @@
-import Image from "next/image";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
 export default function Entrance() {
@@ -31,23 +30,19 @@ export default function Entrance() {
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center text-center">
-        <div data-reveal className="mb-7">
-          <Image
-            src="/logo/one-voice-lockup-light-trimmed.png"
-            alt="One Voice"
-            width={981}
-            height={405}
-            priority
-            className="h-14 w-auto object-contain sm:h-20"
-          />
+        <div data-reveal className="label-text mb-6 text-warm-sage">
+          why we&rsquo;re called one voice
         </div>
         <p
           data-reveal
-          className="max-w-xl text-balance text-[22px] leading-[1.35] text-off-white sm:text-[32px]"
+          className="max-w-xl text-balance text-[24px] leading-[1.4] text-off-white sm:text-[34px]"
         >
-          when the noise stops,
-          <br />
-          we&rsquo;re still here — singing.
+          &ldquo;&hellip;that together you may with{" "}
+          <span className="accent-word text-warm-sage">one voice</span>{" "}
+          glorify the God and Father of our Lord Jesus Christ.&rdquo;
+        </p>
+        <p data-reveal className="mt-5 text-sm tracking-wide text-off-white/60">
+          &mdash; romans 15:6
         </p>
       </div>
 
