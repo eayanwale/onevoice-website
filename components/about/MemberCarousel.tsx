@@ -29,7 +29,7 @@ const MEMBERS: Member[] = [
 function MemberCard({ member }: { member: Member }) {
   return (
     <div className="w-[220px] shrink-0 snap-start sm:w-[280px]">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-tl-full rounded-tr-full">
         <DuotonePhoto
           src={member.photo}
           alt={member.name}
