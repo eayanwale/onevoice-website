@@ -66,7 +66,15 @@ function VideoSlide({ slide }: { slide: VideoSlideData }) {
             data-reveal
             className="text-[32px] font-semibold leading-[0.95] text-off-white sm:text-[52px] lg:text-[72px]"
           >
-            {slide.title}
+            {slide.title.split(/(worship)/i).map((part, i) =>
+              part.toLowerCase() === "worship" ? (
+                <span key={i} className="accent-word text-warm-sage">
+                  {part}
+                </span>
+              ) : (
+                part
+              )
+            )}
           </h3>
           <p data-reveal className="max-w-lg text-base leading-[1.6] text-off-white/70">
             {slide.description}
