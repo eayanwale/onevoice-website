@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CoreValues from "@/components/about/CoreValues";
 import MemberCarousel from "@/components/about/MemberCarousel";
+import TheFacts from "@/components/about/TheFacts";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
@@ -37,12 +38,16 @@ export default function AboutPage() {
             for reverent and honest worship that reflects the love of
             the Lord and welcomes all generations into His presence.
             through faith, fellowship, and friendship, we hope to
-            inspire others to grow in community and experience the joy
-            of walking alongside one another in faith.
+            inspire others to grow in community and{" "}
+            <span className="underline decoration-warm-sage/70 decoration-2 underline-offset-4">
+              experience the joy of walking alongside one another
+            </span>{" "}
+            in faith.
           </p>
         </div>
       </section>
 
+      <TheFacts />
       <CoreValues />
       <MemberCarousel />
 
