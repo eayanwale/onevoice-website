@@ -28,6 +28,13 @@
     @apply font-display text-[12.5px] font-semibold uppercase tracking-label;
   }
 
+  /* the one recurring typographic accent: a single word or phrase, per
+     major headline, breaking from the surrounding voice — many becoming
+     one. color is set per-usage (warm-sage on dark, deep-brown on bone). */
+  .accent-word {
+    @apply font-display italic;
+  }
+
   .no-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;

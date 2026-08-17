@@ -5,10 +5,12 @@ import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import Header from "@/components/Header";
 
 // Only two weights are used anywhere on the page (400 + 600) — see
-// CLAUDE.md's "no more than two font weights per page" rule.
+// CLAUDE.md's "no more than two font weights per page" rule. Italic is a
+// style, not a weight, and is loaded only for the single-accent-word motif.
 const instrument = Instrument_Sans({
   subsets: ["latin"],
   weight: ["600"],
+  style: ["normal", "italic"],
   variable: "--font-instrument",
   display: "swap",
 });

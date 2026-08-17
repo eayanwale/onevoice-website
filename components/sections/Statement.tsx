@@ -1,6 +1,7 @@
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-const WORDS = "some things don't need to shout to be true.".split(" ");
+const WORDS = "one mind. one voice.".split(" ");
+const ACCENT_INDEX = WORDS.length - 1;
 
 export default function Statement() {
   return (
@@ -19,8 +20,14 @@ export default function Statement() {
             className="max-w-xl text-[32px] font-semibold leading-[1.05] text-charcoal sm:text-[46px] lg:text-[58px]"
           >
             {WORDS.flatMap((word, wi) => {
+              const isAccent = wi === ACCENT_INDEX;
               const wordSpan = (
-                <span key={`w-${wi}`} className="inline-block whitespace-nowrap">
+                <span
+                  key={`w-${wi}`}
+                  className={`inline-block whitespace-nowrap ${
+                    isAccent ? "accent-word text-deep-brown" : ""
+                  }`}
+                >
                   {word.split("").map((ch, ci) => (
                     <span key={ci} data-char className="inline-block">
                       {ch}
@@ -35,10 +42,11 @@ export default function Statement() {
             data-reveal
             className="mt-8 max-w-md text-[17px] leading-[1.65] text-deep-brown/90"
           >
-            we&rsquo;re a community of friends who happened to start singing
-            together. what you&rsquo;ll find here came out of long nights,
-            longer prayers, and the kind of friendship that doesn&rsquo;t
-            need an audience to be real.
+            established in 2023, we&rsquo;re about ten friends united by
+            one purpose: that with one mind and one voice, we might
+            glorify God. rooted in Christ, we lead worship at churches
+            and events, wherever we&rsquo;re asked — through faith,
+            fellowship, and friendship.
           </p>
         </div>
 
