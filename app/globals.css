@@ -35,6 +35,12 @@
     @apply font-display italic;
   }
 
+  /* the site's recurring dark signature: opens a hero, closes a page.
+     used on both ends of a page so it reads as a deliberate frame. */
+  .signature-gradient {
+    @apply bg-gradient-to-b from-charcoal to-deep-brown;
+  }
+
   .no-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;

@@ -24,7 +24,7 @@ export default function Entrance() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(26,26,26,0.55) 0%, rgba(26,26,26,0) 22%, rgba(26,26,26,0) 70%, rgba(26,26,26,0.65) 100%)",
+              "linear-gradient(to bottom, rgba(26,26,26,0.55) 0%, rgba(26,26,26,0) 22%, rgba(26,26,26,0) 70%, rgba(71,50,55,0.75) 100%)",
           }}
         />
       </div>

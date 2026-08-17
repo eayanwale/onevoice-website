@@ -13,22 +13,22 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main>
-      <section className="relative flex min-h-screen flex-col justify-center bg-bone px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
+      <section className="signature-gradient relative flex min-h-screen flex-col justify-center px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
         <div className="mx-auto w-full max-w-3xl">
-          <div data-reveal className="label-text mb-6 text-deep-brown">
+          <div data-reveal className="label-text mb-6 text-warm-sage">
             about
           </div>
           <h1
             data-reveal
-            className="mb-8 max-w-2xl text-[34px] font-semibold leading-[1.1] text-charcoal sm:text-[52px] lg:text-[60px]"
+            className="mb-8 max-w-2xl text-[34px] font-semibold leading-[1.1] text-off-white sm:text-[52px] lg:text-[60px]"
           >
             friends first.{" "}
-            <span className="accent-word text-deep-brown">worship</span>{" "}
+            <span className="accent-word text-warm-sage">worship</span>{" "}
             because of it.
           </h1>
           <p
             data-reveal
-            className="max-w-xl text-[17px] leading-[1.7] text-deep-brown/90"
+            className="max-w-xl text-[17px] leading-[1.7] text-off-white/80"
           >
             established in 2023, one voice is a community of friends
             united by one purpose: that with one mind and one voice we
@@ -46,7 +46,7 @@ export default function AboutPage() {
       <CoreValues />
       <MemberCarousel />
 
-      <section className="relative flex flex-col items-center bg-gradient-to-b from-charcoal to-deep-brown px-6 py-24 text-center sm:px-10">
+      <section className="signature-gradient relative flex flex-col items-center px-6 py-24 text-center sm:px-10">
         <div data-reveal className="mb-8 h-14 w-px bg-warm-sage" />
         <h2
           data-reveal
