@@ -50,7 +50,7 @@ export default function Statement() {
           </p>
         </div>
 
-        <div data-reveal className="relative aspect-[4/5] overflow-hidden rounded-sm">
+        <div data-reveal className="relative aspect-[4/5] overflow-hidden rounded-tl-full rounded-tr-full">
           <DuotonePhoto
             src="/images/MNFD6096-.jpg"
             alt="The One Voice collective"

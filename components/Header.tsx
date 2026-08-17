@@ -10,7 +10,7 @@ const EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
 const SCROLL_THRESHOLD = 72;
 
 const NAV_LINKS = [
-  { href: "#about", label: "about" },
+  { href: "/about", label: "about" },
   { href: "#music", label: "music" },
   { href: "#visuals", label: "visuals" },
   { href: "/connect", label: "connect" },
