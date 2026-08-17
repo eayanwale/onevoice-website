@@ -22,11 +22,8 @@ export default function CoreValues() {
         </div>
         <div className="grid gap-12 sm:grid-cols-3 sm:gap-8">
           {VALUES.map((value) => (
-            <div
-              key={value.label}
-              data-reveal
-              className="border-t border-charcoal/15 pt-6"
-            >
+            <div key={value.label} data-reveal>
+              <div className="mb-6 h-[3px] w-10 bg-deep-brown" />
               <h3 className="mb-3 text-[22px] font-semibold leading-[1.15] text-charcoal sm:text-[26px]">
                 {value.label}
               </h3>
