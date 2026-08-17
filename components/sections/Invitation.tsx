@@ -23,7 +23,8 @@ export default function Invitation() {
         data-reveal
         className="mb-12 max-w-2xl text-[28px] font-semibold leading-[1.15] text-off-white sm:text-[42px] lg:text-[52px]"
       >
-        come sit with us for a while.
+        come <span className="accent-word text-warm-sage">walk</span> with
+        us.
       </h2>
 
       <form
