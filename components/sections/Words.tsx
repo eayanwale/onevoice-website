@@ -1,7 +1,8 @@
 export default function Words() {
   return (
-    <section className="relative flex justify-center bg-bone px-6 py-32 sm:px-10 lg:py-40">
-      <div className="w-full max-w-3xl">
+    <section className="relative flex justify-center overflow-hidden bg-bone px-6 py-32 sm:px-10 lg:py-40">
+      <div className="grain" aria-hidden="true" />
+      <div className="relative w-full max-w-3xl">
         <div data-reveal className="label-text mb-8 text-deep-brown/60">
           the word
         </div>

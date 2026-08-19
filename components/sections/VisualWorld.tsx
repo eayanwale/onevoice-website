@@ -1,3 +1,4 @@
+import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
 type Size = "xl" | "wide" | "tall" | "normal";
@@ -34,8 +35,13 @@ const TILE_SIZES =
 
 function Tile({ src, label, size }: { src: string; label: string; size: Size }) {
   return (
-    <div data-reveal className={`relative overflow-hidden ${SIZE_CLASSES[size]}`}>
-      <DuotonePhoto src={src} alt={label} sizes={TILE_SIZES} className="h-full w-full" />
+    <div data-reveal className={`group relative overflow-hidden ${SIZE_CLASSES[size]}`}>
+      <DuotonePhoto
+        src={src}
+        alt={label}
+        sizes={TILE_SIZES}
+        className="h-full w-full transition-transform duration-700 ease-brand group-hover:scale-[1.04]"
+      />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/75 via-transparent to-transparent" />
       <span className="label-text absolute bottom-3 left-3 text-off-white/85 sm:bottom-4 sm:left-4">
         {label}
@@ -48,8 +54,14 @@ export default function VisualWorld() {
   return (
     <section id="visuals" className="relative bg-off-white px-6 py-28 sm:px-10 lg:py-36 scroll-mt-16 sm:scroll-mt-[76px]">
       <div className="mx-auto max-w-6xl">
-        <div data-reveal className="label-text mb-3 text-deep-brown">
-          the visual world
+        <div data-reveal className="mb-3 flex flex-wrap items-end justify-between gap-4">
+          <div className="label-text text-deep-brown">the visual world</div>
+          <Link
+            href="/gallery"
+            className="label-text border-b border-deep-brown/40 pb-1 text-deep-brown/70 transition-colors duration-200 hover:border-deep-brown hover:text-deep-brown"
+          >
+            full gallery &rarr;
+          </Link>
         </div>
         <p data-reveal className="mb-10 max-w-md text-[15px] leading-[1.6] text-deep-brown/70">
           a few frames from the last year — rehearsals, sets, and the quiet

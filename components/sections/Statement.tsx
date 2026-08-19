@@ -1,3 +1,4 @@
+import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
 const WORDS = "one mind. one voice.".split(" ");
@@ -8,9 +9,10 @@ export default function Statement() {
     <section
       id="about"
       data-pin-section
-      className="relative flex min-h-screen items-center justify-center bg-bone px-6 py-24 sm:px-10 scroll-mt-16 sm:scroll-mt-[76px]"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-bone px-6 py-24 sm:px-10 scroll-mt-16 sm:scroll-mt-[76px]"
     >
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
+      <div className="grain" aria-hidden="true" />
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
         <div>
           <div data-reveal className="label-text mb-7 text-deep-brown">
             the statement
@@ -48,6 +50,13 @@ export default function Statement() {
             and events, wherever we&rsquo;re asked — through faith,
             fellowship, and friendship.
           </p>
+          <Link
+            href="/about"
+            data-reveal
+            className="mt-8 inline-flex items-center gap-2 border-b border-deep-brown pb-1 text-[14px] font-semibold text-deep-brown transition-opacity duration-200 hover:opacity-70"
+          >
+            read the full story &rarr;
+          </Link>
         </div>
 
         <div data-reveal className="relative aspect-[4/5] overflow-hidden rounded-sm">
