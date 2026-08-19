@@ -5,9 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import SocialIcon, { type Platform } from "@/components/SocialIcon";
 
 const EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
 const SCROLL_THRESHOLD = 72;
+
+const SOCIALS: Platform[] = ["instagram", "youtube", "spotify"];
 
 const NAV_LINKS = [
   { href: "/about", label: "about" },
@@ -176,10 +179,15 @@ export default function Header() {
                 invite us
               </motion.a>
             </nav>
-            <div className="relative mt-auto flex flex-wrap gap-5 border-t border-off-white/15 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))]">
-              {["instagram", "youtube", "spotify"].map((label) => (
-                <a key={label} href="#" className="label-text text-warm-sage">
-                  {label}
+            <div className="relative mt-auto flex gap-3 border-t border-off-white/15 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))]">
+              {SOCIALS.map((label) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="flex size-11 items-center justify-center rounded-sm border border-off-white/25 text-warm-sage transition-colors duration-200 hover:bg-off-white/10"
+                >
+                  <SocialIcon platform={label} className="size-[18px]" />
                 </a>
               ))}
             </div>

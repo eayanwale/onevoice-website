@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import EmailSignup from "@/components/EmailSignup";
+import SocialIcon, { type Platform } from "@/components/SocialIcon";
 
 const PAGE_LINKS = [
   { href: "/", label: "home" },
@@ -11,7 +12,7 @@ const PAGE_LINKS = [
   { href: "/invite", label: "invite us" },
 ];
 
-const SOCIAL_LINKS = [
+const SOCIAL_LINKS: { href: string; label: Platform }[] = [
   { href: "#", label: "instagram" },
   { href: "#", label: "youtube" },
   { href: "#", label: "spotify" },
@@ -58,8 +59,9 @@ export default function SiteFooter() {
                       href={link.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-sm text-off-white/70 transition-colors duration-200 hover:text-off-white"
+                      className="inline-flex items-center gap-2.5 text-sm text-off-white/70 transition-colors duration-200 hover:text-off-white"
                     >
+                      <SocialIcon platform={link.label} />
                       {link.label}
                     </a>
                   </li>
@@ -99,16 +101,17 @@ export default function SiteFooter() {
             />
           </Link>
 
-          <div className="order-3 flex flex-wrap justify-center gap-3 sm:flex-1 sm:justify-end">
+          <div className="order-3 flex justify-center gap-3 sm:flex-1 sm:justify-end">
             {SOCIAL_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-outline border-off-white/25 text-off-white/70 hover:bg-off-white/10 hover:text-off-white"
+                aria-label={link.label}
+                className="flex size-11 items-center justify-center rounded-sm border border-off-white/25 text-off-white/70 transition-colors duration-200 hover:bg-off-white/10 hover:text-off-white"
               >
-                {link.label}
+                <SocialIcon platform={link.label} className="size-[18px]" />
               </a>
             ))}
           </div>
