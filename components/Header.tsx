@@ -10,9 +10,10 @@ const EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
 const SCROLL_THRESHOLD = 72;
 
 const NAV_LINKS = [
-  { href: "#about", label: "about" },
+  { href: "/about", label: "about" },
   { href: "#music", label: "music" },
-  { href: "#visuals", label: "visuals" },
+  { href: "/gallery", label: "gallery" },
+  { href: "/store", label: "store" },
   { href: "/connect", label: "connect" },
 ];
 
@@ -84,15 +85,28 @@ export default function Header() {
         </Link>
 
         <nav className="hidden items-center gap-9 sm:flex">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="label-text text-off-white/70 transition-opacity duration-200 hover:text-off-white hover:opacity-100"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.href.startsWith("#") ? (
+              <a
+                key={link.href}
+                href={link.href}
+                className="label-text text-off-white/70 transition-opacity duration-200 hover:text-off-white hover:opacity-100"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="label-text text-off-white/70 transition-opacity duration-200 hover:text-off-white hover:opacity-100"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
+          <Link href="/connect" className="btn-outline border-off-white/30 text-off-white hover:bg-off-white hover:text-charcoal">
+            invite us
+          </Link>
         </nav>
 
         <button
@@ -139,6 +153,16 @@ export default function Header() {
                 {link.label}
               </motion.a>
             ))}
+            <motion.a
+              href="/connect"
+              onClick={() => setOpen(false)}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: EASE, delay: 0.05 * NAV_LINKS.length }}
+              className="btn-outline border-off-white/30 text-off-white"
+            >
+              invite us
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>
