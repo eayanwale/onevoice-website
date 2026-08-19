@@ -35,16 +35,16 @@ export default function GalleryPage() {
   return (
     <main>
       <PageHero
-        overline="the visual world"
+        overline="gallery"
         title="moments from the room."
         lead="Rehearsals, sets, and the quiet moments in between. New frames added as we go."
-        image={PHOTOS[0].src}
-        imageAlt={PHOTOS[0].label}
+        image="/images/visual-world/group-singing-warm-venue.jpg"
+        imageAlt="One Voice leading worship in a warm-lit venue"
         objectPosition="50% 30%"
       />
 
-      <section className="relative bg-off-white px-6 py-20 sm:px-10 sm:py-28">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        <div className="mx-auto max-w-shell px-5 sm:px-8">
           <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
             {PHOTOS.map((photo) => (
               <div key={photo.src} data-reveal className="group relative break-inside-avoid overflow-hidden">

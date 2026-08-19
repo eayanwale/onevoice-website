@@ -1,61 +1,55 @@
-"use client";
-
-import { useState, type FormEvent } from "react";
+import type { Metadata } from "next";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
-import PlaceholderImage from "@/components/PlaceholderImage";
+import EmailSignup from "@/components/EmailSignup";
 import ScrollReveals from "@/components/ScrollReveals";
 
+export const metadata: Metadata = {
+  title: "Store — One Voice",
+  description:
+    "Merch is on the way. Join the list and we'll let you know the moment there's something to see.",
+};
+
 export default function StorePage() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubscribed(true);
-    setEmail("");
-    setTimeout(() => setSubscribed(false), 3200);
-  };
-
   return (
     <main>
-      <PageHero overline="store" title="merch is coming." />
+      <PageHero
+        overline="store"
+        title="merch is coming."
+        lead="Nothing to show yet — but we're working on it."
+      />
 
-      <section className="relative bg-off-white px-6 py-20 sm:px-10 sm:py-28">
-        <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <div data-reveal>
-            <PlaceholderImage label="coming soon" variant={1} className="aspect-[4/5] w-full" />
+      <section className="relative overflow-hidden py-24 sm:py-32">
+        <div className="mx-auto grid max-w-shell items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-20">
+          <div data-reveal className="relative aspect-[4/5] w-full overflow-hidden">
+            <Image
+              src="/images/merch-teaser.jpg"
+              alt="A minimal dark hoodie folded on a linen surface"
+              fill
+              sizes="(min-width: 1024px) 640px, 100vw"
+              className="object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
+            <span className="label-text absolute bottom-4 left-4 text-off-white/85">
+              coming soon
+            </span>
           </div>
-          <div>
-            <div data-reveal className="label-text text-deep-brown/60">
-              be the first to know
-            </div>
-            <h2 className="mt-6 max-w-md text-[28px] font-semibold leading-[1.15] text-charcoal sm:text-[36px]">
-              nothing to show yet — but there&rsquo;s more on the way.
-            </h2>
-            <p data-reveal className="mt-6 max-w-md text-[15px] leading-[1.65] text-deep-brown/70">
-              we&rsquo;re working on a small run of merch built around the
-              sound. join the list and we&rsquo;ll let you know the moment
-              there&rsquo;s something to see.
-            </p>
 
-            <form
-              onSubmit={handleSubmit}
-              data-reveal
-              className="mt-9 flex w-full max-w-md items-center gap-3 rounded-sm border border-deep-brown/25 bg-deep-brown/[0.04] py-2 pl-5 pr-2"
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="email address"
-                aria-label="email address"
-                className="min-h-11 flex-1 bg-transparent py-1.5 text-[15px] text-charcoal placeholder:text-deep-brown/40 focus:outline-none"
-              />
-              <button type="submit" className="btn-solid bg-charcoal text-off-white">
-                {subscribed ? "thank you" : "notify me"} &rarr;
-              </button>
-            </form>
+          <div>
+            <p data-reveal className="label-text text-warm-sage">
+              be the first to know
+            </p>
+            <h2 data-reveal className="display-lg mt-6 max-w-md">
+              be first in the room.
+            </h2>
+            <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
+              we&rsquo;re working on a small run of pieces built around the
+              sound — nothing loud, nothing disposable. join the list and
+              we&rsquo;ll let you know the moment there&rsquo;s something to see.
+            </p>
+            <div data-reveal className="mt-8 max-w-md">
+              <EmailSignup label="notify me" />
+            </div>
           </div>
         </div>
       </section>

@@ -14,23 +14,24 @@ export default function AboutPage() {
   return (
     <main>
       <PageHero
-        overline="our story"
+        overline="est. 2023"
         title="a community of friends, singing with one voice."
-        lead="Three friends' worth of honesty, about ten voices strong."
+        lead="one mind. one voice."
         image="/images/hero-collective.jpg"
+        imageAlt="The One Voice collective"
         objectPosition="50% 12%"
       />
 
-      <section className="relative bg-off-white px-6 py-24 sm:px-10 lg:py-32">
-        <div className="mx-auto grid max-w-6xl items-start gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <section className="relative overflow-hidden py-24 sm:py-32">
+        <div className="mx-auto grid max-w-shell gap-14 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div data-reveal>
-            <p className="label-text text-deep-brown/60">romans 15:6</p>
-            <blockquote className="mt-6 max-w-sm text-[24px] font-semibold leading-[1.25] text-charcoal">
+            <p className="label-text text-warm-sage">romans 15:6</p>
+            <blockquote className="display-md mt-6 max-w-sm">
               &ldquo;that with one mind and one voice we may glorify the God
               and Father of our Lord Jesus Christ.&rdquo;
             </blockquote>
           </div>
-          <div data-reveal className="space-y-6 text-[16px] leading-[1.7] text-deep-brown/80">
+          <div data-reveal className="space-y-6 leading-relaxed text-muted">
             <p>
               established in 2023, we&rsquo;re about ten friends united by
               one purpose: that with one mind and one voice, we might
@@ -49,19 +50,21 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Values />
+      <Values overline="core values" layout="rows" />
 
-      <section className="relative flex flex-col items-center bg-charcoal px-6 py-24 text-center sm:px-10">
-        <div data-reveal className="mb-9 h-14 w-px bg-warm-sage" />
-        <h2
-          data-reveal
-          className="mb-8 max-w-xl text-[28px] font-semibold leading-[1.15] text-off-white sm:text-[38px]"
-        >
-          sing with us.
-        </h2>
-        <Link href="/connect" data-reveal className="btn-solid bg-warm-sage text-charcoal">
-          invite us &rarr;
-        </Link>
+      <section className="on-sand relative overflow-hidden py-24 text-center sm:py-32">
+        <div className="grain" aria-hidden="true" />
+        <div className="relative mx-auto max-w-2xl px-5 sm:px-8">
+          <h2 data-reveal className="display-lg">
+            sing with us.
+          </h2>
+          <p data-reveal className="mt-5 leading-relaxed text-muted">
+            We&rsquo;d love to hear about your gathering.
+          </p>
+          <Link href="/invite" data-reveal className="btn-solid mt-9">
+            invite us ↗
+          </Link>
+        </div>
       </section>
 
       <ScrollReveals />
