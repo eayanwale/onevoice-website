@@ -20,7 +20,7 @@ export default function VisualWorld() {
   return (
     <section
       id="visuals"
-      className="relative overflow-hidden pb-24 sm:pb-32 scroll-mt-16 sm:scroll-mt-[76px]"
+      className="relative overflow-hidden py-24 sm:py-32 scroll-mt-16 sm:scroll-mt-[76px]"
     >
       <div className="mx-auto max-w-shell px-5 sm:px-8">
         <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
