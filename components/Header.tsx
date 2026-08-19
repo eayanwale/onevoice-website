@@ -11,7 +11,6 @@ const SCROLL_THRESHOLD = 72;
 
 const NAV_LINKS = [
   { href: "/about", label: "about" },
-  { href: "#music", label: "music" },
   { href: "/gallery", label: "gallery" },
   { href: "/store", label: "store" },
   { href: "/connect", label: "connect" },
@@ -72,7 +71,7 @@ export default function Header() {
         transition={{ ...glassTransition, delay: reducedMotion ? 0 : 0.1 }}
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-off-white/50 to-transparent"
       />
-      <div className="relative mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:h-[76px] sm:px-10">
+      <div className="relative mx-auto flex h-16 w-full max-w-shell items-center justify-between px-5 sm:h-[76px] sm:px-8">
         <Link href="/" className="shrink-0" aria-label="One Voice — home">
           <Image
             src="/logo/one-voice-lockup-light-trimmed.png"
@@ -80,31 +79,24 @@ export default function Header() {
             width={981}
             height={405}
             priority
-            className="h-8 w-auto object-contain sm:h-10"
+            className="h-7 w-auto object-contain sm:h-9"
           />
         </Link>
 
-        <nav className="hidden items-center gap-9 sm:flex">
-          {NAV_LINKS.map((link) =>
-            link.href.startsWith("#") ? (
-              <a
-                key={link.href}
-                href={link.href}
-                className="label-text text-off-white/70 transition-opacity duration-200 hover:text-off-white hover:opacity-100"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="label-text text-off-white/70 transition-opacity duration-200 hover:text-off-white hover:opacity-100"
-              >
-                {link.label}
-              </Link>
-            )
-          )}
-          <Link href="/connect" className="btn-outline border-off-white/30 text-off-white hover:bg-off-white hover:text-charcoal">
+        <nav className="hidden items-center gap-8 md:flex">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="font-body text-sm tracking-wide text-off-white/70 transition-colors duration-200 hover:text-off-white"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/invite"
+            className="btn-outline border-off-white/30 text-off-white hover:bg-off-white hover:text-charcoal"
+          >
             invite us
           </Link>
         </nav>
@@ -114,7 +106,7 @@ export default function Header() {
           aria-label={open ? "close menu" : "open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-11 w-11 shrink-0 items-center justify-center sm:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center md:hidden"
         >
           <span className="relative block h-4 w-6">
             <span
@@ -138,31 +130,41 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: EASE }}
-            className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col items-center justify-center gap-10 bg-charcoal sm:hidden"
+            className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col overflow-hidden bg-charcoal px-6 pt-12 md:hidden"
           >
-            {NAV_LINKS.map((link, i) => (
+            <div className="grain" aria-hidden="true" />
+            <nav className="relative flex flex-col gap-6">
+              {[{ href: "/", label: "home" }, ...NAV_LINKS].map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: EASE, delay: 0.05 * i }}
+                  className="display-md flex min-h-11 items-center text-off-white"
+                >
+                  {link.label}
+                </motion.a>
+              ))}
               <motion.a
-                key={link.href}
-                href={link.href}
+                href="/invite"
                 onClick={() => setOpen(false)}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, ease: EASE, delay: 0.05 * i }}
-                className="label-text flex h-11 items-center text-[15px] text-off-white/80"
+                transition={{ duration: 0.4, ease: EASE, delay: 0.05 * (NAV_LINKS.length + 1) }}
+                className="display-md flex min-h-11 items-center text-off-white"
               >
-                {link.label}
+                invite us
               </motion.a>
-            ))}
-            <motion.a
-              href="/connect"
-              onClick={() => setOpen(false)}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: EASE, delay: 0.05 * NAV_LINKS.length }}
-              className="btn-outline border-off-white/30 text-off-white"
-            >
-              invite us
-            </motion.a>
+            </nav>
+            <div className="relative mt-auto flex flex-wrap gap-5 border-t border-off-white/15 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))]">
+              {["instagram", "youtube", "spotify"].map((label) => (
+                <a key={label} href="#" className="label-text text-warm-sage">
+                  {label}
+                </a>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
