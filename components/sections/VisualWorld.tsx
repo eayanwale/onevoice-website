@@ -1,18 +1,24 @@
 import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
+// captions name the event the frame is from. `alt` stays a description of
+// the photo — the caption is rendered uppercase as a label and would tell a
+// screen-reader user nothing about the image on its own.
 const TILES = [
   {
     src: "/images/visual-world/group-singing-warm-venue.jpg",
-    label: "one mind, one voice",
+    label: "one voice rehearsal",
+    alt: "One Voice singing together in a warm-lit venue",
   },
   {
     src: "/images/visual-world/stage-full-group-lights.jpg",
-    label: "worship, all voices",
+    label: "doxa 2025",
+    alt: "The full group on stage under coloured lights",
   },
   {
     src: "/images/visual-world/candid-pew-moment.jpg",
-    label: "a quiet moment, in the pews",
+    label: "freedomnow 2025",
+    alt: "A quiet moment in the pews before the set",
   },
 ];
 
@@ -24,9 +30,9 @@ export default function VisualWorld() {
     >
       <div className="mx-auto max-w-shell px-5 sm:px-8">
         <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
-          <h2 className="display-lg max-w-md">moments from the room.</h2>
+          <h2 className="display-lg max-w-md">gallery.</h2>
           <Link href="/gallery" className="link-label">
-            full gallery ↗
+            see all ↗
           </Link>
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-3">
@@ -34,7 +40,7 @@ export default function VisualWorld() {
             <div key={tile.src} data-reveal className="group relative overflow-hidden">
               <DuotonePhoto
                 src={tile.src}
-                alt={tile.label}
+                alt={tile.alt}
                 sizes="(min-width: 640px) 33vw, 100vw"
                 className="aspect-[3/4] w-full transition-transform duration-700 ease-brand group-hover:scale-[1.03]"
               />

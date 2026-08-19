@@ -16,8 +16,11 @@ export default function ConnectPage() {
         overline="connect"
         title="say hello."
         lead="Questions, encouragement, collaborations, or just to tell us a song landed — this reaches all of us."
-        image="/images/grass.jpg"
-        imageAlt="Backlit grass at golden hour"
+        image="/images/connect-hero.jpg"
+        imageAlt="Three members of One Voice sitting together in the pews, one laughing over a shared phone"
+        // biased right of centre so the faces stay clear of the headline,
+        // which sits bottom-left over the photo
+        objectPosition="56% 46%"
       />
 
       <section className="relative overflow-hidden py-24 sm:py-32">

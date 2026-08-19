@@ -2,7 +2,7 @@
 
 import { useId, useState, type FormEvent } from "react";
 
-export default function EmailSignup({ label = "subscribe" }: { label?: string }) {
+export default function EmailSignup({ label = "stay close" }: { label?: string }) {
   const id = useId();
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);

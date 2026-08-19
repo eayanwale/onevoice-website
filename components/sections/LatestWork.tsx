@@ -1,11 +1,18 @@
+import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
+import {
+  YOUTUBE_VIDEO_URL,
+  YOUTUBE_CHANNEL_URL,
+  INSTAGRAM_URL,
+  SPOTIFY_URL,
+  isExternal,
+} from "@/lib/links";
 
-const YOUTUBE_URL = "https://youtu.be/MdD71CNCSEw";
-
+// "watch" goes to the set itself; these go to the profiles.
 const SOCIALS = [
-  { label: "youtube", href: YOUTUBE_URL },
-  { label: "instagram", href: "#" },
-  { label: "spotify", href: "#" },
+  { label: "youtube", href: YOUTUBE_CHANNEL_URL },
+  { label: "instagram", href: INSTAGRAM_URL },
+  { label: "spotify", href: SPOTIFY_URL },
 ];
 
 export default function LatestWork() {
@@ -34,36 +41,45 @@ export default function LatestWork() {
 
       <div className="relative z-10 mx-auto w-full max-w-shell px-5 pb-20 pt-28 sm:px-8 sm:pb-28">
         <p data-reveal className="label-text text-warm-sage">
-          the latest sound · lift our voices 2026
+          watch us · lift our voices 2026
         </p>
         <h2 data-reveal className="display-lg mt-6 max-w-2xl text-off-white">
           praise &amp; <span className="accent-word text-warm-sage">worship</span> mashup.
         </h2>
         <p data-reveal className="mt-7 max-w-lg leading-relaxed text-off-white/70">
-          six songs, sung together, live: holy forever, king of heaven, that
-          great name, to our god, baruch hashem adonai, and good good father.
-          new music lands on the platforms below first.
+          holy forever. king of heaven. that great name. to our God.
+          baruch hashem adonai. good good father.
         </p>
         <div data-reveal className="mt-9 flex flex-wrap items-center gap-3">
           <a
-            href={YOUTUBE_URL}
+            href={YOUTUBE_VIDEO_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-solid"
           >
             watch ↗
           </a>
-          {SOCIALS.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline border-off-white/30 text-off-white hover:bg-off-white/10"
-            >
-              {s.label} ↗
-            </a>
-          ))}
+          {SOCIALS.map((s) =>
+            isExternal(s.href) ? (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline border-off-white/30 text-off-white"
+              >
+                {s.label} ↗
+              </a>
+            ) : (
+              <Link
+                key={s.label}
+                href={s.href}
+                className="btn-outline border-off-white/30 text-off-white"
+              >
+                {s.label} ↗
+              </Link>
+            )
+          )}
           <span className="label-text ml-auto text-off-white/40">30 min</span>
         </div>
       </div>

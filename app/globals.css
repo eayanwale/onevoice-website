@@ -114,12 +114,15 @@
 
   /* Sharp-cornered CTA buttons: mono uppercase label, minimal radius.
      Colors come from the section band, so these invert automatically. */
+  /* Hover lands on warm-sage in both bands: it reads against off-white
+     (dark band) and against charcoal (light bands), so one rule covers
+     every section instead of a per-band override. */
   .btn-solid {
-    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm bg-solid px-6 py-3.5 text-on-solid transition-opacity duration-200 hover:opacity-85;
+    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm bg-solid px-6 py-3.5 text-on-solid transition-colors duration-200 hover:bg-warm-sage hover:text-charcoal;
   }
 
   .btn-outline {
-    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm border border-ink/25 px-5 py-3 transition-colors duration-200 hover:bg-ink/10;
+    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm border border-ink/25 px-5 py-3 transition-colors duration-200 hover:border-warm-sage hover:bg-warm-sage hover:text-charcoal;
   }
 
   /* Underlined text link in the mono label voice. */
@@ -223,6 +226,28 @@ html.lenis {
   will-change: transform;
   animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
   animation-iteration-count: infinite;
+}
+
+/* Load-in for the hero floaters. Lives on its own wrapper element because
+   the drift keyframes below already own `transform` on the inner node, and
+   the scroll parallax owns it on the outer one — three separate animations,
+   three separate elements. `both` matters: under prefers-reduced-motion the
+   global override cuts the duration to 0.01ms, and the fill is what leaves
+   the frame visible instead of stuck at opacity 0. */
+@keyframes floater-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.floater-in {
+  opacity: 0;
+  animation: floater-in 1.1s cubic-bezier(0.33, 0, 0.2, 1) both;
 }
 
 .drift-a {

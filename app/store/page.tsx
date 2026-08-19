@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import EmailSignup from "@/components/EmailSignup";
+import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
@@ -37,10 +38,10 @@ export default function StorePage() {
 
           <div>
             <p data-reveal className="label-text text-warm-sage">
-              be the first to know
+              soon
             </p>
             <h2 data-reveal className="display-lg mt-6 max-w-md">
-              be first in the room.
+              worth the wait, we hope.
             </h2>
             <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
               we&rsquo;re working on a small run of pieces built around the
@@ -53,6 +54,8 @@ export default function StorePage() {
           </div>
         </div>
       </section>
+
+      <Invitation />
 
       <ScrollReveals />
     </main>
