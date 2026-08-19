@@ -57,8 +57,11 @@ for (const vp of viewports) {
   console.log(`saved ${fullPath}`);
 
   // also grab just the first viewport (what a visitor sees on load,
-  // before any scroll-triggered reveals)
+  // before any scroll-triggered reveals). The wait matters: the hero's
+  // own entrance fade is still running on load, and capturing mid-fade
+  // makes text look washed out when it actually renders at full opacity.
   await page.goto(url, { waitUntil: "networkidle" });
+  await page.waitForTimeout(1600);
   const heroPath = `${outDir}/${vp.name}-hero.png`;
   await page.screenshot({ path: heroPath, fullPage: false });
   console.log(`saved ${heroPath}`);

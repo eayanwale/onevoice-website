@@ -1,72 +1,70 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CoreValues from "@/components/about/CoreValues";
-import MemberCarousel from "@/components/about/MemberCarousel";
-import TheFacts from "@/components/about/TheFacts";
+import PageHero from "@/components/PageHero";
+import Values from "@/components/sections/Values";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
   title: "About — One Voice",
   description:
-    "One Voice is a community of friends united by one purpose: that with one mind and one voice we might glorify God.",
+    "Established in 2023, One Voice is about ten friends united by one purpose: that with one mind and one voice, we might glorify God.",
 };
 
 export default function AboutPage() {
   return (
     <main>
-      <section className="signature-gradient relative flex min-h-screen flex-col justify-center px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
-        <div className="mx-auto w-full max-w-3xl">
-          <div data-reveal className="label-text mb-6 text-warm-sage">
-            about
+      <PageHero
+        overline="est. 2023"
+        title="a community of friends, singing with one voice."
+        lead="one mind. one voice."
+        image="/images/hero-collective.jpg"
+        imageAlt="The One Voice collective"
+        objectPosition="50% 12%"
+      />
+
+      <section className="relative overflow-hidden py-24 sm:py-32">
+        <div className="mx-auto grid max-w-shell gap-14 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div data-reveal>
+            <p className="label-text text-warm-sage">romans 15:6</p>
+            <blockquote className="display-md mt-6 max-w-sm">
+              &ldquo;that with one mind and one voice we may glorify the God
+              and Father of our Lord Jesus Christ.&rdquo;
+            </blockquote>
           </div>
-          <h1
-            data-reveal
-            className="mb-8 max-w-2xl text-[34px] font-semibold leading-[1.1] text-off-white sm:text-[52px] lg:text-[60px]"
-          >
-            friends first.{" "}
-            <span className="accent-word text-warm-sage">worship</span>{" "}
-            because of it.
-          </h1>
-          <p
-            data-reveal
-            className="max-w-xl text-[17px] leading-[1.7] text-off-white/80"
-          >
-            established in 2023, one voice is a community of friends
-            united by one purpose: that with one mind and one voice we
-            might glorify the God and Father of our Lord Jesus Christ
-            (romans 15:6). rooted in Christ, we seek to create a space
-            for reverent and honest worship that reflects the love of
-            the Lord and welcomes all generations into His presence.
-            through faith, fellowship, and friendship, we hope to
-            inspire others to grow in community and{" "}
-            <span className="underline decoration-warm-sage/70 decoration-2 underline-offset-4">
-              experience the joy of walking alongside one another
-            </span>{" "}
-            in faith.
-          </p>
+          <div data-reveal className="space-y-6 leading-relaxed text-muted">
+            <p>
+              established in 2023, we&rsquo;re about ten friends united by
+              one purpose: that with one mind and one voice, we might
+              glorify God. rooted in Christ, we lead worship at churches
+              and events, wherever we&rsquo;re asked — through faith,
+              fellowship, and friendship.
+            </p>
+            <p>
+              it started simply — friends singing together because they
+              wanted to, then finding that other rooms needed the same
+              thing. since then, we&rsquo;ve led worship at churches,
+              conferences, and gatherings, always with the same posture:
+              keep it honest, keep it reverent, keep the room in it.
+            </p>
+          </div>
         </div>
       </section>
 
-      <TheFacts />
-      <CoreValues />
-      <MemberCarousel />
+      <Values overline="core values" layout="rows" />
 
-      <section className="signature-gradient relative flex flex-col items-center px-6 py-24 text-center sm:px-10">
-        <div data-reveal className="mb-8 h-14 w-px bg-warm-sage" />
-        <h2
-          data-reveal
-          className="mb-8 max-w-xl text-[26px] font-semibold leading-[1.2] text-off-white sm:text-[38px]"
-        >
-          come <span className="accent-word text-warm-sage">walk</span> with
-          us.
-        </h2>
-        <Link
-          href="/connect"
-          data-reveal
-          className="label-text inline-flex items-center gap-2 rounded-full bg-warm-sage px-7 py-3.5 text-charcoal transition-opacity duration-200 hover:opacity-80"
-        >
-          get in touch &rarr;
-        </Link>
+      <section className="on-sand relative overflow-hidden py-24 text-center sm:py-32">
+        <div className="grain" aria-hidden="true" />
+        <div className="relative mx-auto max-w-2xl px-5 sm:px-8">
+          <h2 data-reveal className="display-lg">
+            sing with us.
+          </h2>
+          <p data-reveal className="mt-5 leading-relaxed text-muted">
+            We&rsquo;d love to hear about your gathering.
+          </p>
+          <Link href="/invite" data-reveal className="btn-solid mt-9">
+            invite us ↗
+          </Link>
+        </div>
       </section>
 
       <ScrollReveals />

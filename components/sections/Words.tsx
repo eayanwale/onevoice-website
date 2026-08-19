@@ -1,22 +1,20 @@
 export default function Words() {
   return (
-    <section className="relative flex justify-center bg-bone px-6 py-32 sm:px-10 lg:py-40">
-      <div className="w-full max-w-3xl">
-        <div data-reveal className="label-text mb-8 text-deep-brown/60">
+    <section className="on-sand relative overflow-hidden py-24 sm:py-32">
+      <div className="grain" aria-hidden="true" />
+      <div className="relative mx-auto max-w-3xl px-5 sm:px-8">
+        <p data-reveal className="label-text text-muted">
           the word
-        </div>
-        <p
-          data-reveal
-          className="mb-6 text-[26px] font-semibold leading-[1.15] text-charcoal sm:text-[36px] lg:text-[44px]"
-        >
+        </p>
+        <blockquote data-reveal className="display-md mt-7">
           &ldquo;let the word of Christ dwell in you richly, teaching and
           admonishing one another in all wisdom,{" "}
           <span className="accent-word text-deep-brown">singing</span>{" "}
           psalms and hymns and spiritual songs, with thankfulness in your
           hearts to God.&rdquo;
-        </p>
-        <p data-reveal className="text-sm tracking-wide text-deep-brown/60">
-          &mdash; colossians 3:16
+        </blockquote>
+        <p data-reveal className="mt-6 label-text text-muted">
+          colossians 3:16
         </p>
       </div>
     </section>

@@ -2,7 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Section color bands. Dark is the default; .on-bone and .on-sand are the
+ * light bands. Every semantic token flips together, so a section only needs
+ * one class to restate its whole palette.
+ */
 @layer base {
+  /* Channel triplets, so Tailwind opacity modifiers (bg-ink/10) still work. */
+  :root {
+    --surface: 26 26 26;
+    --ink: 245 240 230;
+    --muted: 190 183 167;
+    --solid: 245 240 230;
+    --on-solid: 26 26 26;
+  }
+
+  .on-bone {
+    --surface: 245 240 230;
+    --ink: 26 26 26;
+    --muted: 110 96 85;
+    --solid: 26 26 26;
+    --on-solid: 245 240 230;
+    background-color: rgb(var(--surface));
+    color: rgb(var(--ink));
+  }
+
+  .on-sand {
+    --surface: 232 226 212;
+    --ink: 26 26 26;
+    --muted: 100 86 72;
+    --solid: 26 26 26;
+    --on-solid: 245 240 230;
+    background-color: rgb(var(--surface));
+    color: rgb(var(--ink));
+  }
+
   html {
     @apply scroll-smooth;
   }
@@ -25,7 +59,7 @@
 
 @layer utilities {
   .label-text {
-    @apply font-display text-[12.5px] font-semibold uppercase tracking-label;
+    @apply font-mono text-[11px] font-medium uppercase tracking-label;
   }
 
   /* the one recurring typographic accent: a single word or phrase, per
@@ -35,10 +69,27 @@
     @apply font-display italic;
   }
 
-  /* the site's recurring dark signature: opens a hero, closes a page.
-     used on both ends of a page so it reads as a deliberate frame. */
-  .signature-gradient {
-    @apply bg-gradient-to-b from-charcoal to-deep-brown;
+  /* Fluid display scale — one set of clamps that reads as a real mobile
+     scale at the low end rather than shrunken desktop type. */
+  .display-xl {
+    @apply font-display font-semibold;
+    letter-spacing: -0.02em;
+    line-height: 0.98;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+  }
+
+  .display-lg {
+    @apply font-display font-semibold;
+    letter-spacing: -0.018em;
+    line-height: 1.02;
+    font-size: clamp(1.9rem, 4.6vw, 3.5rem);
+  }
+
+  .display-md {
+    @apply font-display font-semibold;
+    letter-spacing: -0.012em;
+    line-height: 1.12;
+    font-size: clamp(1.4rem, 2.8vw, 2.1rem);
   }
 
   .no-scrollbar {
@@ -49,12 +100,36 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-}
 
-/* GSAP's pin spacer reserves scroll space around the pinned Statement
-   section; color it to match so it never flashes the bare body background. */
-.pin-spacer {
-  background-color: #e8e2d4;
+  /* Subtle film-grain texture for flat color bands (sections with no photo
+     of their own already carrying DuotonePhoto's per-image grain). */
+  .grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Sharp-cornered CTA buttons: mono uppercase label, minimal radius.
+     Colors come from the section band, so these invert automatically. */
+  .btn-solid {
+    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm bg-solid px-6 py-3.5 text-on-solid transition-opacity duration-200 hover:opacity-85;
+  }
+
+  .btn-outline {
+    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm border border-ink/25 px-5 py-3 transition-colors duration-200 hover:bg-ink/10;
+  }
+
+  /* Underlined text link in the mono label voice. */
+  .link-label {
+    @apply label-text inline-flex items-center gap-2 border-b border-current pb-1 transition-opacity duration-200 hover:opacity-70;
+  }
+
+  .field-input {
+    @apply w-full border border-ink/25 bg-transparent px-4 py-3.5 text-sm outline-none transition-colors placeholder:text-ink/40 focus-visible:border-ink/60;
+  }
 }
 
 /* Lenis smooth scroll */
