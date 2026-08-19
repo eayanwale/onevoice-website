@@ -39,7 +39,7 @@ export default function Statement() {
             })}
           </h2>
           <p data-reveal className="mt-8 max-w-xl leading-relaxed text-muted">
-            established in 2023, we&rsquo;re about ten friends united by
+            established in 2023, we&rsquo;re ten friends united by
             one purpose: that with one mind and one voice, we might
             glorify God. rooted in Christ, we lead worship at churches
             and events, wherever we&rsquo;re asked — through faith,
