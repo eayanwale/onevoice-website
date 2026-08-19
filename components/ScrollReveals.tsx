@@ -45,6 +45,29 @@ export default function ScrollReveals() {
         );
       });
 
+      // Hero floaters drift up at their own rates as the hero scrolls past,
+      // so the group separates into depth instead of moving as one plane.
+      // Distance comes from the element's own data attribute, in px.
+      if (!isMobile) {
+        gsap.utils
+          .toArray<HTMLElement>("[data-float-parallax]")
+          .forEach((el) => {
+            const distance = Number(el.dataset.floatParallax);
+            if (!distance) return;
+
+            gsap.to(el, {
+              y: distance,
+              ease: "none",
+              scrollTrigger: {
+                trigger: el.closest("section") ?? el,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+              },
+            });
+          });
+      }
+
       // background parallax layers, ~0.85x scroll speed vs. 1x foreground
       if (!isMobile) {
         gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
