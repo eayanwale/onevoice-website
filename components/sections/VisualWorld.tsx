@@ -1,48 +1,49 @@
+import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-const FEATURE = {
-  src: "/images/visual-world-1.jpg",
-  label: "worship, all voices",
-};
-
-const PORTRAITS = [
-  { src: "/images/visual-world-2.jpg", label: "solo, before the set" },
-  { src: "/images/visual-world-3.jpg", label: "a quiet moment, backstage" },
-  { src: "/images/visual-world-4.jpg", label: "hands on the keys" },
-  { src: "/images/visual-world-5.jpg", label: "lifted, mid-song" },
+const TILES = [
+  {
+    src: "/images/visual-world/group-singing-warm-venue.jpg",
+    label: "one mind, one voice",
+  },
+  {
+    src: "/images/visual-world/stage-full-group-lights.jpg",
+    label: "worship, all voices",
+  },
+  {
+    src: "/images/visual-world/candid-pew-moment.jpg",
+    label: "a quiet moment, in the pews",
+  },
 ];
-
-function Tile({ src, label }: { src: string; label: string }) {
-  return (
-    <div data-reveal className="relative h-full w-full overflow-hidden">
-      <DuotonePhoto src={src} alt={label} className="h-full w-full" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
-      <span className="label-text absolute bottom-4 left-4 text-off-white/80">
-        {label}
-      </span>
-    </div>
-  );
-}
 
 export default function VisualWorld() {
   return (
-    <section id="visuals" className="relative bg-off-white px-6 py-28 sm:px-10 lg:py-36 scroll-mt-16 sm:scroll-mt-[76px]">
-      <div className="mx-auto max-w-6xl">
-        <div data-reveal className="label-text mb-10 text-deep-brown">
-          the visual world
+    <section
+      id="visuals"
+      className="relative overflow-hidden py-24 sm:py-32 scroll-mt-16 sm:scroll-mt-[76px]"
+    >
+      <div className="mx-auto max-w-shell px-5 sm:px-8">
+        <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
+          <h2 className="display-lg max-w-md">moments from the room.</h2>
+          <Link href="/gallery" className="link-label">
+            full gallery ↗
+          </Link>
         </div>
-
-        <div className="flex flex-col gap-4 sm:gap-5">
-          <div className="relative aspect-[3/2] w-full overflow-hidden">
-            <Tile src={FEATURE.src} label={FEATURE.label} />
-          </div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5">
-            {PORTRAITS.map((tile) => (
-              <div key={tile.src} className="relative aspect-[2/3] overflow-hidden">
-                <Tile src={tile.src} label={tile.label} />
-              </div>
-            ))}
-          </div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-3">
+          {TILES.map((tile) => (
+            <div key={tile.src} data-reveal className="group relative overflow-hidden">
+              <DuotonePhoto
+                src={tile.src}
+                alt={tile.label}
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="aspect-[3/4] w-full transition-transform duration-700 ease-brand group-hover:scale-[1.03]"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/75 via-transparent to-transparent" />
+              <span className="label-text absolute bottom-4 left-4 text-off-white/85">
+                {tile.label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

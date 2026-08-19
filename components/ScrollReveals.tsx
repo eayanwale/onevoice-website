@@ -14,6 +14,10 @@ export default function ScrollReveals() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
+    // parallax and pinned sequences read as janky on touch/small viewports
+    // more often than cinematic — reduce/drop them on mobile per project rules.
+    const isMobile = window.matchMedia("(max-width: 639px)").matches;
+
     const ctx = gsap.context(() => {
       if (reduced) {
         gsap.set("[data-reveal]", { opacity: 1, y: 0 });
@@ -42,25 +46,26 @@ export default function ScrollReveals() {
       });
 
       // background parallax layers, ~0.85x scroll speed vs. 1x foreground
-      gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
-        const parent = el.parentElement ?? el;
-        gsap.to(el, {
-          yPercent: -15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: parent,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
+      if (!isMobile) {
+        gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
+          const parent = el.parentElement ?? el;
+          gsap.to(el, {
+            yPercent: -15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: parent,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
         });
-      });
+      }
 
-      // single pinned scroll sequence: statement headline scrub-reveal
-      const pinSection = document.querySelector<HTMLElement>("[data-pin-section]");
+      // statement headline scrub-reveal, character by character
       const heading = document.querySelector<HTMLElement>("[data-split-heading]");
 
-      if (pinSection && heading) {
+      if (heading) {
         const chars = heading.querySelectorAll<HTMLElement>("[data-char]");
         gsap.fromTo(
           chars,
@@ -72,21 +77,13 @@ export default function ScrollReveals() {
             stagger: 0.012,
             ease: EASE,
             scrollTrigger: {
-              trigger: pinSection,
-              start: "top 65%",
-              end: "top 20%",
+              trigger: heading,
+              start: "top 90%",
+              end: isMobile ? "top 45%" : "top 35%",
               scrub: 0.4,
             },
           }
         );
-
-        ScrollTrigger.create({
-          trigger: pinSection,
-          start: "top top",
-          end: "+=500",
-          pin: true,
-          pinSpacing: true,
-        });
       }
     });
 

@@ -2,7 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Section color bands. Dark is the default; .on-bone and .on-sand are the
+ * light bands. Every semantic token flips together, so a section only needs
+ * one class to restate its whole palette.
+ */
 @layer base {
+  /* Channel triplets, so Tailwind opacity modifiers (bg-ink/10) still work. */
+  :root {
+    --surface: 26 26 26;
+    --ink: 245 240 230;
+    --muted: 190 183 167;
+    --solid: 245 240 230;
+    --on-solid: 26 26 26;
+  }
+
+  .on-bone {
+    --surface: 245 240 230;
+    --ink: 26 26 26;
+    --muted: 110 96 85;
+    --solid: 26 26 26;
+    --on-solid: 245 240 230;
+    background-color: rgb(var(--surface));
+    color: rgb(var(--ink));
+  }
+
+  .on-sand {
+    --surface: 232 226 212;
+    --ink: 26 26 26;
+    --muted: 100 86 72;
+    --solid: 26 26 26;
+    --on-solid: 245 240 230;
+    background-color: rgb(var(--surface));
+    color: rgb(var(--ink));
+  }
+
   html {
     @apply scroll-smooth;
   }
@@ -25,14 +59,77 @@
 
 @layer utilities {
   .label-text {
-    @apply font-display text-[12.5px] font-semibold uppercase tracking-label;
+    @apply font-mono text-[11px] font-medium uppercase tracking-label;
   }
-}
 
-/* GSAP's pin spacer reserves scroll space around the pinned Statement
-   section; color it to match so it never flashes the bare body background. */
-.pin-spacer {
-  background-color: #e8e2d4;
+  /* the one recurring typographic accent: a single word or phrase, per
+     major headline, breaking from the surrounding voice — many becoming
+     one. color is set per-usage (warm-sage on dark, deep-brown on bone). */
+  .accent-word {
+    @apply font-display italic;
+  }
+
+  /* Fluid display scale — one set of clamps that reads as a real mobile
+     scale at the low end rather than shrunken desktop type. */
+  .display-xl {
+    @apply font-display font-semibold;
+    letter-spacing: -0.02em;
+    line-height: 0.98;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+  }
+
+  .display-lg {
+    @apply font-display font-semibold;
+    letter-spacing: -0.018em;
+    line-height: 1.02;
+    font-size: clamp(1.9rem, 4.6vw, 3.5rem);
+  }
+
+  .display-md {
+    @apply font-display font-semibold;
+    letter-spacing: -0.012em;
+    line-height: 1.12;
+    font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Subtle film-grain texture for flat color bands (sections with no photo
+     of their own already carrying DuotonePhoto's per-image grain). */
+  .grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Sharp-cornered CTA buttons: mono uppercase label, minimal radius.
+     Colors come from the section band, so these invert automatically. */
+  .btn-solid {
+    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm bg-solid px-6 py-3.5 text-on-solid transition-opacity duration-200 hover:opacity-85;
+  }
+
+  .btn-outline {
+    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm border border-ink/25 px-5 py-3 transition-colors duration-200 hover:bg-ink/10;
+  }
+
+  /* Underlined text link in the mono label voice. */
+  .link-label {
+    @apply label-text inline-flex items-center gap-2 border-b border-current pb-1 transition-opacity duration-200 hover:opacity-70;
+  }
+
+  .field-input {
+    @apply w-full border border-ink/25 bg-transparent px-4 py-3.5 text-sm outline-none transition-colors placeholder:text-ink/40 focus-visible:border-ink/60;
+  }
 }
 
 /* Lenis smooth scroll */
@@ -71,6 +168,73 @@ html.lenis {
 
 .scroll-cue-dot {
   animation: scroll-cue 2.4s cubic-bezier(0.33, 0, 0.2, 1) infinite;
+}
+
+/* Hero floaters: slow, cloud-like drift. Three separate paths (each an
+   irregular loop rather than a straight there-and-back) combined with
+   per-element durations and negative delays keep the group from ever
+   reading as synchronised. Transform-only, so it stays cheap. */
+@keyframes drift-a {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg);
+  }
+  33% {
+    transform: translate3d(14px, -22px, 0) rotate(0.8deg);
+  }
+  66% {
+    transform: translate3d(-10px, -9px, 0) rotate(1.6deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg);
+  }
+}
+
+@keyframes drift-b {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(1.2deg);
+  }
+  40% {
+    transform: translate3d(-18px, 16px, 0) rotate(-1deg);
+  }
+  70% {
+    transform: translate3d(9px, 24px, 0) rotate(-2deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(1.2deg);
+  }
+}
+
+@keyframes drift-c {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+  }
+  30% {
+    transform: translate3d(-12px, -18px, 0) rotate(1.4deg);
+  }
+  60% {
+    transform: translate3d(16px, 10px, 0) rotate(2deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+  }
+}
+
+.hero-floater {
+  will-change: transform;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-iteration-count: infinite;
+}
+
+.drift-a {
+  animation-name: drift-a;
+}
+
+.drift-b {
+  animation-name: drift-b;
+}
+
+.drift-c {
+  animation-name: drift-c;
 }
 
 @media (prefers-reduced-motion: reduce) {
