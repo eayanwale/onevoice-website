@@ -25,7 +25,7 @@
 
 @layer utilities {
   .label-text {
-    @apply font-display text-[12.5px] font-semibold uppercase tracking-label;
+    @apply font-mono text-[11px] font-medium uppercase tracking-label;
   }
 
   /* the one recurring typographic accent: a single word or phrase, per
@@ -42,6 +42,27 @@
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Subtle film-grain texture for flat color bands (sections with no photo
+     of their own already carrying DuotonePhoto's per-image grain). */
+  .grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Sharp-cornered CTA buttons: mono uppercase label, minimal radius. Color
+     direction (bone-on-charcoal vs. charcoal-on-bone) is set per usage. */
+  .btn-solid {
+    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm px-6 py-3.5 transition-opacity duration-200 hover:opacity-85;
+  }
+
+  .btn-outline {
+    @apply label-text inline-flex min-h-11 items-center gap-2 rounded-sm border px-5 py-3 transition-colors duration-200;
   }
 }
 

@@ -14,6 +14,7 @@ const config: Config = {
       fontFamily: {
         display: ["var(--font-instrument)", "sans-serif"],
         body: ["var(--font-manrope)", "sans-serif"],
+        mono: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
       },
       transitionTimingFunction: {
         brand: "cubic-bezier(0.33, 0, 0.2, 1)",
