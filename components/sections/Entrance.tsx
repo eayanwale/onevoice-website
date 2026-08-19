@@ -4,33 +4,34 @@ import DuotonePhoto from "@/components/DuotonePhoto";
 
 // Small frames that drift over the hero like slow clouds. Each gets its own
 // duration/delay/direction so the motion never falls into visible lockstep.
-// Each is a different member, so the group never reads as the same face
-// twice, and they sit in the open charcoal rather than over the singers.
+// Each is a different member so the group never reads as the same face
+// twice. They sit in the open right-hand side of the frame — the curtain
+// and cross — rather than over the singers or the headline.
 const FLOATERS = [
   {
     src: "/images/visual-world/solo-smoke-backdrop.jpg",
-    className: "left-[5%] top-[14%] w-[100px] sm:w-[138px] lg:w-[166px]",
+    className: "right-[6%] top-[11%] w-[96px] sm:w-[132px] lg:w-[158px]",
     drift: "drift-a",
     duration: "19s",
     delay: "0s",
   },
   {
     src: "/images/visual-world/candid-back-view.jpg",
-    className: "left-[30%] top-[26%] hidden w-[126px] sm:block lg:w-[150px]",
+    className: "right-[26%] top-[30%] hidden w-[120px] lg:block lg:w-[144px]",
     drift: "drift-c",
     duration: "27s",
     delay: "-13s",
   },
   {
     src: "/images/visual-world/drummer-motion.jpg",
-    className: "right-[7%] top-[9%] w-[88px] sm:w-[120px] lg:w-[142px]",
+    className: "right-[8%] top-[54%] hidden w-[110px] sm:block sm:w-[126px] lg:w-[150px]",
     drift: "drift-b",
     duration: "23s",
     delay: "-6s",
   },
   {
     src: "/images/visual-world/hands-on-keys-detail.jpg",
-    className: "left-[18%] top-[34%] hidden w-[118px] lg:block lg:w-[140px]",
+    className: "left-[5%] top-[13%] w-[92px] sm:w-[118px] lg:w-[136px]",
     drift: "drift-b",
     duration: "31s",
     delay: "-3s",
@@ -40,27 +41,25 @@ const FLOATERS = [
 export default function Entrance() {
   return (
     <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-charcoal">
-      {/* The frame is a portrait shot, so filling a landscape viewport with
-          object-cover would just magnify the singers. Instead it keeps its
-          own panel on the right and flat charcoal carries the left — the
-          negative space is the ground, not a crop of the photo. */}
+      {/* A 3:2 frame, so a landscape viewport shows very nearly the whole
+          photo — the open curtain and cross on the right stay as real
+          negative space instead of being cropped away. */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[64%]">
-          <DuotonePhoto
-            src="/images/visual-world/stage-full-group-lights.jpg"
-            alt="Three of the One Voice singers leading worship under stage light"
-            priority
-            parallax
-            objectPosition="50% 32%"
-            className="absolute inset-x-0 -top-[25%] h-[150%] w-full"
-          />
-          <div className="absolute inset-y-0 left-0 hidden w-3/5 bg-gradient-to-r from-charcoal via-charcoal/75 to-transparent lg:block" />
-        </div>
+        {/* No parallax here on purpose: the buffer it needs (h-[150%]) would
+            crop ~1.4x into the frame and eat the open curtain and cross that
+            make this shot work. The drifting frames carry the motion instead. */}
+        <DuotonePhoto
+          src="/images/home-hero.jpg"
+          alt="One Voice leading worship, singers at the mic with the band behind them"
+          priority
+          objectPosition="55% 45%"
+          className="absolute inset-0 h-full w-full"
+        />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(26,26,26,0.5) 0%, rgba(26,26,26,0.2) 30%, rgba(26,26,26,0.66) 68%, rgba(26,26,26,0.94) 100%)",
+              "linear-gradient(to bottom, rgba(26,26,26,0.5) 0%, rgba(26,26,26,0.22) 28%, rgba(26,26,26,0.7) 66%, rgba(26,26,26,0.95) 100%)",
           }}
         />
       </div>

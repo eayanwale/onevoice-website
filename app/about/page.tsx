@@ -17,9 +17,9 @@ export default function AboutPage() {
         overline="est. 2023"
         title="a community of friends, singing with one voice."
         lead="one mind. one voice."
-        image="/images/hero-collective.jpg"
-        imageAlt="The One Voice collective"
-        objectPosition="50% 12%"
+        image="/images/about-hero.jpg"
+        imageAlt="Two members of One Voice together after a set"
+        objectPosition="55% 32%"
       />
 
       <section className="relative overflow-hidden py-24 sm:py-32">
