@@ -7,23 +7,47 @@ import DuotonePhoto from "@/components/DuotonePhoto";
 
 type Voice = {
   name: string;
-  role: string;
+  /** Optional on purpose — a card renders name-only until the role is known,
+      rather than showing a guessed instrument. */
+  role?: string;
   photo: string;
+  /** Override the default upward bias when a frame crops badly. */
+  objectPosition?: string;
 };
 
-// placeholder roster — swap the names and roles for the real ones once
-// they're settled. photos are the collective's own exported frames.
+// Most of these are full-body portraits taller than the 3:4 card, so a
+// centred cover-crop trims the top and takes heads with it. Biasing up keeps
+// faces in frame; landscape frames are unaffected (they crop horizontally).
+const DEFAULT_OBJECT_POSITION = "50% 18%";
+
+// The roster is shot across studio, stage and phone-camera sources, so the
+// site's usual duotone leaves ten visibly different photographs. A partial
+// grayscale knocks back the worst casts (purple stage wash, green trees)
+// without draining the frames to sepia — skin tones and clothing keep their
+// own color, they just stop disagreeing with each other.
+const MEMBER_FILTER =
+  "grayscale(0.4) sepia(0.28) saturate(1.1) hue-rotate(-9deg) brightness(0.93) contrast(1.05)";
+
+// Hovering a card cross-fades to the untreated photograph. Same functions in
+// the same order as MEMBER_FILTER at their identity values, so the browser
+// interpolates between the two lists instead of snapping.
+const MEMBER_FILTER_HOVER =
+  "grayscale(0) sepia(0) saturate(1) hue-rotate(0deg) brightness(1) contrast(1)";
+
+// The roster, alphabetical. Each photo is keyed off the member's own name, so
+// dropping <name>.jpg into public/images/members/ is the only step needed —
+// the pairing never depends on the order files were handed over.
 const VOICES: Voice[] = [
-  { name: "friend 01", role: "vocals", photo: "/images/visual-world/solo-smoke-backdrop.jpg" },
-  { name: "friend 02", role: "keys", photo: "/images/visual-world/solo-cap-singing.jpg" },
-  { name: "friend 03", role: "guitar", photo: "/images/visual-world/solo-vest-window-light.jpg" },
-  { name: "friend 04", role: "drums", photo: "/images/visual-world/solo-dark-portrait.jpg" },
-  { name: "friend 05", role: "vocals", photo: "/images/visual-world/solo-lyrics-screen.jpg" },
-  { name: "friend 06", role: "bass", photo: "/images/visual-world/candid-back-view.jpg" },
-  { name: "friend 07", role: "vocals", photo: "/images/visual-world/candid-duo-backstage.jpg" },
-  { name: "friend 08", role: "production", photo: "/images/visual-world/candid-pew-moment.jpg" },
-  { name: "friend 09", role: "vocals", photo: "/images/visual-world/solo-cap-singing.jpg" },
-  { name: "friend 10", role: "keys", photo: "/images/visual-world/rehearsal-wide.jpg" },
+  { name: "ayomide", photo: "/images/members/ayomide.jpg" },
+  { name: "deborah", photo: "/images/members/deborah.jpg" },
+  { name: "dionne", photo: "/images/members/dionne.jpg" },
+  { name: "enoch", photo: "/images/members/enoch.jpg" },
+  { name: "favor", photo: "/images/members/favor.jpg" },
+  { name: "feyishola", photo: "/images/members/feyishola.jpg" },
+  { name: "fiyin", photo: "/images/members/fiyin.jpg" },
+  { name: "goodness", photo: "/images/members/goodness.jpg" },
+  { name: "joseph", photo: "/images/members/joseph.jpg" },
+  { name: "naomi", photo: "/images/members/naomi.jpg" },
 ];
 
 function VoiceCard({ voice }: { voice: Voice }) {
@@ -35,15 +59,20 @@ function VoiceCard({ voice }: { voice: Voice }) {
       <div className="relative aspect-[3/4] overflow-hidden">
         <DuotonePhoto
           src={voice.photo}
-          alt={voice.name}
+          alt={`${voice.name} of One Voice`}
           sizes="(min-width: 640px) 300px, 240px"
+          objectPosition={voice.objectPosition ?? DEFAULT_OBJECT_POSITION}
+          filter={MEMBER_FILTER}
+          hoverFilter={MEMBER_FILTER_HOVER}
           className="h-full w-full transition-transform duration-700 ease-brand group-hover:scale-[1.04]"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
       </div>
       <div className="mt-5">
         <div className="display-md">{voice.name}</div>
-        <p className="label-text mt-2 text-warm-sage">{voice.role}</p>
+        {voice.role ? (
+          <p className="label-text mt-2 text-warm-sage">{voice.role}</p>
+        ) : null}
       </div>
     </div>
   );
@@ -123,10 +152,10 @@ export default function Voices() {
           the people
         </p>
         <h2 data-reveal className="display-lg mt-6 max-w-lg">
-          the voices behind the sound.
+          meet one voice.
         </h2>
         <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
-          about ten friends who show up — every rehearsal, every service.
+          ten friends who show up — every rehearsal, every service.
         </p>
       </div>
 

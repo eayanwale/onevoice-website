@@ -7,18 +7,21 @@ export default function Invitation() {
       className="on-bone relative overflow-hidden py-24 sm:py-32 scroll-mt-16 sm:scroll-mt-[76px]"
     >
       <div className="grain" aria-hidden="true" />
-      <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
+      {/* max-w-5xl, not 3xl: the heading is 31 characters and display-lg caps
+          at 3.5rem, so it needs ~920px to stay on one line at desktop. The
+          paragraph gets its own narrower max-w so it doesn't stretch with it. */}
+      <div className="relative mx-auto max-w-5xl px-5 text-center sm:px-8">
         <p data-reveal className="label-text text-muted">
-          bring us to your room
+          an open invitation
         </p>
         <h2 data-reveal className="display-lg mt-6">
-          worship nights, services, weddings, camps, living rooms.
+          we&rsquo;d love to minister with you.
         </h2>
-        <p data-reveal className="mt-6 leading-relaxed text-muted">
-          Tell us about the gathering and we&rsquo;ll come back to you personally.
+        <p data-reveal className="mx-auto mt-6 max-w-xl leading-relaxed text-muted">
+          tell us what you&rsquo;re planning, and one of us will write back.
         </p>
         <Link href="/invite" data-reveal className="btn-solid mt-10">
-          invite one voice ↗
+          invite us ↗
         </Link>
       </div>
     </section>

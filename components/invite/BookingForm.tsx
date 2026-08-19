@@ -45,10 +45,6 @@ export default function BookingForm() {
             best chance of saying yes.
           </li>
           <li>
-            we can bring anything from a handful of voices to the full group,
-            an acoustic set or a full worship night.
-          </li>
-          <li>
             budget doesn&rsquo;t decide whether we come. tell us what you have
             and we&rsquo;ll be honest about what works.
           </li>
@@ -108,10 +104,10 @@ export default function BookingForm() {
         <Field label="expected attendance" htmlFor="attendance">
           <input id="attendance" name="attendance" className="field-input" />
         </Field>
-        <Field label="budget range" htmlFor="budget">
-          <input id="budget" name="budget" className="field-input" />
-        </Field>
-        <Field label="how did you hear about us?" htmlFor="referral" className="sm:col-span-2">
+        {/* half-width so it pairs with "expected attendance" — it was
+            full-width back when the budget field filled that slot, which
+            left attendance stranded alone on its row. */}
+        <Field label="how did you hear about us?" htmlFor="referral">
           <input id="referral" name="referral" className="field-input" />
         </Field>
         <Field label="tell us about the gathering *" htmlFor="message" className="sm:col-span-2">

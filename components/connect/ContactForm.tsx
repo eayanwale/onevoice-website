@@ -4,8 +4,7 @@ import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import Field from "@/components/Field";
 import EmailSignup from "@/components/EmailSignup";
-
-const SOCIALS = ["instagram", "youtube", "spotify"];
+import { SOCIAL_LINKS, EMAIL, isExternal } from "@/lib/links";
 
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
@@ -63,7 +62,7 @@ export default function ContactForm() {
 
       <div data-reveal className="space-y-12">
         <div>
-          <p className="label-text text-warm-sage">booking</p>
+          <p className="label-text text-warm-sage">invitations</p>
           <p className="mt-5 text-sm leading-relaxed text-muted">
             looking to have us lead worship? the invite form collects
             everything we need.
@@ -75,7 +74,7 @@ export default function ContactForm() {
         <div>
           <p className="label-text text-warm-sage">email</p>
           <a
-            href="mailto:hello@onev.live"
+            href={`mailto:${EMAIL}`}
             className="mt-5 block text-sm text-muted transition-colors hover:text-ink"
           >
             hello@onev.live
@@ -84,11 +83,25 @@ export default function ContactForm() {
         <div>
           <p className="label-text text-warm-sage">follow</p>
           <ul className="mt-5 space-y-3">
-            {SOCIALS.map((label) => (
-              <li key={label}>
-                <a href="#" className="text-sm text-muted transition-colors hover:text-ink">
-                  {label}
-                </a>
+            {SOCIAL_LINKS.map((link) => (
+              <li key={link.platform}>
+                {isExternal(link.href) ? (
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-muted transition-colors hover:text-ink"
+                  >
+                    {link.platform}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted transition-colors hover:text-ink"
+                  >
+                    {link.platform}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

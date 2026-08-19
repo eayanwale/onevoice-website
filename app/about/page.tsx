@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Voices from "@/components/sections/Voices";
+import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
   title: "About — One Voice",
   description:
-    "Established in 2023, One Voice is about ten friends united by one purpose: that with one mind and one voice, we might glorify God.",
+    "Established in 2023, One Voice is a community of friends creating space for reverent, honest worship that reflects the love of the Lord and welcomes all generations into His presence.",
 };
 
 export default function AboutPage() {
@@ -16,10 +16,9 @@ export default function AboutPage() {
       <PageHero
         overline="est. 2023"
         title="a community of friends, singing with one voice."
-        lead="one mind. one voice."
-        image="/images/about-hero.jpg"
-        imageAlt="Two members of One Voice together after a set"
-        objectPosition="55% 32%"
+        image="/images/visual-world/group-singing-warm-venue.jpg"
+        imageAlt="One Voice leading worship in a warm-lit venue"
+        objectPosition="50% 30%"
       />
 
       <section className="relative overflow-hidden py-24 sm:py-32">
@@ -33,18 +32,20 @@ export default function AboutPage() {
           </div>
           <div data-reveal className="space-y-6 leading-relaxed text-muted">
             <p>
-              established in 2023, we&rsquo;re ten friends united by
-              one purpose: that with one mind and one voice, we might
-              glorify God. rooted in Christ, we lead worship at churches
-              and events, wherever we&rsquo;re asked — through faith,
-              fellowship, and friendship.
+              established in 2023, we&rsquo;re a community of friends
+              united by one purpose. rooted in Christ, we seek to create a
+              space for reverent and honest worship that reflects the love
+              of the Lord and welcomes all generations into His presence.
+              through faith, fellowship, and friendship, we hope to inspire
+              others to grow in community and experience the joy of walking
+              alongside one another in faith.
             </p>
             <p>
-              it started simply — friends singing together because they
-              wanted to, then finding that other rooms needed the same
+              it started simply — friends singing together because we
+              wanted to, then finding that other people needed the same
               thing. since then, we&rsquo;ve led worship at churches,
               conferences, and gatherings, always with the same posture:
-              keep it honest, keep it reverent, keep the room in it.
+              keep it honest, keep it reverent, keep everyone in it.
             </p>
           </div>
         </div>
@@ -52,20 +53,7 @@ export default function AboutPage() {
 
       <Voices />
 
-      <section className="on-sand relative overflow-hidden py-24 text-center sm:py-32">
-        <div className="grain" aria-hidden="true" />
-        <div className="relative mx-auto max-w-2xl px-5 sm:px-8">
-          <h2 data-reveal className="display-lg">
-            sing with us.
-          </h2>
-          <p data-reveal className="mt-5 leading-relaxed text-muted">
-            We&rsquo;d love to hear about your gathering.
-          </p>
-          <Link href="/invite" data-reveal className="btn-solid mt-9">
-            invite us ↗
-          </Link>
-        </div>
-      </section>
+      <Invitation />
 
       <ScrollReveals />
     </main>

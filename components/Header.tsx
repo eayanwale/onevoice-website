@@ -5,12 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import SocialIcon, { type Platform } from "@/components/SocialIcon";
+import SocialIcon from "@/components/SocialIcon";
+import { SOCIAL_LINKS, isExternal } from "@/lib/links";
 
 const EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
 const SCROLL_THRESHOLD = 72;
-
-const SOCIALS: Platform[] = ["instagram", "youtube", "spotify"];
 
 const NAV_LINKS = [
   { href: "/about", label: "about" },
@@ -21,10 +20,6 @@ const NAV_LINKS = [
 
 export default function Header() {
   const pathname = usePathname();
-  // the bare-transparent start state only reads well over the home page's
-  // dark hero photo — every other route has no dark backdrop behind the
-  // header, so it starts (and stays) in the glass state there.
-  const hasHero = pathname === "/";
 
   // "/" only matches exactly; every other route also matches its children
   // so a future /gallery/[slug] still lights up the gallery nav item.
@@ -32,18 +27,16 @@ export default function Header() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(!hasHero);
+  const [scrolled, setScrolled] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
+  // Transparent at rest, glass once scrolled — on every route, not just the
+  // home page. Safe everywhere because PageHero is bg-charcoal even when it
+  // has no photo, so the off-white nav always sits on a dark ground.
   useEffect(() => {
     setReducedMotion(
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
-
-    if (!hasHero) {
-      setScrolled(true);
-      return;
-    }
 
     let raf = 0;
     const update = () => {
@@ -59,7 +52,9 @@ export default function Header() {
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [hasHero]);
+    // re-runs per route so a client-side navigation re-reads scroll position
+    // (Next restores scroll to the top, but the listener must re-attach)
+  }, [pathname]);
 
   const glassTransition = { duration: reducedMotion ? 0 : 0.55, ease: EASE };
 
@@ -180,16 +175,30 @@ export default function Header() {
               </motion.a>
             </nav>
             <div className="relative mt-auto flex gap-3 border-t border-off-white/15 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))]">
-              {SOCIALS.map((label) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="flex size-11 items-center justify-center rounded-sm border border-off-white/25 text-warm-sage transition-colors duration-200 hover:bg-off-white/10"
-                >
-                  <SocialIcon platform={label} className="size-[18px]" />
-                </a>
-              ))}
+              {SOCIAL_LINKS.map((link) =>
+                isExternal(link.href) ? (
+                  <a
+                    key={link.platform}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={link.platform}
+                    className="flex size-11 items-center justify-center rounded-sm border border-off-white/25 text-warm-sage transition-colors duration-200 hover:bg-off-white/10"
+                  >
+                    <SocialIcon platform={link.platform} className="size-[18px]" />
+                  </a>
+                ) : (
+                  <Link
+                    key={link.platform}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    aria-label={link.platform}
+                    className="flex size-11 items-center justify-center rounded-sm border border-off-white/25 text-warm-sage transition-colors duration-200 hover:bg-off-white/10"
+                  >
+                    <SocialIcon platform={link.platform} className="size-[18px]" />
+                  </Link>
+                )
+              )}
             </div>
           </motion.div>
         )}

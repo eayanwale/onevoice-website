@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import DuotonePhoto from "@/components/DuotonePhoto";
+import DuotonePhoto, { HERO_FILTER } from "@/components/DuotonePhoto";
 
 type PageHeroProps = {
   overline: string;
@@ -8,6 +8,8 @@ type PageHeroProps = {
   image?: string;
   imageAlt?: string;
   objectPosition?: string;
+  /** Override the lead's measure — e.g. to hold a short lead on one line. */
+  leadClassName?: string;
   children?: ReactNode;
 };
 
@@ -18,6 +20,7 @@ export default function PageHero({
   image,
   imageAlt = "",
   objectPosition,
+  leadClassName = "max-w-xl",
   children,
 }: PageHeroProps) {
   return (
@@ -29,6 +32,7 @@ export default function PageHero({
             alt={imageAlt}
             priority
             objectPosition={objectPosition}
+            filter={HERO_FILTER}
             className="absolute inset-0 h-full w-full"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/70 to-charcoal/75" />
@@ -44,7 +48,7 @@ export default function PageHero({
           {title}
         </h1>
         {lead ? (
-          <p data-reveal className="mt-7 max-w-xl leading-relaxed text-off-white/70">
+          <p data-reveal className={`mt-7 leading-relaxed text-off-white/70 ${leadClassName}`}>
             {lead}
           </p>
         ) : null}
