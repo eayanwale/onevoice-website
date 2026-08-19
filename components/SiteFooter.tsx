@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import EmailSignup from "@/components/EmailSignup";
-import SocialIcon, { type Platform } from "@/components/SocialIcon";
+import SocialIcon from "@/components/SocialIcon";
+import { SOCIAL_LINKS, EMAIL, isExternal } from "@/lib/links";
 
 const PAGE_LINKS = [
   { href: "/", label: "home" },
@@ -10,12 +11,6 @@ const PAGE_LINKS = [
   { href: "/store", label: "store" },
   { href: "/connect", label: "connect" },
   { href: "/invite", label: "invite us" },
-];
-
-const SOCIAL_LINKS: { href: string; label: Platform }[] = [
-  { href: "#", label: "instagram" },
-  { href: "#", label: "youtube" },
-  { href: "#", label: "spotify" },
 ];
 
 export default function SiteFooter() {
@@ -54,24 +49,34 @@ export default function SiteFooter() {
               <p className="label-text text-off-white/50">elsewhere</p>
               <ul className="mt-5 space-y-3">
                 {SOCIAL_LINKS.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2.5 text-sm text-off-white/70 transition-colors duration-200 hover:text-off-white"
-                    >
-                      <SocialIcon platform={link.label} />
-                      {link.label}
-                    </a>
+                  <li key={link.platform}>
+                    {isExternal(link.href) ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2.5 text-sm text-off-white/70 transition-colors duration-200 hover:text-off-white"
+                      >
+                        <SocialIcon platform={link.platform} />
+                        {link.platform}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="inline-flex items-center gap-2.5 text-sm text-off-white/70 transition-colors duration-200 hover:text-off-white"
+                      >
+                        <SocialIcon platform={link.platform} />
+                        {link.platform}
+                      </Link>
+                    )}
                   </li>
                 ))}
                 <li>
                   <a
-                    href="mailto:hello@onev.live"
+                    href={`mailto:${EMAIL}`}
                     className="text-sm text-off-white/70 transition-colors duration-200 hover:text-off-white"
                   >
-                    hello@onev.live
+                    {EMAIL}
                   </a>
                 </li>
               </ul>
@@ -102,18 +107,29 @@ export default function SiteFooter() {
           </Link>
 
           <div className="order-3 flex justify-center gap-3 sm:flex-1 sm:justify-end">
-            {SOCIAL_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={link.label}
-                className="flex size-11 items-center justify-center rounded-sm border border-off-white/25 text-off-white/70 transition-colors duration-200 hover:bg-off-white/10 hover:text-off-white"
-              >
-                <SocialIcon platform={link.label} className="size-[18px]" />
-              </a>
-            ))}
+            {SOCIAL_LINKS.map((link) =>
+              isExternal(link.href) ? (
+                <a
+                  key={link.platform}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.platform}
+                  className="flex size-11 items-center justify-center rounded-sm border border-off-white/25 text-off-white/70 transition-colors duration-200 hover:bg-off-white/10 hover:text-off-white"
+                >
+                  <SocialIcon platform={link.platform} className="size-[18px]" />
+                </a>
+              ) : (
+                <Link
+                  key={link.platform}
+                  href={link.href}
+                  aria-label={link.platform}
+                  className="flex size-11 items-center justify-center rounded-sm border border-off-white/25 text-off-white/70 transition-colors duration-200 hover:bg-off-white/10 hover:text-off-white"
+                >
+                  <SocialIcon platform={link.platform} className="size-[18px]" />
+                </Link>
+              )
+            )}
           </div>
         </div>
       </div>
