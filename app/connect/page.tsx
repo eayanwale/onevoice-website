@@ -1,24 +1,30 @@
 import type { Metadata } from "next";
-import ConnectExperience from "@/components/connect/ConnectExperience";
+import PageHero from "@/components/PageHero";
+import ContactForm from "@/components/connect/ContactForm";
+import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
   title: "Connect — One Voice",
   description:
-    "Invite One Voice to sing with you, or just say hi. We read every message ourselves.",
+    "Say hello, ask a question, or follow along. Message One Voice directly or join the email list for new music and worship nights.",
 };
 
 export default function ConnectPage() {
   return (
-    <main className="min-h-screen bg-bone px-6 pb-28 pt-32 sm:px-10 sm:pt-40">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-16 max-w-xl">
-          <div className="label-text mb-5 text-deep-brown/60">connect</div>
-          <h1 className="text-[36px] font-semibold leading-[1.1] text-charcoal sm:text-[52px] lg:text-[60px]">
-            let&rsquo;s talk.
-          </h1>
-        </div>
-        <ConnectExperience />
-      </div>
+    <main>
+      <PageHero
+        overline="connect"
+        title="say hello."
+        lead="Questions, encouragement, collaborations, or just to tell us a song landed — this reaches all of us."
+        image="/images/grass.jpg"
+        imageAlt="Backlit grass at golden hour"
+      />
+
+      <section className="relative overflow-hidden py-24 sm:py-32">
+        <ContactForm />
+      </section>
+
+      <ScrollReveals />
     </main>
   );
 }
