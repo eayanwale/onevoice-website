@@ -16,9 +16,9 @@ export default function InvitePage() {
         overline="invite us"
         title="tell us about the room."
         lead="Services, worship nights, conferences, retreats, weddings, campus gatherings — send us the details and we'll come back to you personally."
-        image="/images/visual-world/stage-full-group-lights.jpg"
-        imageAlt="One Voice leading worship under warm stage light"
-        objectPosition="50% 35%"
+        image="/images/invite-hero.jpg"
+        imageAlt="A One Voice keys player at the mic during soundcheck"
+        objectPosition="50% 40%"
       />
 
       <section className="on-bone relative overflow-hidden py-20 sm:py-28">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
-import Values from "@/components/sections/Values";
+import Voices from "@/components/sections/Voices";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
@@ -17,9 +17,9 @@ export default function AboutPage() {
         overline="est. 2023"
         title="a community of friends, singing with one voice."
         lead="one mind. one voice."
-        image="/images/hero-collective.jpg"
-        imageAlt="The One Voice collective"
-        objectPosition="50% 12%"
+        image="/images/about-hero.jpg"
+        imageAlt="Two members of One Voice together after a set"
+        objectPosition="55% 32%"
       />
 
       <section className="relative overflow-hidden py-24 sm:py-32">
@@ -33,7 +33,7 @@ export default function AboutPage() {
           </div>
           <div data-reveal className="space-y-6 leading-relaxed text-muted">
             <p>
-              established in 2023, we&rsquo;re about ten friends united by
+              established in 2023, we&rsquo;re ten friends united by
               one purpose: that with one mind and one voice, we might
               glorify God. rooted in Christ, we lead worship at churches
               and events, wherever we&rsquo;re asked — through faith,
@@ -50,7 +50,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Values overline="core values" layout="rows" />
+      <Voices />
 
       <section className="on-sand relative overflow-hidden py-24 text-center sm:py-32">
         <div className="grain" aria-hidden="true" />

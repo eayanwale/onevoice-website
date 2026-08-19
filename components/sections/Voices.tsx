@@ -5,15 +5,15 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-type Member = {
+type Voice = {
   name: string;
   role: string;
   photo: string;
 };
 
-// placeholder roster — swap for real names, roles, and portraits once
-// they're picked from the collective's own photos.
-const MEMBERS: Member[] = [
+// placeholder roster — swap the names and roles for the real ones once
+// they're settled. photos are the collective's own exported frames.
+const VOICES: Voice[] = [
   { name: "friend 01", role: "vocals", photo: "/images/visual-world/solo-smoke-backdrop.jpg" },
   { name: "friend 02", role: "keys", photo: "/images/visual-world/solo-cap-singing.jpg" },
   { name: "friend 03", role: "guitar", photo: "/images/visual-world/solo-vest-window-light.jpg" },
@@ -21,33 +21,35 @@ const MEMBERS: Member[] = [
   { name: "friend 05", role: "vocals", photo: "/images/visual-world/solo-lyrics-screen.jpg" },
   { name: "friend 06", role: "bass", photo: "/images/visual-world/candid-back-view.jpg" },
   { name: "friend 07", role: "vocals", photo: "/images/visual-world/candid-duo-backstage.jpg" },
-  { name: "friend 08", role: "production", photo: "/images/visual-world/solo-smoke-backdrop.jpg" },
+  { name: "friend 08", role: "production", photo: "/images/visual-world/candid-pew-moment.jpg" },
   { name: "friend 09", role: "vocals", photo: "/images/visual-world/solo-cap-singing.jpg" },
-  { name: "friend 10", role: "keys", photo: "/images/visual-world/solo-vest-window-light.jpg" },
+  { name: "friend 10", role: "keys", photo: "/images/visual-world/rehearsal-wide.jpg" },
 ];
 
-function MemberCard({ member }: { member: Member }) {
+function VoiceCard({ voice }: { voice: Voice }) {
   return (
-    <div className="w-[220px] shrink-0 snap-start sm:w-[280px]">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-tl-full rounded-tr-full">
+    <div
+      data-voice-card
+      className="group w-[240px] shrink-0 snap-start sm:w-[300px]"
+    >
+      <div className="relative aspect-[3/4] overflow-hidden">
         <DuotonePhoto
-          src={member.photo}
-          alt={member.name}
-          sizes="(min-width: 640px) 280px, 220px"
-          className="h-full w-full"
+          src={voice.photo}
+          alt={voice.name}
+          sizes="(min-width: 640px) 300px, 240px"
+          className="h-full w-full transition-transform duration-700 ease-brand group-hover:scale-[1.04]"
         />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
       </div>
-      <div className="mt-4">
-        <div className="text-[18px] font-semibold text-off-white sm:text-[21px]">
-          {member.name}
-        </div>
-        <div className="label-text mt-1 text-warm-sage">{member.role}</div>
+      <div className="mt-5">
+        <div className="display-md">{voice.name}</div>
+        <p className="label-text mt-2 text-warm-sage">{voice.role}</p>
       </div>
     </div>
   );
 }
 
-export default function MemberCarousel() {
+export default function Voices() {
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -59,17 +61,34 @@ export default function MemberCarousel() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.matchMedia("(max-width: 639px)").matches;
 
-    // mobile/reduced-motion keep the default overflow-x-auto strip — a
-    // pinned scroll-jack reads as janky on touch and ignores the user's
-    // motion preference, so it stays a plain swipeable carousel instead.
-    if (reduced || isMobile) return;
-
     const section = sectionRef.current;
     const viewport = viewportRef.current;
     const track = trackRef.current;
     if (!section || !viewport || !track) return;
 
     const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>("[data-voice-card]");
+
+      // cards rise and fade in as the strip comes into view
+      if (!reduced) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.08,
+            ease: "cubic-bezier(0.33, 0, 0.2, 1)",
+            scrollTrigger: { trigger: section, start: "top 75%", once: true },
+          }
+        );
+      }
+
+      // mobile/reduced-motion keep the plain swipeable strip — a pinned
+      // scroll-jack reads as janky on touch and ignores motion preference.
+      if (reduced || isMobile) return;
+
       const distance = Math.max(0, track.scrollWidth - viewport.clientWidth);
       if (!distance) return;
 
@@ -97,35 +116,29 @@ export default function MemberCarousel() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex flex-col justify-center overflow-hidden bg-charcoal py-24 sm:h-screen sm:py-0"
+      className="relative flex flex-col justify-center overflow-hidden py-24 sm:h-screen sm:py-0"
     >
-      <div className="mx-auto w-full max-w-6xl px-6 sm:px-10">
-        <div data-reveal className="label-text mb-3 text-warm-sage">
+      <div className="mx-auto w-full max-w-shell px-5 sm:px-8">
+        <p data-reveal className="label-text text-warm-sage">
           the people
-        </div>
-        <p
-          data-reveal
-          className="mb-10 max-w-sm text-[15px] leading-[1.6] text-off-white/70"
-        >
-          ten friends who show up — every rehearsal, every service.
+        </p>
+        <h2 data-reveal className="display-lg mt-6 max-w-lg">
+          the voices behind the sound.
+        </h2>
+        <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
+          about ten friends who show up — every rehearsal, every service.
         </p>
       </div>
 
-      <div
-        ref={viewportRef}
-        className="no-scrollbar overflow-x-auto px-6 pb-2 sm:px-10"
-      >
-        <div
-          ref={trackRef}
-          className="flex w-max gap-5 snap-x snap-mandatory"
-        >
-          {MEMBERS.map((member) => (
-            <MemberCard key={member.name} member={member} />
+      <div ref={viewportRef} className="no-scrollbar mt-12 overflow-x-auto px-5 pb-2 sm:px-8">
+        <div ref={trackRef} className="flex w-max snap-x snap-mandatory gap-5">
+          {VOICES.map((voice, i) => (
+            <VoiceCard key={`${voice.name}-${i}`} voice={voice} />
           ))}
         </div>
       </div>
 
-      <div className="mx-auto mt-10 hidden h-px w-full max-w-6xl bg-off-white/15 sm:block sm:px-10">
+      <div className="mx-auto mt-10 hidden h-px w-full max-w-shell bg-ink/15 sm:block">
         <div ref={barRef} className="h-px w-full origin-left scale-x-0 bg-warm-sage" />
       </div>
     </section>

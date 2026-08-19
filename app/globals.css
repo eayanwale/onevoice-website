@@ -170,6 +170,73 @@ html.lenis {
   animation: scroll-cue 2.4s cubic-bezier(0.33, 0, 0.2, 1) infinite;
 }
 
+/* Hero floaters: slow, cloud-like drift. Three separate paths (each an
+   irregular loop rather than a straight there-and-back) combined with
+   per-element durations and negative delays keep the group from ever
+   reading as synchronised. Transform-only, so it stays cheap. */
+@keyframes drift-a {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg);
+  }
+  33% {
+    transform: translate3d(14px, -22px, 0) rotate(0.8deg);
+  }
+  66% {
+    transform: translate3d(-10px, -9px, 0) rotate(1.6deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg);
+  }
+}
+
+@keyframes drift-b {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(1.2deg);
+  }
+  40% {
+    transform: translate3d(-18px, 16px, 0) rotate(-1deg);
+  }
+  70% {
+    transform: translate3d(9px, 24px, 0) rotate(-2deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(1.2deg);
+  }
+}
+
+@keyframes drift-c {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+  }
+  30% {
+    transform: translate3d(-12px, -18px, 0) rotate(1.4deg);
+  }
+  60% {
+    transform: translate3d(16px, 10px, 0) rotate(2deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+  }
+}
+
+.hero-floater {
+  will-change: transform;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-iteration-count: infinite;
+}
+
+.drift-a {
+  animation-name: drift-a;
+}
+
+.drift-b {
+  animation-name: drift-b;
+}
+
+.drift-c {
+  animation-name: drift-c;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

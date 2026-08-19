@@ -2,28 +2,99 @@ import Image from "next/image";
 import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
+// Small frames that drift over the hero like slow clouds. Each gets its own
+// duration/delay/direction so the motion never falls into visible lockstep.
+// Each is a different member so the group never reads as the same face
+// twice. They sit in the open right-hand side of the frame — the curtain
+// and cross — rather than over the singers or the headline.
+const FLOATERS = [
+  {
+    src: "/images/float-planning.jpg",
+    className: "right-[6%] top-[11%] w-[96px] sm:w-[132px] lg:w-[158px]",
+    drift: "drift-a",
+    duration: "19s",
+    delay: "0s",
+  },
+  {
+    src: "/images/visual-world/candid-back-view.jpg",
+    className: "right-[26%] top-[30%] hidden w-[120px] lg:block lg:w-[144px]",
+    drift: "drift-c",
+    duration: "27s",
+    delay: "-13s",
+  },
+  {
+    src: "/images/float-worship-hands.jpg",
+    className: "left-[23%] top-[31%] hidden w-[112px] lg:block lg:w-[138px]",
+    drift: "drift-a",
+    duration: "25s",
+    delay: "-9s",
+  },
+  {
+    src: "/images/visual-world/drummer-motion.jpg",
+    className: "right-[8%] top-[54%] hidden w-[110px] sm:block sm:w-[126px] lg:w-[150px]",
+    drift: "drift-b",
+    duration: "23s",
+    delay: "-6s",
+  },
+  {
+    src: "/images/visual-world/hands-on-keys-detail.jpg",
+    className: "left-[5%] top-[13%] w-[92px] sm:w-[118px] lg:w-[136px]",
+    drift: "drift-b",
+    duration: "31s",
+    delay: "-3s",
+  },
+];
+
 export default function Entrance() {
   return (
     <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-charcoal">
+      {/* A 3:2 frame, so a landscape viewport shows very nearly the whole
+          photo — the open curtain and cross on the right stay as real
+          negative space instead of being cropped away. */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* No parallax here on purpose: the buffer it needs (h-[150%]) would
+            crop ~1.4x into the frame and eat the open curtain and cross that
+            make this shot work. The drifting frames carry the motion instead. */}
         <DuotonePhoto
-          src="/images/hero-collective.jpg"
-          alt="The One Voice collective"
+          src="/images/home-hero.jpg"
+          alt="One Voice leading worship, singers at the mic with the band behind them"
           priority
-          parallax
-          objectPosition="50% 12%"
-          className="absolute inset-x-0 -top-[25%] h-[150%] w-full"
+          objectPosition="55% 45%"
+          // a deeper grade than the site default: this frame is lit brighter
+          // than the rest of the photography and would otherwise fight the
+          // headline sitting on top of it.
+          filter="sepia(0.42) saturate(1.08) hue-rotate(-8deg) brightness(0.74) contrast(1.08)"
+          className="absolute inset-0 h-full w-full"
         />
-        {/* The hero photo is a bright, high-key studio frame, so the scrim
-            has to work harder under the headline than a moody image would. */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(26,26,26,0.62) 0%, rgba(26,26,26,0.38) 30%, rgba(26,26,26,0.72) 62%, rgba(26,26,26,0.94) 100%)",
+              "linear-gradient(to bottom, rgba(26,26,26,0.5) 0%, rgba(26,26,26,0.22) 28%, rgba(26,26,26,0.7) 66%, rgba(26,26,26,0.95) 100%)",
           }}
         />
       </div>
+
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        {FLOATERS.map((f) => (
+          <div
+            key={f.src + f.className}
+            className={`hero-floater absolute ${f.drift} ${f.className}`}
+            style={{ animationDuration: f.duration, animationDelay: f.delay }}
+          >
+            <div className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-[0_18px_50px_-18px_rgba(0,0,0,0.8)] ring-1 ring-off-white/15">
+              <Image
+                src={f.src}
+                alt=""
+                fill
+                sizes="200px"
+                className="object-cover opacity-80"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
       <div className="grain" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto w-full max-w-shell px-5 pb-16 pt-28 sm:px-8 sm:pb-24">
@@ -47,7 +118,7 @@ export default function Entrance() {
           </p>
           <div className="flex flex-wrap gap-3 sm:ml-auto">
             <Link href="/invite" className="btn-solid">
-              invite us &rarr;
+              invite us ↗
             </Link>
             <Link href="/about" className="btn-outline text-off-white">
               our story
