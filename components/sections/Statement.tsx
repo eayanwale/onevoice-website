@@ -1,7 +1,7 @@
 import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-const HEADING = "worship that sounds like people who actually know each other.";
+const HEADING = "we’d rather be one voice than ten good ones.";
 
 export default function Statement() {
   return (
@@ -39,11 +39,10 @@ export default function Statement() {
             })}
           </h2>
           <p data-reveal className="mt-8 max-w-xl leading-relaxed text-muted">
-            established in 2023, we&rsquo;re ten friends united by
-            one purpose: that with one mind and one voice, we might
-            glorify God. rooted in Christ, we lead worship at churches
-            and events, wherever we&rsquo;re asked — through faith,
-            fellowship, and friendship.
+            honestly, ten voices is a lot of opinions. we rehearse, we
+            disagree, we figure it out, and somewhere in there it starts
+            sounding like one thing. that&rsquo;s the part we love, and
+            it&rsquo;s what we bring when we come sing with you.
           </p>
           <Link href="/about" data-reveal className="link-label mt-9">
             read the full story ↗
