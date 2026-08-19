@@ -9,7 +9,7 @@ import DuotonePhoto from "@/components/DuotonePhoto";
 // and cross — rather than over the singers or the headline.
 const FLOATERS = [
   {
-    src: "/images/visual-world/solo-smoke-backdrop.jpg",
+    src: "/images/float-planning.jpg",
     className: "right-[6%] top-[11%] w-[96px] sm:w-[132px] lg:w-[158px]",
     drift: "drift-a",
     duration: "19s",
@@ -21,6 +21,13 @@ const FLOATERS = [
     drift: "drift-c",
     duration: "27s",
     delay: "-13s",
+  },
+  {
+    src: "/images/float-worship-hands.jpg",
+    className: "left-[23%] top-[31%] hidden w-[112px] lg:block lg:w-[138px]",
+    drift: "drift-a",
+    duration: "25s",
+    delay: "-9s",
   },
   {
     src: "/images/visual-world/drummer-motion.jpg",
@@ -53,6 +60,10 @@ export default function Entrance() {
           alt="One Voice leading worship, singers at the mic with the band behind them"
           priority
           objectPosition="55% 45%"
+          // a deeper grade than the site default: this frame is lit brighter
+          // than the rest of the photography and would otherwise fight the
+          // headline sitting on top of it.
+          filter="sepia(0.42) saturate(1.08) hue-rotate(-8deg) brightness(0.74) contrast(1.08)"
           className="absolute inset-0 h-full w-full"
         />
         <div
