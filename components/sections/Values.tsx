@@ -13,21 +13,38 @@ const VALUES = [
   },
 ];
 
-export default function Values() {
+export default function Values({
+  overline = "what holds us together",
+  layout = "grid",
+}: {
+  overline?: string;
+  layout?: "grid" | "rows";
+}) {
+  const isRows = layout === "rows";
+
   return (
-    <section className="relative bg-off-white px-6 py-24 sm:px-10 lg:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div data-reveal className="label-text mb-10 text-deep-brown">
-          what holds us together
-        </div>
-        <div className="grid gap-px overflow-hidden bg-deep-brown/15 sm:grid-cols-3">
+    <section className="on-bone relative overflow-hidden py-24 sm:py-32">
+      <div className="grain" aria-hidden="true" />
+      <div className="relative mx-auto max-w-shell px-5 sm:px-8">
+        <p data-reveal className="label-text text-muted">
+          {overline}
+        </p>
+        <div
+          className={`mt-14 bg-ink/15 ${isRows ? "space-y-px" : "grid gap-px sm:grid-cols-3"}`}
+        >
           {VALUES.map((value, i) => (
-            <div key={value.title} data-reveal className="bg-off-white p-8 sm:p-10">
-              <p className="label-text text-deep-brown/50">0{i + 1}</p>
-              <h3 className="mt-6 text-[22px] font-semibold leading-[1.15] text-charcoal">
-                {value.title}
-              </h3>
-              <p className="mt-4 text-[15px] leading-[1.6] text-deep-brown/70">
+            <div
+              key={value.title}
+              data-reveal
+              className={
+                isRows
+                  ? "grid gap-4 bg-surface p-8 sm:grid-cols-[8rem_1fr_1.4fr] sm:items-baseline sm:p-10"
+                  : "bg-surface p-8 sm:p-10"
+              }
+            >
+              <p className="label-text text-muted">0{i + 1}</p>
+              <h3 className={`display-md ${isRows ? "" : "mt-8"}`}>{value.title}</h3>
+              <p className={`text-sm leading-relaxed text-muted ${isRows ? "" : "mt-4"}`}>
                 {value.body}
               </p>
             </div>

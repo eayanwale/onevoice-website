@@ -62,11 +62,10 @@ export default function ScrollReveals() {
         });
       }
 
-      // single pinned scroll sequence: statement headline scrub-reveal
-      const pinSection = document.querySelector<HTMLElement>("[data-pin-section]");
+      // statement headline scrub-reveal, character by character
       const heading = document.querySelector<HTMLElement>("[data-split-heading]");
 
-      if (pinSection && heading) {
+      if (heading) {
         const chars = heading.querySelectorAll<HTMLElement>("[data-char]");
         gsap.fromTo(
           chars,
@@ -78,23 +77,13 @@ export default function ScrollReveals() {
             stagger: 0.012,
             ease: EASE,
             scrollTrigger: {
-              trigger: pinSection,
-              start: "top 65%",
-              end: isMobile ? "top 30%" : "top 20%",
+              trigger: heading,
+              start: "top 90%",
+              end: isMobile ? "top 45%" : "top 35%",
               scrub: 0.4,
             },
           }
         );
-
-        if (!isMobile) {
-          ScrollTrigger.create({
-            trigger: pinSection,
-            start: "top top",
-            end: "+=500",
-            pin: true,
-            pinSpacing: true,
-          });
-        }
       }
     });
 

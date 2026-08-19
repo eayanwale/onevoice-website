@@ -1,35 +1,33 @@
 import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-const WORDS = "one mind. one voice.".split(" ");
-const ACCENT_INDEX = WORDS.length - 1;
+const HEADING = "worship that sounds like people who actually know each other.";
 
 export default function Statement() {
   return (
     <section
       id="about"
-      data-pin-section
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-bone px-6 py-24 sm:px-10 scroll-mt-16 sm:scroll-mt-[76px]"
+      className="relative overflow-hidden py-24 sm:py-32 scroll-mt-16 sm:scroll-mt-[76px]"
     >
-      <div className="grain" aria-hidden="true" />
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
+      <div className="mx-auto grid max-w-shell items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-20">
+        <div data-reveal className="relative aspect-[4/5] w-full overflow-hidden">
+          <DuotonePhoto
+            src="/images/MNFD6096-.jpg"
+            alt="The One Voice collective"
+            objectPosition="50% 15%"
+            sizes="(min-width: 1024px) 640px, 100vw"
+            className="h-full w-full"
+          />
+        </div>
+
         <div>
-          <div data-reveal className="label-text mb-7 text-deep-brown">
-            the statement
-          </div>
-          <h2
-            data-split-heading
-            className="max-w-xl text-[32px] font-semibold leading-[1.05] text-charcoal sm:text-[46px] lg:text-[58px]"
-          >
-            {WORDS.flatMap((word, wi) => {
-              const isAccent = wi === ACCENT_INDEX;
+          <p data-reveal className="label-text text-warm-sage">
+            est. 2023
+          </p>
+          <h2 data-split-heading className="display-lg mt-6 max-w-xl">
+            {HEADING.split(" ").flatMap((word, wi, arr) => {
               const wordSpan = (
-                <span
-                  key={`w-${wi}`}
-                  className={`inline-block whitespace-nowrap ${
-                    isAccent ? "accent-word text-deep-brown" : ""
-                  }`}
-                >
+                <span key={`w-${wi}`} className="inline-block whitespace-nowrap">
                   {word.split("").map((ch, ci) => (
                     <span key={ci} data-char className="inline-block">
                       {ch}
@@ -37,36 +35,19 @@ export default function Statement() {
                   ))}
                 </span>
               );
-              return wi < WORDS.length - 1 ? [wordSpan, " "] : [wordSpan];
+              return wi < arr.length - 1 ? [wordSpan, " "] : [wordSpan];
             })}
           </h2>
-          <p
-            data-reveal
-            className="mt-8 max-w-md text-[17px] leading-[1.65] text-deep-brown/90"
-          >
+          <p data-reveal className="mt-8 max-w-xl leading-relaxed text-muted">
             established in 2023, we&rsquo;re about ten friends united by
             one purpose: that with one mind and one voice, we might
             glorify God. rooted in Christ, we lead worship at churches
             and events, wherever we&rsquo;re asked — through faith,
             fellowship, and friendship.
           </p>
-          <Link
-            href="/about"
-            data-reveal
-            className="mt-8 inline-flex items-center gap-2 border-b border-deep-brown pb-1 text-[14px] font-semibold text-deep-brown transition-opacity duration-200 hover:opacity-70"
-          >
-            read the full story &rarr;
+          <Link href="/about" data-reveal className="link-label mt-9">
+            read the full story ↗
           </Link>
-        </div>
-
-        <div data-reveal className="relative aspect-[4/5] overflow-hidden rounded-sm">
-          <DuotonePhoto
-            src="/images/MNFD6096-.jpg"
-            alt="The One Voice collective"
-            objectPosition="50% 15%"
-            sizes="(min-width: 768px) 480px, 100vw"
-            className="h-full w-full"
-          />
         </div>
       </div>
     </section>
