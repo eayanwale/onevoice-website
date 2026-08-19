@@ -41,7 +41,13 @@ work:
 
 - **Tokens**: `charcoal` `#1A1A1A`, `deep-brown` `#473237`, `warm-sage` `#BEB7A7`,
   `bone` `#E8E2D4`, `off-white` `#F5F0E6`. Display font Instrument Sans, body Manrope,
-  no monospace anywhere, no more than two font weights on a page.
+  labels/buttons JetBrains Mono via `.label-text`. No more than two font weights on a
+  page — the mono label face is a distinct typeface reserved for that one role, not a
+  second weight of the display or body faces.
+- **Section colors come from the band, not the component.** Reach for `bg-surface`,
+  `text-ink`, `text-muted`, and `.btn-solid` and let `.on-bone` / `.on-sand` decide
+  the actual values. Hardcode a brand hex only when an element must stay that color
+  regardless of the band it sits in (e.g. text over a dark photo).
 - **Avoid**: Inter/Roboto/Arial, purple gradients, unmodified shadcn-style card grids,
   dev-tool/SaaS-dashboard aesthetics, stock "ministry website" tropes (clip-art
   crosses, stained glass, staged group photos), all-caps body text.
