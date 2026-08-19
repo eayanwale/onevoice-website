@@ -1,5 +1,6 @@
 import Entrance from "@/components/sections/Entrance";
 import Statement from "@/components/sections/Statement";
+import Values from "@/components/sections/Values";
 import LatestWork from "@/components/sections/LatestWork";
 import VisualWorld from "@/components/sections/VisualWorld";
 import Words from "@/components/sections/Words";
@@ -11,6 +12,7 @@ export default function Home() {
     <main>
       <Entrance />
       <Statement />
+      <Values />
       <LatestWork />
       <VisualWorld />
       <Words />
