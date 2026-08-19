@@ -77,17 +77,41 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-off-white/15 pt-8">
-          <Image
-            src="/logo/one-voice-lockup-light-trimmed.png"
-            alt="One Voice — est. 2023, USA"
-            width={981}
-            height={405}
-            className="h-6 w-auto object-contain"
-          />
-          <p className="label-text text-off-white/45">
-            &copy; 2026 one voice &middot; one mind. one voice.
+        {/* three-up bottom bar: copyright left, logo centered, socials right.
+            the outer columns share a basis so the logo lands on the true
+            center of the bar rather than the center of the leftover space. */}
+        <div className="mt-16 flex flex-col items-center gap-6 border-t border-off-white/15 pt-8 sm:flex-row sm:justify-between">
+          <p className="label-text order-2 text-off-white/45 sm:order-1 sm:flex-1">
+            &copy; 2026 one voice
           </p>
+
+          <Link
+            href="/"
+            aria-label="One Voice — home"
+            className="order-1 shrink-0 transition-opacity duration-200 hover:opacity-80 sm:order-2"
+          >
+            <Image
+              src="/logo/one-voice-lockup-light-trimmed.png"
+              alt="One Voice — est. 2023, USA"
+              width={981}
+              height={405}
+              className="h-10 w-auto object-contain sm:h-12"
+            />
+          </Link>
+
+          <div className="order-3 flex flex-wrap justify-center gap-3 sm:flex-1 sm:justify-end">
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-outline border-off-white/25 text-off-white/70 hover:bg-off-white/10 hover:text-off-white"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
