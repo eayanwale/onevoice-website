@@ -16,8 +16,8 @@ export default function InvitePage() {
         overline="invite us"
         title="tell us about the room."
         lead="Services, worship nights, conferences, retreats, weddings, campus gatherings — send us the details and we'll come back to you personally."
-        image="/images/visual-world/stage-full-group-lights.jpg"
-        imageAlt="One Voice leading worship under warm stage light"
+        image="/images/visual-world/conference-performance.jpg"
+        imageAlt="A One Voice singer leading worship at a conference"
         objectPosition="50% 35%"
       />
 
