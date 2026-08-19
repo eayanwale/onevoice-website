@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
-import Values from "@/components/sections/Values";
+import Voices from "@/components/sections/Voices";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
@@ -50,7 +50,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Values overline="core values" layout="rows" />
+      <Voices />
 
       <section className="on-sand relative overflow-hidden py-24 text-center sm:py-32">
         <div className="grain" aria-hidden="true" />
