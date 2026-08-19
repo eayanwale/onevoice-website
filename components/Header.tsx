@@ -23,6 +23,11 @@ export default function Header() {
   // header, so it starts (and stays) in the glass state there.
   const hasHero = pathname === "/";
 
+  // "/" only matches exactly; every other route also matches its children
+  // so a future /gallery/[slug] still lights up the gallery nav item.
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(!hasHero);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -88,7 +93,12 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="font-body text-sm tracking-wide text-off-white/70 transition-colors duration-200 hover:text-off-white"
+              aria-current={isActive(link.href) ? "page" : undefined}
+              className={`font-body text-sm tracking-wide transition-colors duration-200 hover:text-off-white ${
+                isActive(link.href)
+                  ? "font-semibold text-off-white"
+                  : "text-off-white/70"
+              }`}
             >
               {link.label}
             </Link>
@@ -142,7 +152,12 @@ export default function Header() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, ease: EASE, delay: 0.05 * i }}
-                  className="display-md flex min-h-11 items-center text-off-white"
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className={`display-md flex min-h-11 items-center ${
+                    isActive(link.href)
+                      ? "text-off-white"
+                      : "text-off-white/55"
+                  }`}
                 >
                   {link.label}
                 </motion.a>
@@ -153,7 +168,10 @@ export default function Header() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: EASE, delay: 0.05 * (NAV_LINKS.length + 1) }}
-                className="display-md flex min-h-11 items-center text-off-white"
+                aria-current={isActive("/invite") ? "page" : undefined}
+                className={`display-md flex min-h-11 items-center ${
+                  isActive("/invite") ? "text-off-white" : "text-off-white/55"
+                }`}
               >
                 invite us
               </motion.a>
