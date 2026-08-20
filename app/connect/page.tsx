@@ -15,7 +15,7 @@ export default function ConnectPage() {
       <PageHero
         overline="connect"
         title="say hello."
-        lead="Questions, encouragement, collaborations, or just to tell us a song landed — this reaches all of us."
+        lead="Questions, encouragement, collaborations, or just to tell us we sang your favorite gospel song — this reaches all of us."
         image="/images/connect-hero.jpg"
         imageAlt="Three members of One Voice sitting together in the pews, one laughing over a shared phone"
         // biased right of centre so the faces stay clear of the headline,

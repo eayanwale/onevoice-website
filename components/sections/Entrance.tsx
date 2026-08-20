@@ -182,13 +182,13 @@ export default function Entrance() {
           className="h-16 w-auto opacity-90 sm:h-20"
         />
         <h1 data-reveal className="display-xl mt-8 max-w-4xl text-off-white">
-          that with one mind
+          That with one mind
           <br />
-          and one voice.
+          and One Voice.
         </h1>
         <div data-reveal className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-end">
           <p className="max-w-md text-base leading-relaxed text-off-white/75">
-            ten friends carrying one conviction: that when ordinary
+            Ten friends carrying one conviction; that when ordinary
             voices are lifted honestly, God shows up.
           </p>
           <div className="flex flex-wrap gap-3 sm:ml-auto">

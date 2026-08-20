@@ -1,7 +1,7 @@
 import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-const HEADING = "we’d rather be one voice than ten good ones.";
+const HEADING = "We’d rather be one unified voice than ten separate ones.";
 
 export default function Statement() {
   return (
@@ -39,10 +39,10 @@ export default function Statement() {
             })}
           </h2>
           <p data-reveal className="mt-8 max-w-xl leading-relaxed text-muted">
-            honestly, ten voices is a lot of opinions. we rehearse, we
-            disagree, we figure it out, and somewhere in there it starts
-            sounding like one thing. that&rsquo;s the part we love, and
-            it&rsquo;s what we bring when we come sing with you.
+            Honestly, ten voices is a lot of opinions. We rehearse, we
+            disagree, we get easily sidetracked &mdash; yet somewhere in all
+            of that comes something singular and true. That&rsquo;s the part
+            we love most, and the part we especially want to share with you.
           </p>
           <Link href="/about" data-reveal className="link-label mt-9">
             read the full story ↗

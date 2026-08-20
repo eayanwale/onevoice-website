@@ -22,7 +22,7 @@ export default function SiteFooter() {
           <div className="flex flex-col items-center lg:items-start">
             <p className="label-text text-off-white/50">stay connected</p>
             <h2 className="display-lg mt-5 max-w-lg">
-              new music, moments, and where we&rsquo;re singing next.
+              New music, moments, and where we&rsquo;re ministering next.
             </h2>
             <div className="mt-8 w-full max-w-md">
               <EmailSignup />
