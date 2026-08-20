@@ -182,7 +182,7 @@ export default function Entrance() {
           className="h-16 w-auto opacity-90 sm:h-20"
         />
         <h1 data-reveal className="display-xl mt-8 max-w-4xl text-off-white">
-          That with one mind
+          that with one mind
           <br />
           and one voice.
         </h1>

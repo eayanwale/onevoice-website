@@ -28,7 +28,7 @@ export default function BookingForm() {
     return (
       <div data-reveal className="mx-auto max-w-xl py-16 text-center">
         <p className="label-text text-muted">request received</p>
-        <h2 className="display-lg mt-6">Thank you — we&rsquo;ve got it.</h2>
+        <h2 className="display-lg mt-6">thank you — we&rsquo;ve got it.</h2>
         <p className="mt-5 leading-relaxed text-muted">
           We read every request together and will reply from hello@onev.live,
           usually within a few days.

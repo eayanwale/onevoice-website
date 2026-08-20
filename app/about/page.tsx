@@ -15,7 +15,7 @@ export default function AboutPage() {
     <main>
       <PageHero
         overline="est. 2023"
-        title="A community of friends, singing with one voice."
+        title="a community of friends, singing with one voice."
         image="/images/visual-world/group-singing-warm-venue.jpg"
         imageAlt="OneVoice leading worship in a warm-lit venue"
         objectPosition="50% 30%"
@@ -26,7 +26,7 @@ export default function AboutPage() {
           <div data-reveal>
             <p className="label-text text-warm-sage">romans 15:6</p>
             <blockquote className="display-md mt-6 max-w-sm">
-              &ldquo;That with one mind and one voice we may glorify the God
+              &ldquo;that with one mind and one voice we may glorify the God
               and Father of our Lord Jesus Christ.&rdquo;
             </blockquote>
           </div>

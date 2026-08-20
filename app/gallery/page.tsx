@@ -40,7 +40,7 @@ export default function GalleryPage() {
     <main>
       <PageHero
         overline="gallery"
-        title="Our photo dump."
+        title="our photo dump."
         lead="Rehearsals, sets, and the quiet moments in between. New images added as we go."
         // wider measure from md up so this sits on a single line; it still
         // wraps normally on phones rather than being forced with nowrap

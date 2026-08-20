@@ -152,7 +152,7 @@ export default function Voices() {
           the people
         </p>
         <h2 data-reveal className="display-lg mt-6 max-w-lg">
-          Meet OneVoice.
+          meet OneVoice.
         </h2>
         <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
           Ten friends who show up — every rehearsal, every service.

@@ -15,7 +15,7 @@ export default function Invitation() {
           an open invitation
         </p>
         <h2 data-reveal className="display-lg mt-6">
-          We&rsquo;d love to minister with you.
+          we&rsquo;d love to minister with you.
         </h2>
         <p data-reveal className="mx-auto mt-6 max-w-xl leading-relaxed text-muted">
           Tell us what you&rsquo;re planning, and one of us will write back.

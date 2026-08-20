@@ -1,7 +1,7 @@
 import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-const HEADING = "We’d rather be one unified voice than ten separate ones.";
+const HEADING = "we’d rather be one unified voice than ten separate ones.";
 
 export default function Statement() {
   return (

@@ -20,7 +20,7 @@ export default function ContactForm() {
         {sent ? (
           <div data-reveal>
             <p className="label-text text-warm-sage">message sent</p>
-            <h2 className="display-lg mt-6">Thanks for reaching out.</h2>
+            <h2 className="display-lg mt-6">thanks for reaching out.</h2>
             <p className="mt-5 max-w-md leading-relaxed text-muted">
               We&rsquo;ll reply from hello@onev.live as soon as we can.
             </p>

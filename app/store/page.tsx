@@ -16,7 +16,7 @@ export default function StorePage() {
     <main>
       <PageHero
         overline="store"
-        title="Merch is coming."
+        title="merch is coming."
         lead="Nothing to show yet — but we're working on it."
       />
 
@@ -41,7 +41,7 @@ export default function StorePage() {
               soon
             </p>
             <h2 data-reveal className="display-lg mt-6 max-w-md">
-              Worth the wait, we hope.
+              worth the wait, we hope.
             </h2>
             <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
               We&rsquo;re working on a small run of pieces built around the

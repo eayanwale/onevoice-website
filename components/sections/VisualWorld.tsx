@@ -30,7 +30,7 @@ export default function VisualWorld() {
     >
       <div className="mx-auto max-w-shell px-5 sm:px-8">
         <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
-          <h2 className="display-lg max-w-md">Gallery.</h2>
+          <h2 className="display-lg max-w-md">gallery.</h2>
           <Link href="/gallery" className="link-label">
             see all ↗
           </Link>

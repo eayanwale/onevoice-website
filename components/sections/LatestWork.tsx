@@ -44,7 +44,7 @@ export default function LatestWork() {
           watch us · lift our voices 2026
         </p>
         <h2 data-reveal className="display-lg mt-6 max-w-2xl text-off-white">
-          Praise &amp; <span className="accent-word text-warm-sage">worship</span> mashup.
+          praise &amp; <span className="accent-word text-warm-sage">worship</span> mashup.
         </h2>
         <p data-reveal className="mt-7 max-w-lg leading-relaxed text-off-white/70">
           Holy Forever. King of Heaven. That Great Name. To Our God.

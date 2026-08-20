@@ -7,7 +7,7 @@ export default function VerseBand() {
           romans 15:6
         </p>
         <blockquote data-reveal className="display-lg mt-7 text-balance">
-          &ldquo;That with one mind and one voice we may glorify the God
+          &ldquo;that with one mind and one voice we may glorify the God
           and Father of our Lord Jesus Christ.&rdquo;
         </blockquote>
       </div>

@@ -14,7 +14,7 @@ export default function InvitePage() {
     <main>
       <PageHero
         overline="invite us"
-        title="Tell us about your gathering."
+        title="tell us about your gathering."
         lead="If you're gathering people to worship, we'd like to be there."
         image="/images/invite-hero.jpg"
         imageAlt="A OneVoice keys player at the mic during soundcheck"
