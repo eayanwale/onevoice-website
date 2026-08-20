@@ -7,8 +7,8 @@ import DuotonePhoto from "@/components/DuotonePhoto";
 const TILES = [
   {
     src: "/images/visual-world/group-singing-warm-venue.jpg",
-    label: "one voice rehearsal",
-    alt: "One Voice singing together in a warm-lit venue",
+    label: "OneVoice rehearsal",
+    alt: "OneVoice singing together in a warm-lit venue",
   },
   {
     src: "/images/visual-world/stage-full-group-lights.jpg",
@@ -30,7 +30,7 @@ export default function VisualWorld() {
     >
       <div className="mx-auto max-w-shell px-5 sm:px-8">
         <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
-          <h2 className="display-lg max-w-md">gallery.</h2>
+          <h2 className="display-lg max-w-md">Gallery.</h2>
           <Link href="/gallery" className="link-label">
             see all ↗
           </Link>

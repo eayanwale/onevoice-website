@@ -5,12 +5,12 @@ import SocialIcon from "@/components/SocialIcon";
 import { SOCIAL_LINKS, EMAIL, isExternal } from "@/lib/links";
 
 const PAGE_LINKS = [
-  { href: "/", label: "home" },
-  { href: "/about", label: "about" },
-  { href: "/gallery", label: "gallery" },
-  { href: "/store", label: "store" },
-  { href: "/connect", label: "connect" },
-  { href: "/invite", label: "invite us" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/store", label: "Store" },
+  { href: "/connect", label: "Connect" },
+  { href: "/invite", label: "Invite us" },
 ];
 
 export default function SiteFooter() {
@@ -57,12 +57,12 @@ export default function SiteFooter() {
             <div className="flex justify-center">
               <Link
                 href="/"
-                aria-label="One Voice — home"
+                aria-label="OneVoice — home"
                 className="transition-opacity duration-200 hover:opacity-80"
               >
                 <Image
                   src="/logo/one-voice-mark-light-trimmed.png"
-                  alt="One Voice"
+                  alt="OneVoice"
                   width={466}
                   height={757}
                   className="h-36 w-auto object-contain sm:h-44"
@@ -74,7 +74,7 @@ export default function SiteFooter() {
 
         <div className="mt-16 flex flex-col items-center gap-6 border-t border-off-white/15 pt-8 sm:flex-row sm:justify-between">
           <p className="label-text order-2 text-off-white/45 sm:order-1">
-            &copy; 2026 one voice
+            &copy; 2026 OneVoice
           </p>
 
           <div className="order-1 flex justify-center gap-3 sm:order-2">

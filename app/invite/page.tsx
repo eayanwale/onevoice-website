@@ -4,9 +4,9 @@ import BookingForm from "@/components/invite/BookingForm";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
-  title: "Invite One Voice — sing with us",
+  title: "Invite OneVoice — sing with us",
   description:
-    "Invite One Voice to lead worship at your service, worship night, conference, retreat or wedding. Tell us about your gathering and one of us will write back.",
+    "Invite OneVoice to lead worship at your service, worship night, conference, retreat or wedding. Tell us about your gathering and one of us will write back.",
 };
 
 export default function InvitePage() {
@@ -14,10 +14,10 @@ export default function InvitePage() {
     <main>
       <PageHero
         overline="invite us"
-        title="tell us about your gathering."
-        lead="if you're gathering people to worship, we'd like to be there."
+        title="Tell us about your gathering."
+        lead="If you're gathering people to worship, we'd like to be there."
         image="/images/invite-hero.jpg"
-        imageAlt="A One Voice keys player at the mic during soundcheck"
+        imageAlt="A OneVoice keys player at the mic during soundcheck"
         objectPosition="50% 40%"
       />
 

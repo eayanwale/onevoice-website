@@ -15,10 +15,10 @@ export default function Invitation() {
           an open invitation
         </p>
         <h2 data-reveal className="display-lg mt-6">
-          we&rsquo;d love to minister with you.
+          We&rsquo;d love to minister with you.
         </h2>
         <p data-reveal className="mx-auto mt-6 max-w-xl leading-relaxed text-muted">
-          tell us what you&rsquo;re planning, and one of us will write back.
+          Tell us what you&rsquo;re planning, and one of us will write back.
         </p>
         <Link href="/invite" data-reveal className="btn-solid mt-10">
           invite us ↗

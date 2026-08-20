@@ -33,9 +33,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "One Voice — one mind, one voice",
+  title: "OneVoice — one mind, one voice",
   description:
-    "One Voice is a community of friends leading reverent, honest gospel worship, and walking alongside one another in faith.",
+    "OneVoice is a community of friends leading reverent, honest gospel worship, and walking alongside one another in faith.",
 };
 
 export default function RootLayout({

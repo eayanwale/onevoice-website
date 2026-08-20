@@ -5,9 +5,9 @@ import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
-  title: "About — One Voice",
+  title: "About — OneVoice",
   description:
-    "Established in 2023, One Voice is a community of friends creating space for reverent, honest worship that reflects the love of God and demonstrates the comfort of His presence to all people.",
+    "Established in 2023, OneVoice is a community of friends creating space for reverent, honest worship that reflects the love of God and demonstrates the comfort of His presence to all people.",
 };
 
 export default function AboutPage() {
@@ -15,9 +15,9 @@ export default function AboutPage() {
     <main>
       <PageHero
         overline="est. 2023"
-        title="a community of friends, singing with one voice."
+        title="A community of friends, singing with one voice."
         image="/images/visual-world/group-singing-warm-venue.jpg"
-        imageAlt="One Voice leading worship in a warm-lit venue"
+        imageAlt="OneVoice leading worship in a warm-lit venue"
         objectPosition="50% 30%"
       />
 
@@ -26,7 +26,7 @@ export default function AboutPage() {
           <div data-reveal>
             <p className="label-text text-warm-sage">romans 15:6</p>
             <blockquote className="display-md mt-6 max-w-sm">
-              &ldquo;that with one mind and one voice we may glorify the God
+              &ldquo;That with one mind and one voice we may glorify the God
               and Father of our Lord Jesus Christ.&rdquo;
             </blockquote>
           </div>
@@ -41,7 +41,7 @@ export default function AboutPage() {
               experience the joy of walking alongside one another in faith.
             </p>
             <p>
-              One Voice started simply as friends who love to sing together
+              OneVoice started simply as friends who love to sing together
               because of our shared love of God and music. What started as a
               humble call to share what we love with others became something
               truly only God could have created. Today, we lead worship at

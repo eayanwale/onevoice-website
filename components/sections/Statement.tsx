@@ -13,7 +13,7 @@ export default function Statement() {
         <div data-reveal className="relative aspect-[4/5] w-full overflow-hidden">
           <DuotonePhoto
             src="/images/MNFD6096-.jpg"
-            alt="The One Voice collective"
+            alt="The OneVoice collective"
             objectPosition="50% 15%"
             sizes="(min-width: 1024px) 640px, 100vw"
             className="h-full w-full"

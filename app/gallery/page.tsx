@@ -6,9 +6,9 @@ import ScrollReveals from "@/components/ScrollReveals";
 import { LIGHTROOM_GALLERY_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Gallery — One Voice",
+  title: "Gallery — OneVoice",
   description:
-    "Photographs from One Voice rehearsals, sets, and the quiet moments in between.",
+    "Photographs from OneVoice rehearsals, sets, and the quiet moments in between.",
 };
 
 // No visible captions on this page — the photographs carry themselves. `alt`
@@ -22,9 +22,9 @@ const PHOTOS: { src: string; alt: string; tall: boolean }[] = [
   { src: "/images/visual-world/solo-cap-singing.jpg", alt: "A singer in a cap mid-song at the mic", tall: true },
   { src: "/images/visual-world/candid-pew-moment.jpg", alt: "A quiet moment in the pews before the set", tall: true },
   { src: "/images/visual-world/hands-on-keys-detail.jpg", alt: "Hands resting on the keys", tall: false },
-  { src: "/images/visual-world/group-singing-warm-venue.jpg", alt: "One Voice singing together in a warm-lit venue", tall: true },
+  { src: "/images/visual-world/group-singing-warm-venue.jpg", alt: "OneVoice singing together in a warm-lit venue", tall: true },
   { src: "/images/visual-world/solo-vest-window-light.jpg", alt: "A member standing in window light backstage", tall: true },
-  { src: "/images/visual-world/candid-back-view.jpg", alt: "A member of One Voice seen from behind during worship", tall: true },
+  { src: "/images/visual-world/candid-back-view.jpg", alt: "A member of OneVoice seen from behind during worship", tall: true },
   { src: "/images/visual-world/hands-on-keys-close.jpg", alt: "Close crop of hands playing the keys", tall: false },
   { src: "/images/visual-world/solo-lyrics-screen.jpg", alt: "A singer reading lyrics from the screen", tall: true },
   { src: "/images/visual-world/conference-performance.jpg", alt: "The group leading worship at a conference", tall: false },
@@ -40,13 +40,13 @@ export default function GalleryPage() {
     <main>
       <PageHero
         overline="gallery"
-        title="our photo dump."
+        title="Our photo dump."
         lead="Rehearsals, sets, and the quiet moments in between. New images added as we go."
         // wider measure from md up so this sits on a single line; it still
         // wraps normally on phones rather than being forced with nowrap
         leadClassName="max-w-xl md:max-w-3xl"
         image="/images/about-hero.jpg"
-        imageAlt="Two members of One Voice together after a set"
+        imageAlt="Two members of OneVoice together after a set"
         objectPosition="55% 32%"
       />
 

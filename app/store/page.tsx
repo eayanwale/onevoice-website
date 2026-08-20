@@ -6,7 +6,7 @@ import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
-  title: "Store — One Voice",
+  title: "Store — OneVoice",
   description:
     "Merch is on the way. Join the list and we'll let you know the moment there's something to see.",
 };
@@ -16,7 +16,7 @@ export default function StorePage() {
     <main>
       <PageHero
         overline="store"
-        title="merch is coming."
+        title="Merch is coming."
         lead="Nothing to show yet — but we're working on it."
       />
 
@@ -41,11 +41,11 @@ export default function StorePage() {
               soon
             </p>
             <h2 data-reveal className="display-lg mt-6 max-w-md">
-              worth the wait, we hope.
+              Worth the wait, we hope.
             </h2>
             <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
-              we&rsquo;re working on a small run of pieces built around the
-              sound — nothing loud, nothing disposable. join the list and
+              We&rsquo;re working on a small run of pieces built around the
+              sound — nothing loud, nothing disposable. Join the list and
               we&rsquo;ll let you know the moment there&rsquo;s something to see.
             </p>
             <div data-reveal className="mt-8 max-w-md">

@@ -20,9 +20,9 @@ export default function ContactForm() {
         {sent ? (
           <div data-reveal>
             <p className="label-text text-warm-sage">message sent</p>
-            <h2 className="display-lg mt-6">thanks for reaching out.</h2>
+            <h2 className="display-lg mt-6">Thanks for reaching out.</h2>
             <p className="mt-5 max-w-md leading-relaxed text-muted">
-              we&rsquo;ll reply from hello@onev.live as soon as we can.
+              We&rsquo;ll reply from hello@onev.live as soon as we can.
             </p>
           </div>
         ) : (
@@ -64,7 +64,7 @@ export default function ContactForm() {
         <div>
           <p className="label-text text-warm-sage">invitations</p>
           <p className="mt-5 text-sm leading-relaxed text-muted">
-            looking to have us lead worship? the invite form collects
+            Looking to have us lead worship? The invite form collects
             everything we need.
           </p>
           <Link href="/invite" className="link-label mt-5">
