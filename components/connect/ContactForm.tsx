@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import Field from "@/components/Field";
 import EmailSignup from "@/components/EmailSignup";
-import { SOCIAL_LINKS, EMAIL, isExternal } from "@/lib/links";
+import { SOCIAL_LINKS, PLATFORM_LABELS, EMAIL, isExternal } from "@/lib/links";
 
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
@@ -92,14 +92,14 @@ export default function ContactForm() {
                     rel="noreferrer"
                     className="text-sm text-muted transition-colors hover:text-ink"
                   >
-                    {link.platform}
+                    {PLATFORM_LABELS[link.platform]}
                   </a>
                 ) : (
                   <Link
                     href={link.href}
                     className="text-sm text-muted transition-colors hover:text-ink"
                   >
-                    {link.platform}
+                    {PLATFORM_LABELS[link.platform]}
                   </Link>
                 )}
               </li>

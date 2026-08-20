@@ -3,15 +3,17 @@
 import { useState, type FormEvent } from "react";
 import Field from "@/components/Field";
 
+// `value` is what the submission carries and must stay stable; `label` is
+// display only, so it follows the site's sentence case.
 const EVENT_TYPES = [
-  "worship night",
-  "sunday service",
-  "conference",
-  "retreat or camp",
-  "wedding",
-  "campus or youth event",
-  "community event",
-  "something else",
+  { value: "worship night", label: "Worship night" },
+  { value: "sunday service", label: "Sunday service" },
+  { value: "conference", label: "Conference" },
+  { value: "retreat or camp", label: "Retreat or camp" },
+  { value: "wedding", label: "Wedding" },
+  { value: "campus or youth event", label: "Campus or youth event" },
+  { value: "community event", label: "Community event" },
+  { value: "something else", label: "Something else" },
 ];
 
 export default function BookingForm() {
@@ -89,8 +91,8 @@ export default function BookingForm() {
           >
             <option value="">select one</option>
             {EVENT_TYPES.map((type) => (
-              <option key={type} value={type}>
-                {type}
+              <option key={type.value} value={type.value}>
+                {type.label}
               </option>
             ))}
           </select>
