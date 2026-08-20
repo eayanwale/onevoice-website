@@ -5,9 +5,9 @@ import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
-  title: "About — One Voice",
+  title: "About — OneVoice",
   description:
-    "Established in 2023, One Voice is a community of friends creating space for reverent, honest worship that reflects the love of the Lord and welcomes all generations into His presence.",
+    "Established in 2023, OneVoice is a community of friends creating space for reverent, honest worship that reflects the love of God and demonstrates the comfort of His presence to all people.",
 };
 
 export default function AboutPage() {
@@ -17,7 +17,7 @@ export default function AboutPage() {
         overline="est. 2023"
         title="a community of friends, singing with one voice."
         image="/images/visual-world/group-singing-warm-venue.jpg"
-        imageAlt="One Voice leading worship in a warm-lit venue"
+        imageAlt="OneVoice leading worship in a warm-lit venue"
         objectPosition="50% 30%"
       />
 
@@ -32,20 +32,21 @@ export default function AboutPage() {
           </div>
           <div data-reveal className="space-y-6 leading-relaxed text-muted">
             <p>
-              established in 2023, we&rsquo;re a community of friends
-              united by one purpose. rooted in Christ, we seek to create a
-              space for reverent and honest worship that reflects the love
-              of the Lord and welcomes all generations into His presence.
-              through faith, fellowship, and friendship, we hope to inspire
-              others to grow in community and experience the joy of walking
-              alongside one another in faith.
+              Established in 2023, we&rsquo;re a community of friends united
+              under one purpose as explicitly defined in Romans 15:6. Our
+              desire is to create a space for reverent and honest worship
+              that reflects the love of God and demonstrates the comfort of
+              His presence to all people. Through faith, fellowship, and
+              friendship, we hope to inspire others to grow in community and
+              experience the joy of walking alongside one another in faith.
             </p>
             <p>
-              it started simply — friends singing together because we
-              wanted to, then finding that other people needed the same
-              thing. since then, we&rsquo;ve led worship at churches,
-              conferences, and gatherings, always with the same posture:
-              keep it honest, keep it reverent, keep everyone in it.
+              OneVoice started simply as friends who love to sing together
+              because of our shared love of God and music. What started as a
+              humble call to share what we love with others became something
+              truly only God could have created. Today, we lead worship at
+              churches, conferences, and gatherings, always with the same
+              heart posture; one mind, one voice, glorifying God.
             </p>
           </div>
         </div>

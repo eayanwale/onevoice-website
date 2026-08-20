@@ -24,14 +24,14 @@ export default function EmailSignup({ label = "stay close" }: { label?: string }
     <form onSubmit={handleSubmit} noValidate>
       <div className="flex border border-ink/25">
         <label className="sr-only" htmlFor={id}>
-          email address
+          Email address
         </label>
         <input
           id={id}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="email address"
+          placeholder="Email address"
           autoComplete="email"
           className="min-h-11 min-w-0 flex-1 bg-transparent px-4 py-3.5 text-sm outline-none placeholder:text-ink/45"
         />

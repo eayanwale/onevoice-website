@@ -24,7 +24,7 @@ export default function LatestWork() {
       <div className="absolute inset-0 overflow-hidden">
         <DuotonePhoto
           src="/images/lov-youtube-cover.jpg"
-          alt="One Voice — praise & worship mashup, live at Lift Our Voices 2026"
+          alt="OneVoice — praise & worship mashup, live at Lift Our Voices 2026"
           parallax
           objectPosition="50% 40%"
           className="absolute inset-x-0 -top-[25%] h-[150%] w-full"
@@ -47,8 +47,8 @@ export default function LatestWork() {
           praise &amp; <span className="accent-word text-warm-sage">worship</span> mashup.
         </h2>
         <p data-reveal className="mt-7 max-w-lg leading-relaxed text-off-white/70">
-          holy forever. king of heaven. that great name. to our God.
-          baruch hashem adonai. good good father.
+          Holy Forever. King of Heaven. That Great Name. To Our God.
+          Baruch HaShem Adonai. Good Good Father.
         </p>
         <div data-reveal className="mt-9 flex flex-wrap items-center gap-3">
           <a

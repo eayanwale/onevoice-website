@@ -1,6 +1,6 @@
-# One Voice — onev.live
+# OneVoice — onev.live
 
-The site for **One Voice**, a gospel music collective making honest music and visuals.
+The site for **OneVoice**, a gospel music collective making honest music and visuals.
 It's built to feel like entering a quiet, intentional space rather than scrolling a
 feed: real photography, restrained motion, and no filler copy.
 

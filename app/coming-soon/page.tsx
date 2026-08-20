@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Coming soon — One Voice",
+  title: "Coming soon — OneVoice",
   description: "Not here yet. Check back soon.",
 };
 
