@@ -4,9 +4,9 @@ import ContactForm from "@/components/connect/ContactForm";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
-  title: "Connect — One Voice",
+  title: "Connect — OneVoice",
   description:
-    "Say hello, ask a question, or follow along. Message One Voice directly or join the email list for new music and worship nights.",
+    "Say hello, ask a question, or follow along. Message OneVoice directly or join the email list for new music and worship nights.",
 };
 
 export default function ConnectPage() {
@@ -15,9 +15,9 @@ export default function ConnectPage() {
       <PageHero
         overline="connect"
         title="say hello."
-        lead="Questions, encouragement, collaborations, or just to tell us a song landed — this reaches all of us."
+        lead="Questions, encouragement, collaborations, or just to tell us we sang your favorite gospel song — this reaches all of us."
         image="/images/connect-hero.jpg"
-        imageAlt="Three members of One Voice sitting together in the pews, one laughing over a shared phone"
+        imageAlt="Three members of OneVoice sitting together in the pews, one laughing over a shared phone"
         // biased right of centre so the faces stay clear of the headline,
         // which sits bottom-left over the photo
         objectPosition="56% 46%"

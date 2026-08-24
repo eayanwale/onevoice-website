@@ -6,7 +6,7 @@ import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
 
 export const metadata: Metadata = {
-  title: "Store — One Voice",
+  title: "Store — OneVoice",
   description:
     "Merch is on the way. Join the list and we'll let you know the moment there's something to see.",
 };
@@ -44,8 +44,8 @@ export default function StorePage() {
               worth the wait, we hope.
             </h2>
             <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
-              we&rsquo;re working on a small run of pieces built around the
-              sound — nothing loud, nothing disposable. join the list and
+              We&rsquo;re working on a small run of pieces built around the
+              sound — nothing loud, nothing disposable. Join the list and
               we&rsquo;ll let you know the moment there&rsquo;s something to see.
             </p>
             <div data-reveal className="mt-8 max-w-md">

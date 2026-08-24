@@ -23,6 +23,16 @@ export const LIGHTROOM_GALLERY_URL =
 
 export type Platform = "instagram" | "youtube" | "spotify";
 
+/**
+ * Display names for the platforms. `Platform` itself doubles as a SocialIcon
+ * lookup key and a React key, so it has to stay lowercase — capitalise here.
+ */
+export const PLATFORM_LABELS: Record<Platform, string> = {
+  instagram: "Instagram",
+  youtube: "YouTube",
+  spotify: "Spotify",
+};
+
 export const SOCIAL_LINKS: { platform: Platform; href: string }[] = [
   { platform: "instagram", href: INSTAGRAM_URL },
   { platform: "youtube", href: YOUTUBE_CHANNEL_URL },

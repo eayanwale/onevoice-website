@@ -38,16 +38,16 @@ const MEMBER_FILTER_HOVER =
 // dropping <name>.jpg into public/images/members/ is the only step needed —
 // the pairing never depends on the order files were handed over.
 const VOICES: Voice[] = [
-  { name: "ayomide", photo: "/images/members/ayomide.jpg" },
-  { name: "deborah", photo: "/images/members/deborah.jpg" },
-  { name: "dionne", photo: "/images/members/dionne.jpg" },
-  { name: "enoch", photo: "/images/members/enoch.jpg" },
-  { name: "favor", photo: "/images/members/favor.jpg" },
-  { name: "feyishola", photo: "/images/members/feyishola.jpg" },
-  { name: "fiyin", photo: "/images/members/fiyin.jpg" },
-  { name: "goodness", photo: "/images/members/goodness.jpg" },
-  { name: "joseph", photo: "/images/members/joseph.jpg" },
-  { name: "naomi", photo: "/images/members/naomi.jpg" },
+  { name: "Ayomide", photo: "/images/members/ayomide.jpg" },
+  { name: "Deborah", photo: "/images/members/deborah.jpg" },
+  { name: "Dionne", photo: "/images/members/dionne.jpg" },
+  { name: "Enoch", photo: "/images/members/enoch.jpg" },
+  { name: "Favor", photo: "/images/members/favor.jpg" },
+  { name: "Feyishola", photo: "/images/members/feyishola.jpg" },
+  { name: "Fiyin", photo: "/images/members/fiyin.jpg" },
+  { name: "Goodness", photo: "/images/members/goodness.jpg" },
+  { name: "Joseph", photo: "/images/members/joseph.jpg" },
+  { name: "Naomi", photo: "/images/members/naomi.jpg" },
 ];
 
 function VoiceCard({ voice }: { voice: Voice }) {
@@ -59,7 +59,7 @@ function VoiceCard({ voice }: { voice: Voice }) {
       <div className="relative aspect-[3/4] overflow-hidden">
         <DuotonePhoto
           src={voice.photo}
-          alt={`${voice.name} of One Voice`}
+          alt={`${voice.name} of OneVoice`}
           sizes="(min-width: 640px) 300px, 240px"
           objectPosition={voice.objectPosition ?? DEFAULT_OBJECT_POSITION}
           filter={MEMBER_FILTER}
@@ -152,10 +152,10 @@ export default function Voices() {
           the people
         </p>
         <h2 data-reveal className="display-lg mt-6 max-w-lg">
-          meet one voice.
+          meet OneVoice.
         </h2>
         <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
-          ten friends who show up — every rehearsal, every service.
+          Ten friends who show up — every rehearsal, every service.
         </p>
       </div>
 

@@ -7,8 +7,8 @@ import DuotonePhoto from "@/components/DuotonePhoto";
 const TILES = [
   {
     src: "/images/visual-world/group-singing-warm-venue.jpg",
-    label: "one voice rehearsal",
-    alt: "One Voice singing together in a warm-lit venue",
+    label: "OneVoice rehearsal",
+    alt: "OneVoice singing together in a warm-lit venue",
   },
   {
     src: "/images/visual-world/stage-full-group-lights.jpg",

@@ -12,10 +12,10 @@ const EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
 const SCROLL_THRESHOLD = 72;
 
 const NAV_LINKS = [
-  { href: "/about", label: "about" },
-  { href: "/gallery", label: "gallery" },
-  { href: "/store", label: "store" },
-  { href: "/connect", label: "connect" },
+  { href: "/about", label: "About" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/store", label: "Store" },
+  { href: "/connect", label: "Connect" },
 ];
 
 export default function Header() {
@@ -75,10 +75,10 @@ export default function Header() {
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-off-white/50 to-transparent"
       />
       <div className="relative mx-auto flex h-16 w-full max-w-shell items-center justify-between px-5 sm:h-[76px] sm:px-8">
-        <Link href="/" className="shrink-0" aria-label="One Voice — home">
+        <Link href="/" className="shrink-0" aria-label="OneVoice — home">
           <Image
             src="/logo/one-voice-lockup-light-trimmed.png"
-            alt="One Voice"
+            alt="OneVoice"
             width={981}
             height={405}
             priority
@@ -142,7 +142,7 @@ export default function Header() {
           >
             <div className="grain" aria-hidden="true" />
             <nav className="relative flex flex-col gap-6">
-              {[{ href: "/", label: "home" }, ...NAV_LINKS].map((link, i) => (
+              {[{ href: "/", label: "Home" }, ...NAV_LINKS].map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
@@ -171,7 +171,7 @@ export default function Header() {
                   isActive("/invite") ? "text-off-white" : "text-off-white/55"
                 }`}
               >
-                invite us
+                Invite us
               </motion.a>
             </nav>
             <div className="relative mt-auto flex gap-3 border-t border-off-white/15 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))]">

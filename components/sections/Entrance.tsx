@@ -77,7 +77,7 @@ export default function Entrance() {
             make this shot work. The drifting frames carry the motion instead. */}
         <DuotonePhoto
           src="/images/home-hero.jpg"
-          alt="One Voice leading worship, singers at the mic with the band behind them"
+          alt="OneVoice leading worship, singers at the mic with the band behind them"
           priority
           objectPosition="55% 45%"
           filter={HERO_FILTER}
@@ -188,7 +188,7 @@ export default function Entrance() {
         </h1>
         <div data-reveal className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-end">
           <p className="max-w-md text-base leading-relaxed text-off-white/75">
-            ten friends carrying one conviction: that when ordinary
+            Ten friends carrying one conviction; that when ordinary
             voices are lifted honestly, God shows up.
           </p>
           <div className="flex flex-wrap gap-3 sm:ml-auto">

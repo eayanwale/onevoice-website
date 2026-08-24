@@ -3,15 +3,17 @@
 import { useState, type FormEvent } from "react";
 import Field from "@/components/Field";
 
+// `value` is what the submission carries and must stay stable; `label` is
+// display only, so it follows the site's sentence case.
 const EVENT_TYPES = [
-  "worship night",
-  "sunday service",
-  "conference",
-  "retreat or camp",
-  "wedding",
-  "campus or youth event",
-  "community event",
-  "something else",
+  { value: "worship night", label: "Worship night" },
+  { value: "sunday service", label: "Sunday service" },
+  { value: "conference", label: "Conference" },
+  { value: "retreat or camp", label: "Retreat or camp" },
+  { value: "wedding", label: "Wedding" },
+  { value: "campus or youth event", label: "Campus or youth event" },
+  { value: "community event", label: "Community event" },
+  { value: "something else", label: "Something else" },
 ];
 
 export default function BookingForm() {
@@ -28,7 +30,7 @@ export default function BookingForm() {
         <p className="label-text text-muted">request received</p>
         <h2 className="display-lg mt-6">thank you — we&rsquo;ve got it.</h2>
         <p className="mt-5 leading-relaxed text-muted">
-          we read every request together and will reply from hello@onev.live,
+          We read every request together and will reply from hello@onev.live,
           usually within a few days.
         </p>
       </div>
@@ -41,15 +43,15 @@ export default function BookingForm() {
         <p className="label-text text-muted">good to know</p>
         <ul className="mt-7 space-y-5 text-sm leading-relaxed text-muted">
           <li>
-            reach out as early as you can — four to six weeks ahead gives us the
+            Reach out as early as you can — four to six weeks ahead gives us the
             best chance of saying yes.
           </li>
           <li>
-            budget doesn&rsquo;t decide whether we come. tell us what you have
+            Budget doesn&rsquo;t decide whether we come. Tell us what you have
             and we&rsquo;ll be honest about what works.
           </li>
           <li>
-            prefer to just talk?{" "}
+            Prefer to just talk?{" "}
             <a href="mailto:hello@onev.live" className="border-b border-current pb-0.5">
               hello@onev.live
             </a>
@@ -87,15 +89,15 @@ export default function BookingForm() {
             defaultValue=""
             className="field-input appearance-none"
           >
-            <option value="">select one</option>
+            <option value="">Select one</option>
             {EVENT_TYPES.map((type) => (
-              <option key={type} value={type}>
-                {type}
+              <option key={type.value} value={type.value}>
+                {type.label}
               </option>
             ))}
           </select>
         </Field>
-        <Field label="date" htmlFor="eventDate" hint="approximate is fine">
+        <Field label="date" htmlFor="eventDate" hint="Approximate is fine">
           <input id="eventDate" name="eventDate" type="date" className="field-input" />
         </Field>
         <Field label="location" htmlFor="location">
@@ -116,7 +118,7 @@ export default function BookingForm() {
             name="message"
             required
             className="field-input min-h-40 resize-y"
-            placeholder="who's coming, what you're hoping the night feels like, and anything else we should know."
+            placeholder="Who's coming, what you're hoping the night feels like, and anything else we should know."
           />
         </Field>
         <div className="sm:col-span-2">
