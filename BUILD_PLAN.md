@@ -81,6 +81,13 @@ hold until the site has more than the placeholder/incomplete pages live.
 
 ## Phase 1 — Resend transactional email
 
+**Done (2026-08-24):** merged to `dev` and `main`, deployed, verified end-to-end against the
+live Worker (`onevoice-website.enochayanwale.workers.dev`) — contact form sends and lands in
+the Zoho `hello@onev.live` inbox. Hit one deploy-time snag: the `RESEND_API_KEY` secret didn't
+carry over from the earlier Pages-era setup (Workers secrets are bound per-service), which
+surfaced as a fast, non-network 502 (`Resend` constructor throws synchronously on a missing
+key). Fixed with `wrangler secret put RESEND_API_KEY --name onevoice-website` + redeploy.
+
 Branch: `feat/resend-forms` off `dev`.
 
 **Add:**
@@ -128,16 +135,33 @@ fail gracefully via the new error state rather than silently lying like today.
 
 ## Phase 2 — Resend Audiences (newsletter)
 
-Not yet detailed — pick up once Phase 1 has landed and a Resend Audience exists in the
-dashboard. Will reuse the `lib/resend.ts` client from Phase 1.
+**Done (2026-08-24):** the footer/`/store` email signup (`EmailSignup.tsx`) now posts to
+`app/api/subscribe/route.ts`, which adds the contact to a Resend Audience via
+`resend.contacts.create({ email, segments: [...] })` — current Resend API models an "Audience"
+as a Segment under the hood (`RESEND_AUDIENCE_ID`). Needed the `RESEND_API_KEY` bumped from
+"Sending access" to "Full access" in the dashboard, since audience/contact writes aren't
+covered by a sending-only key. `scripts/create-newsletter-audience.mjs` is the one-off that
+created the Audience.
 
 ## Phase 3 — Sanity CMS
 
-Not yet detailed. CMS-candidate content already identified in the repo audit:
-- `VOICES` array in `components/sections/Voices.tsx` — member roster
-- `PHOTOS` array in `app/gallery/page.tsx` — gallery images
-- `TILES` array in `components/sections/VisualWorld.tsx` — event photo tiles
-`sanity init` requires a browser OAuth login, so plan for an interactive session.
+**Done (2026-08-24):** standalone Studio at `studio/` (deployed to
+https://onevoice-worship.sanity.studio/), schemas for `member`, `galleryPhoto`, and `video`.
+Next.js side lives in `lib/sanity/` (`client.ts`, `image.ts`, `queries.ts`). Replaced the three
+arrays identified below, plus the homepage "watch us" slideshow (not part of the original
+audit — added once the video content needed the same treatment):
+- `VOICES` in `components/sections/Voices.tsx` → `member` documents (now includes each
+  member's own bio/tagline, revealed inline — sideways on desktop, downward accordion on
+  mobile — instead of a separate bio-card page, per the direction doc's "narrative, not bio
+  cards" call for `/about`)
+- `PHOTOS` in `app/gallery/page.tsx` and `TILES` in `VisualWorld.tsx` → both now read from the
+  same `galleryPhoto` type (a `featuredOnHome` flag marks the 3 homepage teaser tiles), so the
+  3 shared photos aren't duplicated as content
+- `LatestWork.tsx`'s hardcoded single video → `video` documents, ordered most-recent-first,
+  capped at 5
+
+All of the original static images these replaced were removed from `public/images/` once
+confirmed nothing else referenced them.
 
 ## Phase 4 — Zoho Mail
 
