@@ -60,12 +60,24 @@ all pass. Note: OpenNext prints a Windows-compatibility warning during build/pre
 worked here, but if `npm run preview` ever misbehaves locally, that's the known cause
 (recommends WSL); the actual deploy runs on Cloudflare's own Linux build servers regardless.
 
-**Next (dashboard, not done yet):**
-- Delete the earlier, broken Pages project (optional cleanup, not blocking)
-- Workers & Pages → Create → **Workers** → Connect to Git → select the repo
-- Worker name must be **`onevoice-website`** to match `wrangler.jsonc`
-- Once created, merge `chore/cloudflare-workers-deploy` → `dev` (PR), then set production
-  branch to `main` per the original hosting decision (dev stays an automatic preview branch)
+**Done (2026-08-24):** Workers project `onevoice-website` created, connected to Git, deployed
+successfully from `main`. Hit one more snag along the way: the dashboard auto-detected
+"Build command" = `npm run build` (plain `next build`) and "Deploy command" =
+`npx wrangler deploy`, but `wrangler deploy` auto-detects OpenNext projects and expects the
+`.open-next/` output to already exist — plain `next build` never produces it. Fixed by
+changing **Build command** to `npx opennextjs-cloudflare build` (Deploy command stayed
+`npx wrangler deploy`, which correctly delegates to `opennextjs-cloudflare deploy` once the
+build artifacts exist).
+
+**Live at:** https://onevoice-website.enochayanwale.workers.dev — verified rendering real
+content (nav, images, all sections), not a blank/error page.
+
+Note: `chore/cloudflare-workers-deploy` ended up merged straight into both `dev` and `main`
+(user call, to unblock testing quickly) rather than via the usual PR-into-dev-first flow —
+one-off exception for this infra setup, not a new normal.
+
+**Still open:** custom domain (`onev.live` → this Worker) intentionally not wired up yet —
+hold until the site has more than the placeholder/incomplete pages live.
 
 ## Phase 1 — Resend transactional email
 
