@@ -120,13 +120,7 @@ export default function BookingForm() {
         <Field label="location" htmlFor="location">
           <input id="location" name="location" className="field-input" />
         </Field>
-        <Field label="expected attendance" htmlFor="attendance">
-          <input id="attendance" name="attendance" className="field-input" />
-        </Field>
-        {/* half-width so it pairs with "expected attendance" — it was
-            full-width back when the budget field filled that slot, which
-            left attendance stranded alone on its row. */}
-        <Field label="how did you hear about us?" htmlFor="referral">
+        <Field label="how did you hear about us?" htmlFor="referral" className="sm:col-span-2">
           <input id="referral" name="referral" className="field-input" />
         </Field>
         <Field label="tell us about the gathering *" htmlFor="message" className="sm:col-span-2">

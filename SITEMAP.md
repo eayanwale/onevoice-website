@@ -10,8 +10,10 @@ onev.live
 │
 ├── /about                About Us — the collective's story, not a bio-card grid
 │
-├── /watch                Watch — video index: music videos, live sessions, behind-the-scenes
+├── /watch                Watch — video hub: music videos, covers, live sessions, behind-the-scenes
 │   └── /watch/[slug]      Individual video, full-bleed player, credits, related release
+│
+├── /coming-soon          Coming Soon — placeholder landing for links not live yet (e.g. Spotify)
 │
 ├── /gallery              Official Gallery — photography index (the visual world, expanded)
 │   └── /gallery/[slug]    A single shoot/project — gallery grid, story note, credits
