@@ -38,11 +38,16 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      return NextResponse.json({ ok: false, error: "Could not send message." }, { status: 502 });
+      // TEMP debug: surface the real Resend error while we track down the 502.
+      return NextResponse.json({ ok: false, error: "Could not send message.", debug: error }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ ok: false, error: "Could not send message." }, { status: 502 });
+  } catch (err) {
+    // TEMP debug: surface the real thrown error while we track down the 502.
+    return NextResponse.json(
+      { ok: false, error: "Could not send message.", debug: err instanceof Error ? err.message : String(err) },
+      { status: 502 }
+    );
   }
 }
