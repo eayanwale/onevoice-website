@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getResend, FROM_EMAIL } from "@/lib/resend";
+import { getResend, getFromEmail } from "@/lib/resend";
 import { EMAIL } from "@/lib/links";
 
 const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? EMAIL;
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
 
   try {
     const { error } = await getResend().emails.send({
-      from: FROM_EMAIL,
+      from: getFromEmail(),
       to: CONTACT_TO_EMAIL,
       replyTo: email,
       subject,
