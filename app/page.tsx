@@ -5,15 +5,18 @@ import LatestWork from "@/components/sections/LatestWork";
 import VisualWorld from "@/components/sections/VisualWorld";
 import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
+import { getFeaturedGalleryPhotos, getVideos } from "@/lib/sanity/queries";
 
-export default function Home() {
+export default async function Home() {
+  const [tiles, videos] = await Promise.all([getFeaturedGalleryPhotos(), getVideos()]);
+
   return (
     <main>
       <Entrance />
       <VerseBand />
       <Statement />
-      <LatestWork />
-      <VisualWorld />
+      <LatestWork slides={videos} />
+      <VisualWorld tiles={tiles} />
       <Invitation />
       <ScrollReveals />
     </main>

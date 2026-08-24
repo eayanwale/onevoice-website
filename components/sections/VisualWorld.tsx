@@ -1,28 +1,8 @@
 import Link from "next/link";
 import DuotonePhoto from "@/components/DuotonePhoto";
+import type { GalleryTile } from "@/lib/sanity/queries";
 
-// captions name the event the frame is from. `alt` stays a description of
-// the photo — the caption is rendered uppercase as a label and would tell a
-// screen-reader user nothing about the image on its own.
-const TILES = [
-  {
-    src: "/images/visual-world/group-singing-warm-venue.jpg",
-    label: "OneVoice rehearsal",
-    alt: "OneVoice singing together in a warm-lit venue",
-  },
-  {
-    src: "/images/visual-world/stage-full-group-lights.jpg",
-    label: "doxa 2025",
-    alt: "The full group on stage under coloured lights",
-  },
-  {
-    src: "/images/visual-world/candid-pew-moment.jpg",
-    label: "freedomnow 2025",
-    alt: "A quiet moment in the pews before the set",
-  },
-];
-
-export default function VisualWorld() {
+export default function VisualWorld({ tiles }: { tiles: GalleryTile[] }) {
   return (
     <section
       id="visuals"
@@ -36,7 +16,7 @@ export default function VisualWorld() {
           </Link>
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-3">
-          {TILES.map((tile) => (
+          {tiles.map((tile) => (
             <div key={tile.src} data-reveal className="group relative overflow-hidden">
               <DuotonePhoto
                 src={tile.src}

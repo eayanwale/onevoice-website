@@ -3,6 +3,7 @@ import PageHero from "@/components/PageHero";
 import Voices from "@/components/sections/Voices";
 import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
+import { getMembers } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
   title: "About — OneVoice",
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
     "Established in 2023, OneVoice is a community of friends creating space for reverent, honest worship that reflects the love of God and demonstrates the comfort of His presence to all people.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const voices = await getMembers();
+
   return (
     <main>
       <PageHero
@@ -52,7 +55,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Voices />
+      <Voices voices={voices} />
 
       <Invitation />
 

@@ -1,23 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DuotonePhoto from "@/components/DuotonePhoto";
 
-type Voice = {
-  name: string;
-  /** Optional on purpose — a card renders name-only until the role is known,
-      rather than showing a guessed instrument. */
-  role?: string;
-  photo: string;
-  /** Override the default upward bias when a frame crops badly. */
-  objectPosition?: string;
-};
+import type { Voice } from "@/lib/sanity/queries";
 
 // Most of these are full-body portraits taller than the 3:4 card, so a
 // centred cover-crop trims the top and takes heads with it. Biasing up keeps
 // faces in frame; landscape frames are unaffected (they crop horizontally).
+// Members without a Studio-picked hotspot fall back to this.
 const DEFAULT_OBJECT_POSITION = "50% 18%";
 
 // The roster is shot across studio, stage and phone-camera sources, so the
@@ -34,55 +27,125 @@ const MEMBER_FILTER =
 const MEMBER_FILTER_HOVER =
   "grayscale(0) sepia(0) saturate(1) hue-rotate(0deg) brightness(1) contrast(1)";
 
-// The roster, alphabetical. Each photo is keyed off the member's own name, so
-// dropping <name>.jpg into public/images/members/ is the only step needed —
-// the pairing never depends on the order files were handed over.
-const VOICES: Voice[] = [
-  { name: "Ayomide", photo: "/images/members/ayomide.jpg" },
-  { name: "Deborah", photo: "/images/members/deborah.jpg" },
-  { name: "Dionne", photo: "/images/members/dionne.jpg" },
-  { name: "Enoch", photo: "/images/members/enoch.jpg" },
-  { name: "Favor", photo: "/images/members/favor.jpg" },
-  { name: "Feyishola", photo: "/images/members/feyishola.jpg" },
-  { name: "Fiyin", photo: "/images/members/fiyin.jpg" },
-  { name: "Goodness", photo: "/images/members/goodness.jpg" },
-  { name: "Joseph", photo: "/images/members/joseph.jpg" },
-  { name: "Naomi", photo: "/images/members/naomi.jpg" },
-];
+const PHOTO_WIDTH = "w-[240px] sm:w-[300px]";
 
-function VoiceCard({ voice }: { voice: Voice }) {
+function BioContent({ voice }: { voice: Voice }) {
+  const paragraphs = (voice.bio ?? "").split(/\n\s*\n/).filter(Boolean);
+  return (
+    <>
+      {voice.tagline ? (
+        <blockquote className="accent-word text-lg leading-snug text-off-white/90">
+          &ldquo;{voice.tagline}&rdquo;
+        </blockquote>
+      ) : null}
+      {paragraphs.length > 0 ? (
+        <div className="mt-5 space-y-4 text-sm leading-relaxed text-off-white/70">
+          {paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+function VoiceCard({
+  voice,
+  isOpen,
+  onToggle,
+}: {
+  voice: Voice;
+  isOpen: boolean;
+  onToggle?: () => void;
+}) {
   return (
     <div
       data-voice-card
-      className="group w-[240px] shrink-0 snap-start sm:w-[300px]"
+      // Fixed width always — on mobile the card grows *downward* into the
+      // bio instead (see the grid-rows accordion below), it never widens
+      // past the viewport. Only sm+ (where the pinned horizontal strip has
+      // room) slides the bio out sideways and widens the card for it.
+      className={`group flex w-[240px] shrink-0 snap-start flex-col overflow-hidden transition-[width] duration-500 ease-brand sm:flex-row sm:gap-6 ${
+        isOpen ? "sm:w-[720px]" : "sm:w-[300px]"
+      }`}
     >
-      <div className="relative aspect-[3/4] overflow-hidden">
-        <DuotonePhoto
-          src={voice.photo}
-          alt={`${voice.name} of OneVoice`}
-          sizes="(min-width: 640px) 300px, 240px"
-          objectPosition={voice.objectPosition ?? DEFAULT_OBJECT_POSITION}
-          filter={MEMBER_FILTER}
-          hoverFilter={MEMBER_FILTER_HOVER}
-          className="h-full w-full transition-transform duration-700 ease-brand group-hover:scale-[1.04]"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
+      <div className={`${PHOTO_WIDTH} shrink-0`}>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={onToggle ? isOpen : undefined}
+          className={`relative block aspect-[3/4] w-full overflow-hidden text-left ${
+            onToggle ? "" : "cursor-default"
+          }`}
+        >
+          <DuotonePhoto
+            src={voice.photo}
+            alt={`${voice.name} of OneVoice`}
+            sizes="(min-width: 640px) 300px, 240px"
+            objectPosition={voice.objectPosition ?? DEFAULT_OBJECT_POSITION}
+            filter={isOpen ? MEMBER_FILTER_HOVER : MEMBER_FILTER}
+            hoverFilter={onToggle ? MEMBER_FILTER_HOVER : undefined}
+            className="h-full w-full transition-transform duration-700 ease-brand group-hover:scale-[1.04]"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
+        </button>
+        <div className="mt-5">
+          <div className="display-md">{voice.name}</div>
+          {voice.role ? (
+            <p className="label-text mt-2 text-warm-sage">{voice.role}</p>
+          ) : null}
+          {onToggle ? (
+            <button
+              type="button"
+              onClick={onToggle}
+              className="link-label mt-4 text-off-white/60 transition-colors hover:text-off-white"
+            >
+              {isOpen ? "close ✕" : "their story ↗"}
+            </button>
+          ) : null}
+        </div>
       </div>
-      <div className="mt-5">
-        <div className="display-md">{voice.name}</div>
-        {voice.role ? (
-          <p className="label-text mt-2 text-warm-sage">{voice.role}</p>
-        ) : null}
+
+      {/* Mobile: opens downward. The grid-rows-[0fr]->[1fr] trick animates
+          to the content's natural height without knowing it up front —
+          plain height/max-height can't do that without JS measurement. */}
+      <div
+        aria-hidden={!isOpen}
+        className={`grid transition-[grid-template-rows] duration-500 ease-brand motion-reduce:transition-none sm:hidden ${
+          isOpen ? "mt-5 grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <BioContent voice={voice} />
+        </div>
+      </div>
+
+      {/* Desktop: slides out to the right instead. Width (not just opacity)
+          has to hit a real 0 when collapsed — a flex item only shrinks
+          below its content's intrinsic width with min-w-0, and without an
+          explicit h-0 too, wrapping this text into a 0-width column makes
+          the browser stack it one word (or character) per line, which
+          blows the row's height out to thousands of pixels. */}
+      <div
+        aria-hidden={!isOpen}
+        className={`hidden min-w-0 overflow-y-auto pr-1 transition-[opacity,transform] duration-500 ease-brand motion-reduce:transition-none sm:block ${
+          isOpen
+            ? "sm:w-[380px] sm:opacity-100 sm:translate-x-0"
+            : "pointer-events-none sm:h-0 sm:w-0 sm:-translate-x-4 sm:opacity-0"
+        }`}
+      >
+        <BioContent voice={voice} />
       </div>
     </div>
   );
 }
 
-export default function Voices() {
+export default function Voices({ voices }: { voices: Voice[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -118,12 +181,21 @@ export default function Voices() {
       // scroll-jack reads as janky on touch and ignores motion preference.
       if (reduced || isMobile) return;
 
-      const distance = Math.max(0, track.scrollWidth - viewport.clientWidth);
-      if (!distance) return;
-
       // JS now owns horizontal position via transform on the inner track;
       // the outer viewport stops scrolling natively and just clips it.
       viewport.style.overflowX = "hidden";
+
+      // The scroll distance is fixed once, up front, to the worst case (one
+      // card open) — cards start collapsed, so track.scrollWidth here is the
+      // baseline. Recalculating this live off scrollWidth (e.g. on refresh
+      // after a card's width transition) made the x-per-scroll-pixel ratio
+      // change mid-interaction, which reads as the track jumping sideways.
+      // A fixed distance keeps x = -distance * progress continuous no matter
+      // what's expanded; an unopened strip just has a little dead scroll
+      // room at the very end of the pin, which is a fair trade for no jump.
+      const OPEN_MINUS_COLLAPSED_WIDTH = 720 - 300;
+      const distance =
+        Math.max(0, track.scrollWidth - viewport.clientWidth) + OPEN_MINUS_COLLAPSED_WIDTH;
 
       ScrollTrigger.create({
         trigger: section,
@@ -161,8 +233,17 @@ export default function Voices() {
 
       <div ref={viewportRef} className="no-scrollbar mt-12 overflow-x-auto px-5 pb-2 sm:px-8">
         <div ref={trackRef} className="flex w-max snap-x snap-mandatory gap-5">
-          {VOICES.map((voice, i) => (
-            <VoiceCard key={`${voice.name}-${i}`} voice={voice} />
+          {voices.map((voice, i) => (
+            <VoiceCard
+              key={`${voice.name}-${i}`}
+              voice={voice}
+              isOpen={activeIndex === i}
+              onToggle={
+                voice.bio
+                  ? () => setActiveIndex((current) => (current === i ? null : i))
+                  : undefined
+              }
+            />
           ))}
         </div>
       </div>
