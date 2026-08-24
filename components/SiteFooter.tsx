@@ -73,9 +73,22 @@ export default function SiteFooter() {
         </div>
 
         <div className="mt-16 flex flex-col items-center gap-6 border-t border-off-white/15 pt-8 sm:flex-row sm:justify-between">
-          <p className="label-text order-2 text-off-white/45 sm:order-1">
-            &copy; 2026 OneVoice
-          </p>
+          <div className="order-3 flex items-center gap-5 sm:order-1">
+            <p className="label-text text-off-white/45">&copy; 2026 OneVoice</p>
+            <span className="h-3 w-px bg-off-white/20" aria-hidden="true" />
+            <Link
+              href="/privacy"
+              className="label-text text-off-white/45 transition-colors duration-200 hover:text-off-white"
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
+              className="label-text text-off-white/45 transition-colors duration-200 hover:text-off-white"
+            >
+              Terms
+            </Link>
+          </div>
 
           <div className="order-1 flex justify-center gap-3 sm:order-2">
             {SOCIAL_LINKS.map((link) =>
