@@ -6,18 +6,34 @@ import Field from "@/components/Field";
 import EmailSignup from "@/components/EmailSignup";
 import { SOCIAL_LINKS, PLATFORM_LABELS, EMAIL, isExternal } from "@/lib/links";
 
-export default function ContactForm() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "pending" | "sent" | "error";
 
-  const handleSubmit = (e: FormEvent) => {
+export default function ContactForm() {
+  const [status, setStatus] = useState<Status>("idle");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setStatus("pending");
+
+    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Contact form submission failed");
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
     <div className="mx-auto grid max-w-shell gap-14 px-5 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
       <div>
-        {sent ? (
+        {status === "sent" ? (
           <div data-reveal>
             <p className="label-text text-warm-sage">message sent</p>
             <h2 className="display-lg mt-6">thanks for reaching out.</h2>
@@ -51,10 +67,18 @@ export default function ContactForm() {
                 className="field-input min-h-40 resize-y"
               />
             </Field>
-            <div className="sm:col-span-2">
-              <button type="submit" className="btn-solid">
-                send message ↗
+            <div className="sm:col-span-2 flex flex-col gap-3">
+              <button type="submit" disabled={status === "pending"} className="btn-solid disabled:opacity-60">
+                {status === "pending" ? "sending…" : "send message ↗"}
               </button>
+              {status === "error" ? (
+                <p className="text-sm text-deep-brown">
+                  Something went wrong sending that — try again, or email us directly at{" "}
+                  <a href={`mailto:${EMAIL}`} className="underline">
+                    {EMAIL}
+                  </a>.
+                </p>
+              ) : null}
             </div>
           </form>
         )}

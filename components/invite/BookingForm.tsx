@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Field from "@/components/Field";
+import { EMAIL } from "@/lib/links";
 
 // `value` is what the submission carries and must stay stable; `label` is
 // display only, so it follows the site's sentence case.
@@ -16,15 +17,31 @@ const EVENT_TYPES = [
   { value: "something else", label: "Something else" },
 ];
 
-export default function BookingForm() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "pending" | "sent" | "error";
 
-  const handleSubmit = (e: FormEvent) => {
+export default function BookingForm() {
+  const [status, setStatus] = useState<Status>("idle");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setStatus("pending");
+
+    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+
+    try {
+      const res = await fetch("/api/invite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Invite form submission failed");
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
-  if (sent) {
+  if (status === "sent") {
     return (
       <div data-reveal className="mx-auto max-w-xl py-16 text-center">
         <p className="label-text text-muted">request received</p>
@@ -121,10 +138,18 @@ export default function BookingForm() {
             placeholder="Who's coming, what you're hoping the night feels like, and anything else we should know."
           />
         </Field>
-        <div className="sm:col-span-2">
-          <button type="submit" className="btn-solid">
-            send request ↗
+        <div className="sm:col-span-2 flex flex-col gap-3">
+          <button type="submit" disabled={status === "pending"} className="btn-solid disabled:opacity-60">
+            {status === "pending" ? "sending…" : "send request ↗"}
           </button>
+          {status === "error" ? (
+            <p className="text-sm text-deep-brown">
+              Something went wrong sending that — try again, or email us directly at{" "}
+              <a href={`mailto:${EMAIL}`} className="underline">
+                {EMAIL}
+              </a>.
+            </p>
+          ) : null}
         </div>
       </form>
     </div>
