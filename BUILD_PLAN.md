@@ -19,7 +19,7 @@ invite form today believes they've reached OneVoice; they haven't. That's Phase 
 
 ## Phased roadmap
 
-0. **Cloudflare Pages hosting** — dashboard-only, no repo changes
+0. **Cloudflare Workers hosting** — repo config done, dashboard connection next
 1. **Resend transactional email** — wire the 3 dead forms to real sends
 2. **Resend Audiences** — make the newsletter signup real (needs an Audience created in the Resend dashboard first)
 3. **Sanity CMS** — schema + swap hardcoded content arrays to CMS-driven
@@ -30,12 +30,42 @@ Forms come before CMS because they're a live correctness bug, fully self-contain
 repo, and need no interactive external login flow. Sanity's `init` needs a browser OAuth
 login, so it's better tackled as its own session.
 
-## Phase 0 — Cloudflare Pages
+## Phase 0 — Cloudflare Workers hosting
 
-Dashboard steps, no repo changes:
-Workers & Pages → Create → Pages → Connect to Git → select the repo → framework preset
-**Next.js** → **production branch = `main`** (leave `dev` as an automatic preview branch —
-Pages previews all non-production branches by default, no extra config needed).
+**Plan changed mid-implementation.** The original plan was Cloudflare Pages with
+`@cloudflare/next-on-pages` as the build tool. First real deploy attempt failed:
+`next-on-pages` pulls in a `wrangler` version whose `@cloudflare/workers-types` peer
+requirement conflicts with `next-on-pages`'s own, an unresolvable ERESOLVE error with
+today's npm. Checked current guidance: Cloudflare moved off Pages+next-on-pages for
+Next.js apps in favor of **Workers + `@opennextjs/cloudflare`** (GA Feb 2026) — that's
+what's actually implemented now.
+
+**Repo changes (done, on branch `chore/cloudflare-workers-deploy`, pushed):**
+- `wrangler.jsonc` — Worker name `onevoice-website`, `main: .open-next/worker.js`,
+  `nodejs_compat` + `global_fetch_strictly_public` compat flags, `ASSETS` binding, a
+  `WORKER_SELF_REFERENCE` service binding (OpenNext needs this for internal fetches)
+- `open-next.config.ts` — minimal `defineCloudflareConfig()`, created directly rather than
+  via the tool's interactive prompt (doesn't work in a non-interactive shell)
+- `next.config.mjs` — calls `initOpenNextCloudflareForDev()`
+- `package.json` — added `preview`/`deploy` scripts (`opennextjs-cloudflare build && ...
+  preview`/`deploy`); `@opennextjs/cloudflare` **pinned to exactly `1.15.0`**, not a caret
+  range — this is the last version whose peer range still includes Next 14
+  (`@opennextjs/cloudflare@1.16.0`+ requires Next 15.5+/16+, which this app isn't on).
+  Bumping this package later means bumping Next.js first, deliberately, not as a drive-by.
+- `.gitignore` — added `.open-next` and `.wrangler`
+
+**Verified locally:** `next build`, `opennextjs-cloudflare build` (produces
+`.open-next/worker.js`), and `wrangler deploy --dry-run` (bindings resolve, config valid)
+all pass. Note: OpenNext prints a Windows-compatibility warning during build/preview — it
+worked here, but if `npm run preview` ever misbehaves locally, that's the known cause
+(recommends WSL); the actual deploy runs on Cloudflare's own Linux build servers regardless.
+
+**Next (dashboard, not done yet):**
+- Delete the earlier, broken Pages project (optional cleanup, not blocking)
+- Workers & Pages → Create → **Workers** → Connect to Git → select the repo
+- Worker name must be **`onevoice-website`** to match `wrangler.jsonc`
+- Once created, merge `chore/cloudflare-workers-deploy` → `dev` (PR), then set production
+  branch to `main` per the original hosting decision (dev stays an automatic preview branch)
 
 ## Phase 1 — Resend transactional email
 
@@ -44,10 +74,11 @@ Branch: `feat/resend-forms` off `dev`.
 **Add:**
 - `resend` to `package.json` dependencies
 - `lib/resend.ts` — Resend client singleton, reads `RESEND_API_KEY` from env
-- `app/api/contact/route.ts` — Route Handler, `export const runtime = 'edge'` (required for
-  Cloudflare Pages Functions — no Node.js APIs on the Workers runtime), validates posted
-  fields, sends via Resend to `CONTACT_TO_EMAIL` (env var, defaults to `EMAIL` from
-  `lib/links.ts` = `hello@onev.live`)
+- `app/api/contact/route.ts` — Route Handler, validates posted fields, sends via Resend to
+  `CONTACT_TO_EMAIL` (env var, defaults to `EMAIL` from `lib/links.ts` = `hello@onev.live`).
+  No `export const runtime = 'edge'` needed — that was a next-on-pages constraint; under
+  Workers + OpenNext (`nodejs_compat` flag, see Phase 0) standard Node-targeting Route
+  Handlers work as-is.
 - `app/api/invite/route.ts` — same pattern, covers `BookingForm`'s full field set (name,
   email, phone, organization, event name/type/date, location, attendance, referral source,
   message)
