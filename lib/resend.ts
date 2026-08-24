@@ -17,3 +17,15 @@ export function getResend() {
 export function getFromEmail() {
   return process.env.RESEND_FROM_EMAIL ?? "OneVoice <noreply@onev.live>";
 }
+
+/**
+ * The newsletter's Resend Segment id (what the dashboard still calls an
+ * "Audience" — the SDK's `resend.audiences` is just an alias over the same
+ * `/segments` endpoint as of resend@6.22). Created once via the API, see
+ * `scripts/create-newsletter-audience.mjs`.
+ */
+export function getAudienceId() {
+  const id = process.env.RESEND_AUDIENCE_ID;
+  if (!id) throw new Error("RESEND_AUDIENCE_ID is not set");
+  return id;
+}
