@@ -20,7 +20,6 @@ export async function POST(request: Request) {
     eventType,
     eventDate,
     location,
-    attendance,
     referral,
     message,
   } = body as Record<string, string>;
@@ -41,7 +40,6 @@ export async function POST(request: Request) {
     ["Event type", eventType],
     ["Event date", eventDate],
     ["Location", location],
-    ["Expected attendance", attendance],
     ["Heard about us via", referral],
   ];
 
