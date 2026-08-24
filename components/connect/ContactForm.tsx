@@ -23,11 +23,7 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) {
-        // TEMP debug: log the server's real error while we track down the 502.
-        console.error("contact form error", await res.json().catch(() => null));
-        throw new Error("Contact form submission failed");
-      }
+      if (!res.ok) throw new Error("Contact form submission failed");
       setStatus("sent");
     } catch {
       setStatus("error");
