@@ -104,7 +104,8 @@ const VIDEOS_QUERY = defineQuery(`
     credit,
     youtubeUrl,
     duration,
-    thumbnail
+    thumbnail,
+    publishedAt
   }
 `);
 
@@ -115,6 +116,7 @@ type RawVideo = {
   youtubeUrl: string;
   duration?: string;
   thumbnail: RawImage;
+  publishedAt: string;
 };
 
 export type VideoSlide = {
@@ -125,6 +127,7 @@ export type VideoSlide = {
   duration?: string;
   image: string;
   objectPosition: string;
+  year: number;
 };
 
 function toVideoSlide(video: RawVideo): VideoSlide {
@@ -141,6 +144,7 @@ function toVideoSlide(video: RawVideo): VideoSlide {
     objectPosition: video.thumbnail.hotspot
       ? hotspotObjectPosition(video.thumbnail)
       : "50% 50%",
+    year: new Date(video.publishedAt).getFullYear(),
   };
 }
 
@@ -156,7 +160,8 @@ const ALL_VIDEOS_QUERY = defineQuery(`
     credit,
     youtubeUrl,
     duration,
-    thumbnail
+    thumbnail,
+    publishedAt
   }
 `);
 
