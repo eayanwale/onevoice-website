@@ -10,21 +10,26 @@ onev.live
 │
 ├── /about                About Us — the collective's story, not a bio-card grid
 │
-├── /watch                Watch — video hub: music videos, covers, live sessions, behind-the-scenes
-│   └── /watch/[slug]      Individual video, full-bleed player, credits, related release
+├── /watch                Watch — every video, browsable by year, playing inline (Sanity `video` docs)
 │
 ├── /coming-soon          Coming Soon — placeholder landing for links not live yet (e.g. Spotify)
 │
-├── /gallery              Official Gallery — photography index (the visual world, expanded)
-│   └── /gallery/[slug]    A single shoot/project — gallery grid, story note, credits
+├── /gallery              Gallery — Sanity `event` docs grouped by year, each embedding its
+│                          real Lightroom gallery live (photos aren't uploaded to Sanity;
+│                          `?event=<slug>` deep-links into one). No per-shoot sub-route —
+│                          the year → event accordion replaced the originally-planned
+│                          `/gallery/[slug]` detail page.
 │
-├── /music                Music — release index
+├── /music                Music — release index (not yet built)
 │   └── /music/[slug]      Release detail — tracklist, lyrics, credits, streaming links
 │
 ├── /blog                 Blog (Words/Journal) — written content index: devotionals, essays
 │   └── /blog/[slug]       Post detail
 │
-├── /contact               Contact — booking/press inquiries, general contact form, socials
+├── /connect               Connect — general contact form ("say hello.")
+├── /invite                Invite — booking requests
+│
+├── /store                Store — merch, placeholder until there's a drop (not in the original list)
 │
 ├── /faq                  FAQ — bookings, licensing, "are you a church," how to submit music
 │
@@ -43,9 +48,8 @@ onev.live
   contact-form message repeating them.
 - **`/press`** — once there's press coverage or booking inquiries, having a one-page kit
   (bio, logo files, approved photos) saves back-and-forth. Can stay a stub until it's needed.
-- **`/privacy` and `/terms`** — the homepage already has an email signup (Section 06, The
-  Invitation). Collecting emails without a privacy policy is a compliance gap worth closing
-  early, even as a simple one-page document.
+- **`/privacy` and `/terms`** — built. The newsletter signup collects real emails now
+  (wired to Resend), so these closed a real compliance gap rather than a hypothetical one.
 - **`/404`** — worth speccing explicitly so it doesn't default to a generic Next.js error page;
   should carry the same restrained, in-voice tone as everything else.
 - **Merch/shop** — the direction doc already lists this under "Future Expansion" via Shopify
@@ -59,7 +63,10 @@ those to `/gallery` and `/blog` per your latest direction, and splits video out 
 `/visuals` or `/words` while reading the PDF, `/gallery` and `/blog` (plus the new `/watch`)
 supersede them.
 
-## Nav structure (suggested)
+## Nav structure
 
-Primary nav: `about · music · watch · gallery · blog · contact`
-Footer only: `faq · press · privacy · terms`
+Currently live (`components/Header.tsx`): `about · watch · gallery · store · connect`,
+plus an `invite us` button. Footer additionally links `home` and repeats all of the
+above, plus `privacy · terms`.
+
+Originally suggested, not yet built: `music · blog · faq · press`.

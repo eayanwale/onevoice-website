@@ -76,8 +76,15 @@ Note: `chore/cloudflare-workers-deploy` ended up merged straight into both `dev`
 (user call, to unblock testing quickly) rather than via the usual PR-into-dev-first flow —
 one-off exception for this infra setup, not a new normal.
 
-**Still open:** custom domain (`onev.live` → this Worker) intentionally not wired up yet —
-hold until the site has more than the placeholder/incomplete pages live.
+**Done (2026-08-26):** `onev.live` connected as the Worker's custom domain via the
+Cloudflare dashboard's one-click "Connect Custom Domain" — no code/config changes needed,
+Cloudflare handles the DNS record + route binding automatically since the zone was already
+in the account. The site is live at its real address.
+
+**Still open:** no separate preview/staging environment — `dev` and `main` both deploy to
+the single `onevoice-website` service, and deploy is manual (`npm run deploy`), not
+auto-triggered by a push to either branch. Every deploy is immediately live on
+`onev.live`; there's no buffer to catch something before the public sees it.
 
 ## Phase 1 — Resend transactional email
 
@@ -143,25 +150,61 @@ as a Segment under the hood (`RESEND_AUDIENCE_ID`). Needed the `RESEND_API_KEY` 
 covered by a sending-only key. `scripts/create-newsletter-audience.mjs` is the one-off that
 created the Audience.
 
+**Extended (2026-08-26):** new subscribers now also get an automatic "you're on the list"
+welcome email (`getResend().emails.send(...)` right after the contact is created), skipped
+for resubmissions of an already-subscribed address.
+
+**Gotcha hit while wiring the secrets (2026-08-26):** setting a Cloudflare Worker secret on
+Windows via `"value" | npx wrangler secret put NAME` silently corrupts the value — PowerShell
+piping a string through `npx`'s `cmd.exe` wrapper prepends a UTF-8 BOM, invisible everywhere
+except a raw byte dump (`wrangler tail` showed it as `\xef\xbb\xbf` right after `Bearer `,
+and it broke `RESEND_AUDIENCE_ID`'s UUID validation outright). `$OutputEncoding` does not
+fix it. The reliable fix: `wrangler secret bulk <file>.json`, which reads a JSON file
+directly via Node — no shell pipe involved. Worth remembering for any future secret set on
+Windows/PowerShell.
+
 ## Phase 3 — Sanity CMS
 
 **Done (2026-08-24):** standalone Studio at `studio/` (deployed to
-https://onevoice-worship.sanity.studio/), schemas for `member`, `galleryPhoto`, and `video`.
-Next.js side lives in `lib/sanity/` (`client.ts`, `image.ts`, `queries.ts`). Replaced the three
-arrays identified below, plus the homepage "watch us" slideshow (not part of the original
-audit — added once the video content needed the same treatment):
-- `VOICES` in `components/sections/Voices.tsx` → `member` documents (now includes each
-  member's own bio/tagline, revealed inline — sideways on desktop, downward accordion on
-  mobile — instead of a separate bio-card page, per the direction doc's "narrative, not bio
-  cards" call for `/about`)
-- `PHOTOS` in `app/gallery/page.tsx` and `TILES` in `VisualWorld.tsx` → both now read from the
-  same `galleryPhoto` type (a `featuredOnHome` flag marks the 3 homepage teaser tiles), so the
-  3 shared photos aren't duplicated as content
+https://onevoice-worship.sanity.studio/), schemas for `member` and `video`. Next.js side
+lives in `lib/sanity/` (`client.ts`, `image.ts`, `queries.ts`). Replaced the three arrays
+identified below, plus the homepage "watch us" slideshow (not part of the original audit —
+added once the video content needed the same treatment):
+- `VOICES` in `components/sections/Voices.tsx` → `member` documents
+- `PHOTOS` in `app/gallery/page.tsx` and `TILES` in `VisualWorld.tsx` → originally both read
+  from a `galleryPhoto` type; **superseded 2026-08-26, see Phase 3.1 below**
 - `LatestWork.tsx`'s hardcoded single video → `video` documents, ordered most-recent-first,
-  capped at 5
+  capped at 5 (`/watch`, added 2026-08-26, shows all of them)
 
 All of the original static images these replaced were removed from `public/images/` once
 confirmed nothing else referenced them.
+
+### Phase 3.1 — Gallery rebuilt onto Lightroom embeds (2026-08-26)
+
+The `galleryPhoto` schema above worked, but storing every event photo as a Sanity asset
+doesn't scale — Sanity's storage is priced per-project, and a working collective shoots way
+more photos per event than a homepage teaser needs. Replaced entirely with:
+
+- **New `event` schema** (`studio/schemaTypes/documents/event.ts`): name, slug, year
+  (omitted for evergreen categories like "Rehearsal Moments" — they sort outside the
+  year groups), order, `coverImage` (small, curated — only the 4 homepage-featured events
+  have one), `featuredOnHome`/`featuredOrder`, and `lightroomUrl` (the resolved
+  `lightroom.adobe.com/shares/<id>` link, not the `adobe.ly` short link, since short links
+  can expire).
+- `galleryPhoto` schema **deleted**, along with the 17 documents/image assets that existed
+  under it — deliberately, to reclaim the storage that prompted this rebuild.
+- Gallery page: no photos fetched from Sanity at all now. A year → event accordion menu
+  (all events shown by default, grouped by year) renders each event's Lightroom gallery via
+  Adobe's official embed code
+  (`lightroom.adobe.com/embed/shares/<id>/slideshow?background_color=...&color=...`,
+  colors matched to the brand palette). **Only a slideshow embed exists** — confirmed
+  directly that the real grid page sends `X-Frame-Options: SAMEORIGIN` (can't be framed,
+  by design, from any site) and that Adobe's own "Get embed code" feature (Lightroom web →
+  Share → the `</>` icon) only ever generates the same `/slideshow` embed regardless.
+  Linking out to the real (grid) page remains available as a fallback link under each embed.
+- Existing gallery photos already tagged in the old system needed a human to re-tag them to
+  an `event` by hand in Studio — nobody but someone who was actually at each event can say
+  which photo belongs where, so this was deliberately left undone rather than guessed.
 
 ## Phase 4 — Zoho Mail
 
