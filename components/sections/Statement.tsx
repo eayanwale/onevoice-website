@@ -12,7 +12,7 @@ export default function Statement() {
       <div className="mx-auto grid max-w-shell items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-20">
         <div data-reveal className="relative aspect-[4/5] w-full overflow-hidden">
           <DuotonePhoto
-            src="/images/MNFD6096-.jpg"
+            src="/images/onevoice-collective-portrait.jpg"
             alt="The OneVoice collective"
             objectPosition="50% 15%"
             sizes="(min-width: 1024px) 640px, 100vw"
