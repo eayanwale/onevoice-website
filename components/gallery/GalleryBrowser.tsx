@@ -2,23 +2,63 @@
 
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { toLightroomEmbedUrl, type GalleryEvent } from "@/lib/sanity/queries";
+import type { GalleryEvent } from "@/lib/sanity/queries";
 
-function OptionLink({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
+function Chevron({ open }: { open: boolean }) {
   return (
-    <button type="button" onClick={onClick} className="group block text-left">
-      <span className="display-md inline-block transition-colors duration-200 ease-brand group-hover:text-warm-sage">
-        {children}
-      </span>
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+      fill="none"
+      aria-hidden="true"
+      className={`shrink-0 transition-transform duration-200 ease-brand ${open ? "rotate-90" : ""}`}
+    >
+      <path d="M3 1l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function MenuRow({
+  active,
+  indent,
+  onClick,
+  children,
+  chevron,
+}: {
+  active?: boolean;
+  indent?: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+  chevron?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`label-text flex w-full items-center justify-between gap-3 border-b border-ink/15 px-5 py-4 text-left transition-colors duration-200 last:border-b-0 hover:bg-ink/5 ${
+        indent ? "pl-10 text-muted" : ""
+      } ${active ? "text-warm-sage" : ""}`}
+    >
+      <span>{children}</span>
+      {chevron !== undefined ? <Chevron open={chevron} /> : null}
     </button>
   );
 }
 
-function BackLink({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
+function EventCard({ event }: { event: GalleryEvent }) {
   return (
-    <button type="button" onClick={onClick} className="link-label mb-8 text-muted">
-      {children}
-    </button>
+    <a
+      href={event.lightroomUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block border border-ink/15 p-6 transition-colors duration-200 hover:border-warm-sage"
+    >
+      <span className="display-md block transition-colors duration-200 group-hover:text-warm-sage">
+        {event.name}
+      </span>
+      <span className="link-label mt-4 inline-block text-muted">view gallery ↗</span>
+    </a>
   );
 }
 
@@ -40,81 +80,82 @@ export default function GalleryBrowser({ events }: { events: GalleryEvent[] }) {
   const initialSlug = searchParams.get("event");
   const initialEvent = events.find((e) => e.slug === initialSlug) ?? null;
 
-  const [selectedYear, setSelectedYear] = useState<number | null>(initialEvent?.year ?? null);
   const [selectedEvent, setSelectedEvent] = useState<GalleryEvent | null>(initialEvent);
+  const [expandedYear, setExpandedYear] = useState<number | null>(initialEvent?.year ?? null);
 
-  const chooseEvent = (event: GalleryEvent) => {
+  const select = (event: GalleryEvent) => {
     setSelectedEvent(event);
     router.replace(`/gallery?event=${event.slug}`, { scroll: false });
   };
 
-  const backToTop = () => {
-    setSelectedYear(null);
+  const showAll = () => {
     setSelectedEvent(null);
     router.replace("/gallery", { scroll: false });
   };
 
-  const backToYear = () => {
-    setSelectedEvent(null);
-    router.replace("/gallery", { scroll: false });
+  const toggleYear = (year: number) => {
+    setExpandedYear((current) => (current === year ? null : year));
   };
-
-  if (selectedEvent) {
-    return (
-      <div>
-        <BackLink onClick={selectedEvent.year === undefined ? backToTop : backToYear}>
-          ← back
-        </BackLink>
-        <h3 className="display-md mb-8">{selectedEvent.name}</h3>
-        <div className="relative w-full overflow-hidden bg-charcoal/40">
-          <iframe
-            src={toLightroomEmbedUrl(selectedEvent.lightroomUrl)}
-            title={`${selectedEvent.name} — Lightroom gallery`}
-            loading="lazy"
-            allow="fullscreen"
-            className="h-[500px] w-full border-0 sm:h-[650px] lg:h-[750px]"
-          />
-        </div>
-        <a
-          href={selectedEvent.lightroomUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-label mt-6 inline-block text-muted"
-        >
-          open full gallery ↗
-        </a>
-      </div>
-    );
-  }
-
-  if (selectedYear !== null) {
-    const yearEvents = byYear.find(([y]) => y === selectedYear)?.[1] ?? [];
-    return (
-      <div>
-        <BackLink onClick={backToTop}>← all years</BackLink>
-        <div className="flex flex-col gap-3">
-          {yearEvents.map((e) => (
-            <OptionLink key={e.slug} onClick={() => chooseEvent(e)}>
-              {e.name}
-            </OptionLink>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <div className="flex flex-col gap-3">
-      {evergreen.map((e) => (
-        <OptionLink key={e.slug} onClick={() => chooseEvent(e)}>
-          {e.name}
-        </OptionLink>
-      ))}
-      {byYear.map(([year]) => (
-        <OptionLink key={year} onClick={() => setSelectedYear(year)}>
-          {year}
-        </OptionLink>
-      ))}
+    <div className="grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-16">
+      <nav className="h-fit border border-ink/15">
+        <MenuRow active={selectedEvent === null} onClick={showAll}>
+          all
+        </MenuRow>
+        {evergreen.map((e) => (
+          <MenuRow key={e.slug} active={selectedEvent?.slug === e.slug} onClick={() => select(e)}>
+            {e.name}
+          </MenuRow>
+        ))}
+        {byYear.map(([year, yearEvents]) => (
+          <div key={year}>
+            <MenuRow onClick={() => toggleYear(year)} chevron={expandedYear === year}>
+              {year}
+            </MenuRow>
+            {expandedYear === year
+              ? yearEvents.map((e) => (
+                  <MenuRow
+                    key={e.slug}
+                    indent
+                    active={selectedEvent?.slug === e.slug}
+                    onClick={() => select(e)}
+                  >
+                    {e.name}
+                  </MenuRow>
+                ))
+              : null}
+          </div>
+        ))}
+      </nav>
+
+      <div>
+        {selectedEvent ? (
+          <div className="max-w-md">
+            <EventCard event={selectedEvent} />
+          </div>
+        ) : (
+          <div className="space-y-12">
+            {evergreen.length > 0 ? (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {evergreen.map((e) => (
+                  <EventCard key={e.slug} event={e} />
+                ))}
+              </div>
+            ) : null}
+            {byYear.map(([year, yearEvents]) => (
+              <div key={year}>
+                <p className="label-text mb-4 text-muted">{year}</p>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {yearEvents.map((e) => (
+                    <EventCard key={e.slug} event={e} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

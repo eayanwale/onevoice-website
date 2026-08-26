@@ -75,11 +75,6 @@ export async function getEvents(): Promise<GalleryEvent[]> {
   }));
 }
 
-/** Turns a Lightroom share link into its embeddable form. */
-export function toLightroomEmbedUrl(lightroomUrl: string): string {
-  return lightroomUrl.replace("/shares/", "/embed/shares/");
-}
-
 const FEATURED_EVENTS_QUERY = defineQuery(`
   *[_type == "event" && featuredOnHome == true] | order(featuredOrder asc) {
     name,
