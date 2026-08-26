@@ -2,13 +2,26 @@
 
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import DuotonePhoto from "@/components/DuotonePhoto";
 import type { VideoSlide } from "@/lib/sanity/queries";
-
-const THUMB_SIZES = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 
 function slugify(title: string) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+/** Pulls the video id out of a youtu.be/watch/embed/shorts url — null if it's not recognizable. */
+function toYouTubeId(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname === "youtu.be") return u.pathname.slice(1) || null;
+    if (u.hostname.includes("youtube.com")) {
+      if (u.pathname === "/watch") return u.searchParams.get("v");
+      if (u.pathname.startsWith("/embed/")) return u.pathname.replace("/embed/", "");
+      if (u.pathname.startsWith("/shorts/")) return u.pathname.replace("/shorts/", "");
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 function Chevron({ open }: { open: boolean }) {
@@ -53,32 +66,37 @@ function MenuRow({
   );
 }
 
-function VideoCard({ video }: { video: VideoSlide }) {
+function VideoEmbed({ video }: { video: VideoSlide }) {
+  const youTubeId = toYouTubeId(video.href);
+
   return (
-    <a
-      href={video.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-reveal
-      className="group relative block overflow-hidden"
-    >
-      <DuotonePhoto
-        src={video.image}
-        alt={`OneVoice — ${video.title} ${video.accent}`}
-        sizes={THUMB_SIZES}
-        objectPosition={video.objectPosition}
-        className="aspect-video w-full transition-transform duration-700 ease-brand group-hover:scale-[1.03]"
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/10 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
-        <h3 className="display-md text-off-white">
-          {video.title} <span className="accent-word text-warm-sage">{video.accent}</span>
-        </h3>
-        {video.duration ? (
-          <span className="label-text mt-2 block text-off-white/60">{video.duration}</span>
-        ) : null}
-      </div>
-    </a>
+    <div>
+      <h3 className="display-md mb-4">
+        {video.title} <span className="accent-word text-warm-sage">{video.accent}</span>
+      </h3>
+      {youTubeId ? (
+        <div className="aspect-video w-full overflow-hidden bg-charcoal/40">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${youTubeId}`}
+            title={`${video.title} ${video.accent}`}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="h-full w-full border-0"
+          />
+        </div>
+      ) : (
+        <a
+          href={video.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline border-ink/25"
+        >
+          watch on youtube ↗
+        </a>
+      )}
+      {video.credit ? <p className="mt-4 text-sm leading-relaxed text-muted">{video.credit}</p> : null}
+    </div>
   );
 }
 
@@ -134,7 +152,7 @@ export default function WatchBrowser({ videos }: { videos: VideoSlide[] }) {
                     active={selectedVideo?.title === v.title}
                     onClick={() => select(v)}
                   >
-                    {v.title}
+                    {v.title} {v.accent}
                   </MenuRow>
                 ))
               : null}
@@ -144,17 +162,15 @@ export default function WatchBrowser({ videos }: { videos: VideoSlide[] }) {
 
       <div>
         {selectedVideo ? (
-          <div className="max-w-md">
-            <VideoCard video={selectedVideo} />
-          </div>
+          <VideoEmbed video={selectedVideo} />
         ) : (
-          <div className="space-y-12">
+          <div className="space-y-16">
             {byYear.map(([year, yearVideos]) => (
               <div key={year}>
-                <p className="label-text mb-4 text-muted">{year}</p>
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <p className="label-text mb-6 text-muted">{year}</p>
+                <div className="space-y-16">
                   {yearVideos.map((v) => (
-                    <VideoCard key={v.title} video={v} />
+                    <VideoEmbed key={v.title} video={v} />
                   ))}
                 </div>
               </div>
