@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
 import GalleryBrowser from "@/components/gallery/GalleryBrowser";
-import { getEvents, getGalleryPhotos } from "@/lib/sanity/queries";
+import { getEvents } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Gallery — OneVoice",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function GalleryPage() {
-  const [events, photos] = await Promise.all([getEvents(), getGalleryPhotos()]);
+  const events = await getEvents();
 
   return (
     <main>
@@ -32,7 +32,7 @@ export default async function GalleryPage() {
       <section className="relative overflow-hidden py-20 sm:py-28">
         <div className="mx-auto max-w-shell px-5 sm:px-8">
           <Suspense fallback={null}>
-            <GalleryBrowser events={events} photos={photos} />
+            <GalleryBrowser events={events} />
           </Suspense>
         </div>
       </section>
