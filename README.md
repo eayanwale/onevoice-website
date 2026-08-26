@@ -11,6 +11,9 @@ feed: real photography, restrained motion, and no filler copy.
 - **GSAP** + ScrollTrigger for scroll-driven reveals, parallax, and pinning
 - **Framer Motion** for page/UI transitions (mobile nav, entrance fade)
 - **Lenis** for smooth scroll
+- **Sanity v3** (`studio/`) — CMS for the member roster, videos, and gallery events
+- **Resend** — contact/invite form delivery and the newsletter signup + welcome email
+- **Cloudflare Workers** (via `@opennextjs/cloudflare`) — hosting, `onev.live`
 
 ## Getting started
 
@@ -39,13 +42,17 @@ node scripts/screenshot.mjs /about
 | Route | Purpose |
 |---|---|
 | `/` | Homepage — hero, verse, story, latest sound, gallery teaser, invite CTA |
-| `/about` | The collective's story, and "the voices behind the sound." |
-| `/gallery` | Full photo gallery, masonry layout |
+| `/about` | The collective's story, and the roster — role revealed on hover/tap |
+| `/watch` | Every video, browsable by year, playing inline via YouTube embeds |
+| `/gallery` | Photo galleries by year → event, embedded live from Lightroom |
 | `/store` | Merch — placeholder until there's a drop |
 | `/connect` | "say hello." — general contact |
-| `/invite` | "tell us about the room." — booking requests |
+| `/invite` | Booking requests |
+| `/privacy`, `/terms` | Privacy Policy, Terms of Use |
 
-Forms are layout-only (local state, no backend) until a form handler is wired up.
+Contact, invite, and the newsletter signup all send for real via Resend — see
+`BUILD_PLAN.md` for how each is wired. Gallery/roster/video content is
+CMS-driven through Sanity (`studio/`, `lib/sanity/`).
 
 ## Design tokens
 
