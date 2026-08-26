@@ -6,11 +6,9 @@
 export const YOUTUBE_VIDEO_URL = "https://youtu.be/MdD71CNCSEw";
 
 /** The channel itself — the "youtube" social link points here. */
-// TODO: replace with the real channel URL.
-export const YOUTUBE_CHANNEL_URL = "#";
+export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@LiftOurVoicesUSA";
 
-// TODO: replace with the real profile URL.
-export const INSTAGRAM_URL = "#";
+export const INSTAGRAM_URL = "https://www.instagram.com/onevo1ce_/";
 
 /** Nothing on Spotify yet, so this lands on the placeholder page. */
 export const SPOTIFY_URL = "/coming-soon";
