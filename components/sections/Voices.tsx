@@ -75,9 +75,6 @@ function VoiceCard({
 
       <div className="mt-5">
         <div className="display-md">{voice.name}</div>
-        {voice.role ? (
-          <p className="label-text mt-2 text-warm-sage">{voice.role}</p>
-        ) : null}
       </div>
     </div>
   );
