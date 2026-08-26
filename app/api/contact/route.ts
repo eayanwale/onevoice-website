@@ -38,11 +38,13 @@ export async function POST(request: Request) {
     });
 
     if (error) {
+      console.error("contact: resend returned error", error);
       return NextResponse.json({ ok: false, error: "Could not send message." }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("contact: threw", err);
     return NextResponse.json({ ok: false, error: "Could not send message." }, { status: 502 });
   }
 }
