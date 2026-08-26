@@ -29,26 +29,6 @@ const MEMBER_FILTER_HOVER =
 
 const PHOTO_WIDTH = "w-[240px] sm:w-[300px]";
 
-function BioContent({ voice }: { voice: Voice }) {
-  const paragraphs = (voice.bio ?? "").split(/\n\s*\n/).filter(Boolean);
-  return (
-    <>
-      {voice.tagline ? (
-        <blockquote className="accent-word text-lg leading-snug text-off-white/90">
-          &ldquo;{voice.tagline}&rdquo;
-        </blockquote>
-      ) : null}
-      {paragraphs.length > 0 ? (
-        <div className="mt-5 space-y-4 text-sm leading-relaxed text-off-white/70">
-          {paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-      ) : null}
-    </>
-  );
-}
-
 function VoiceCard({
   voice,
   isOpen,
@@ -59,82 +39,42 @@ function VoiceCard({
   onToggle?: () => void;
 }) {
   return (
-    <div
-      data-voice-card
-      // Fixed width always — on mobile the card grows *downward* into the
-      // bio instead (see the grid-rows accordion below), it never widens
-      // past the viewport. Only sm+ (where the pinned horizontal strip has
-      // room) slides the bio out sideways and widens the card for it.
-      className={`group flex w-[240px] shrink-0 snap-start flex-col overflow-hidden transition-[width] duration-500 ease-brand sm:flex-row sm:gap-6 ${
-        isOpen ? "sm:w-[720px]" : "sm:w-[300px]"
-      }`}
-    >
-      <div className={`${PHOTO_WIDTH} shrink-0`}>
-        <button
-          type="button"
-          onClick={onToggle}
-          aria-expanded={onToggle ? isOpen : undefined}
-          className={`relative block aspect-[3/4] w-full overflow-hidden text-left ${
-            onToggle ? "" : "cursor-default"
-          }`}
-        >
-          <DuotonePhoto
-            src={voice.photo}
-            alt={`${voice.name} of OneVoice`}
-            sizes="(min-width: 640px) 300px, 240px"
-            objectPosition={voice.objectPosition ?? DEFAULT_OBJECT_POSITION}
-            filter={isOpen ? MEMBER_FILTER_HOVER : MEMBER_FILTER}
-            hoverFilter={onToggle ? MEMBER_FILTER_HOVER : undefined}
-            className="h-full w-full transition-transform duration-700 ease-brand group-hover:scale-[1.04]"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
-        </button>
-        <div className="mt-5">
-          <div className="display-md">{voice.name}</div>
-          {voice.role ? (
-            <p className="label-text mt-2 text-warm-sage">{voice.role}</p>
-          ) : null}
-          {onToggle ? (
-            <button
-              type="button"
-              onClick={onToggle}
-              className="link-label mt-4 text-off-white/60 transition-colors hover:text-off-white"
-            >
-              {isOpen ? "close ✕" : "their story ↗"}
-            </button>
-          ) : null}
-        </div>
-      </div>
-
-      {/* Mobile: opens downward. The grid-rows-[0fr]->[1fr] trick animates
-          to the content's natural height without knowing it up front —
-          plain height/max-height can't do that without JS measurement. */}
-      <div
-        aria-hidden={!isOpen}
-        className={`grid transition-[grid-template-rows] duration-500 ease-brand motion-reduce:transition-none sm:hidden ${
-          isOpen ? "mt-5 grid-rows-[1fr]" : "grid-rows-[0fr]"
+    <div data-voice-card className={`group flex ${PHOTO_WIDTH} shrink-0 snap-start flex-col`}>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={onToggle ? isOpen : undefined}
+        className={`relative block aspect-[3/4] w-full overflow-hidden text-left ${
+          onToggle ? "" : "cursor-default"
         }`}
       >
-        <div className="overflow-hidden">
-          <BioContent voice={voice} />
-        </div>
-      </div>
+        <DuotonePhoto
+          src={voice.photo}
+          alt={`${voice.name} of OneVoice`}
+          sizes="(min-width: 640px) 300px, 240px"
+          objectPosition={voice.objectPosition ?? DEFAULT_OBJECT_POSITION}
+          filter={MEMBER_FILTER}
+          hoverFilter={MEMBER_FILTER_HOVER}
+          className="h-full w-full transition-transform duration-700 ease-brand group-hover:scale-[1.04]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
+        {voice.role ? (
+          // Desktop: reveals on hover/focus. Mobile has no hover, so it's
+          // driven by tap state (isOpen) instead — the two triggers never
+          // fight because motion-safe:sm:group-hover only applies at sm+.
+          <div
+            aria-hidden={!isOpen}
+            className={`pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent px-4 pb-4 pt-10 opacity-0 transition-opacity duration-300 ease-brand ${
+              isOpen ? "opacity-100" : ""
+            } sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100`}
+          >
+            <p className="label-text text-off-white">{voice.role}</p>
+          </div>
+        ) : null}
+      </button>
 
-      {/* Desktop: slides out to the right instead. Width (not just opacity)
-          has to hit a real 0 when collapsed — a flex item only shrinks
-          below its content's intrinsic width with min-w-0, and without an
-          explicit h-0 too, wrapping this text into a 0-width column makes
-          the browser stack it one word (or character) per line, which
-          blows the row's height out to thousands of pixels. */}
-      <div
-        aria-hidden={!isOpen}
-        className={`hidden min-w-0 overflow-y-auto pr-1 transition-[opacity,transform] duration-500 ease-brand motion-reduce:transition-none sm:block ${
-          isOpen
-            ? "sm:w-[380px] sm:opacity-100 sm:translate-x-0"
-            : "pointer-events-none sm:h-0 sm:w-0 sm:-translate-x-4 sm:opacity-0"
-        }`}
-      >
-        <BioContent voice={voice} />
+      <div className="mt-5">
+        <div className="display-md">{voice.name}</div>
       </div>
     </div>
   );
@@ -145,7 +85,7 @@ export default function Voices({ voices }: { voices: Voice[] }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -185,17 +125,7 @@ export default function Voices({ voices }: { voices: Voice[] }) {
       // the outer viewport stops scrolling natively and just clips it.
       viewport.style.overflowX = "hidden";
 
-      // The scroll distance is fixed once, up front, to the worst case (one
-      // card open) — cards start collapsed, so track.scrollWidth here is the
-      // baseline. Recalculating this live off scrollWidth (e.g. on refresh
-      // after a card's width transition) made the x-per-scroll-pixel ratio
-      // change mid-interaction, which reads as the track jumping sideways.
-      // A fixed distance keeps x = -distance * progress continuous no matter
-      // what's expanded; an unopened strip just has a little dead scroll
-      // room at the very end of the pin, which is a fair trade for no jump.
-      const OPEN_MINUS_COLLAPSED_WIDTH = 720 - 300;
-      const distance =
-        Math.max(0, track.scrollWidth - viewport.clientWidth) + OPEN_MINUS_COLLAPSED_WIDTH;
+      const distance = Math.max(0, track.scrollWidth - viewport.clientWidth);
 
       ScrollTrigger.create({
         trigger: section,
@@ -229,6 +159,18 @@ export default function Voices({ voices }: { voices: Voice[] }) {
         <p data-reveal className="mt-6 max-w-md leading-relaxed text-muted">
           Ten friends who show up — every rehearsal, every service.
         </p>
+        <p
+          data-reveal
+          className="label-text mt-4 block text-warm-sage sm:hidden sm:motion-reduce:block"
+        >
+          swipe to meet everyone →
+        </p>
+        <p
+          data-reveal
+          className="label-text mt-4 hidden text-warm-sage sm:motion-safe:block"
+        >
+          keep scrolling ↓
+        </p>
       </div>
 
       <div ref={viewportRef} className="no-scrollbar mt-12 overflow-x-auto px-5 pb-2 sm:px-8">
@@ -237,10 +179,10 @@ export default function Voices({ voices }: { voices: Voice[] }) {
             <VoiceCard
               key={`${voice.name}-${i}`}
               voice={voice}
-              isOpen={activeIndex === i}
+              isOpen={openIndex === i}
               onToggle={
-                voice.bio
-                  ? () => setActiveIndex((current) => (current === i ? null : i))
+                voice.role
+                  ? () => setOpenIndex((current) => (current === i ? null : i))
                   : undefined
               }
             />
