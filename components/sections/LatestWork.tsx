@@ -100,9 +100,12 @@ export default function LatestWork({ slides }: { slides: VideoSlide[] }) {
       <div className="grain" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto w-full max-w-shell px-5 pb-20 pt-28 sm:px-8 sm:pb-28">
-        <p data-reveal className="label-text text-warm-sage">
-          watch us · lift our voices 2026
-        </p>
+        <div data-reveal className="flex flex-wrap items-end justify-between gap-4">
+          <p className="label-text text-warm-sage">watch us · lift our voices 2026</p>
+          <Link href="/watch" className="link-label text-off-white/80">
+            see all ↗
+          </Link>
+        </div>
         <h2
           data-reveal
           className="display-lg mt-6 max-w-2xl text-off-white [text-shadow:0_2px_20px_rgb(0_0_0_/_55%)]"

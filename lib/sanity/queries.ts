@@ -104,7 +104,8 @@ const VIDEOS_QUERY = defineQuery(`
     credit,
     youtubeUrl,
     duration,
-    thumbnail
+    thumbnail,
+    publishedAt
   }
 `);
 
@@ -115,6 +116,7 @@ type RawVideo = {
   youtubeUrl: string;
   duration?: string;
   thumbnail: RawImage;
+  publishedAt: string;
 };
 
 export type VideoSlide = {
@@ -125,11 +127,11 @@ export type VideoSlide = {
   duration?: string;
   image: string;
   objectPosition: string;
+  year: number;
 };
 
-export async function getVideos(): Promise<VideoSlide[]> {
-  const videos = await client.fetch<RawVideo[]>(VIDEOS_QUERY, {}, FETCH_OPTIONS);
-  return videos.map((video) => ({
+function toVideoSlide(video: RawVideo): VideoSlide {
+  return {
     title: video.title,
     accent: video.accent,
     credit: video.credit,
@@ -142,5 +144,28 @@ export async function getVideos(): Promise<VideoSlide[]> {
     objectPosition: video.thumbnail.hotspot
       ? hotspotObjectPosition(video.thumbnail)
       : "50% 50%",
-  }));
+    year: new Date(video.publishedAt).getFullYear(),
+  };
+}
+
+export async function getVideos(): Promise<VideoSlide[]> {
+  const videos = await client.fetch<RawVideo[]>(VIDEOS_QUERY, {}, FETCH_OPTIONS);
+  return videos.map(toVideoSlide);
+}
+
+const ALL_VIDEOS_QUERY = defineQuery(`
+  *[_type == "video"] | order(publishedAt desc) {
+    title,
+    accent,
+    credit,
+    youtubeUrl,
+    duration,
+    thumbnail,
+    publishedAt
+  }
+`);
+
+export async function getAllVideos(): Promise<VideoSlide[]> {
+  const videos = await client.fetch<RawVideo[]>(ALL_VIDEOS_QUERY, {}, FETCH_OPTIONS);
+  return videos.map(toVideoSlide);
 }
