@@ -7,6 +7,7 @@ import { SOCIAL_LINKS, EMAIL, isExternal } from "@/lib/links";
 const PAGE_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/watch", label: "Watch" },
   { href: "/gallery", label: "Gallery" },
   { href: "/store", label: "Store" },
   { href: "/connect", label: "Connect" },

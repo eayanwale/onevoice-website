@@ -127,9 +127,8 @@ export type VideoSlide = {
   objectPosition: string;
 };
 
-export async function getVideos(): Promise<VideoSlide[]> {
-  const videos = await client.fetch<RawVideo[]>(VIDEOS_QUERY, {}, FETCH_OPTIONS);
-  return videos.map((video) => ({
+function toVideoSlide(video: RawVideo): VideoSlide {
+  return {
     title: video.title,
     accent: video.accent,
     credit: video.credit,
@@ -142,5 +141,26 @@ export async function getVideos(): Promise<VideoSlide[]> {
     objectPosition: video.thumbnail.hotspot
       ? hotspotObjectPosition(video.thumbnail)
       : "50% 50%",
-  }));
+  };
+}
+
+export async function getVideos(): Promise<VideoSlide[]> {
+  const videos = await client.fetch<RawVideo[]>(VIDEOS_QUERY, {}, FETCH_OPTIONS);
+  return videos.map(toVideoSlide);
+}
+
+const ALL_VIDEOS_QUERY = defineQuery(`
+  *[_type == "video"] | order(publishedAt desc) {
+    title,
+    accent,
+    credit,
+    youtubeUrl,
+    duration,
+    thumbnail
+  }
+`);
+
+export async function getAllVideos(): Promise<VideoSlide[]> {
+  const videos = await client.fetch<RawVideo[]>(ALL_VIDEOS_QUERY, {}, FETCH_OPTIONS);
+  return videos.map(toVideoSlide);
 }
