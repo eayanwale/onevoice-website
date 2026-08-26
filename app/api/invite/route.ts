@@ -63,11 +63,13 @@ export async function POST(request: Request) {
     });
 
     if (error) {
+      console.error("invite: resend returned error", error);
       return NextResponse.json({ ok: false, error: "Could not send request." }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("invite: threw", err);
     return NextResponse.json({ ok: false, error: "Could not send request." }, { status: 502 });
   }
 }

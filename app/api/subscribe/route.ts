@@ -23,11 +23,13 @@ export async function POST(request: Request) {
     // Re-signing up with an email already on the list isn't a real failure
     // from the visitor's side — treat it the same as a fresh subscribe.
     if (error && !/already exists/i.test(error.message)) {
+      console.error("subscribe: resend returned error", error);
       return NextResponse.json({ ok: false, error: "Could not subscribe." }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("subscribe: threw", err);
     return NextResponse.json({ ok: false, error: "Could not subscribe." }, { status: 502 });
   }
 }
