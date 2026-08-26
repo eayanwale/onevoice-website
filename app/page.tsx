@@ -5,10 +5,10 @@ import LatestWork from "@/components/sections/LatestWork";
 import VisualWorld from "@/components/sections/VisualWorld";
 import Invitation from "@/components/sections/Invitation";
 import ScrollReveals from "@/components/ScrollReveals";
-import { getFeaturedGalleryPhotos, getVideos } from "@/lib/sanity/queries";
+import { getFeaturedEvents, getVideos } from "@/lib/sanity/queries";
 
 export default async function Home() {
-  const [tiles, videos] = await Promise.all([getFeaturedGalleryPhotos(), getVideos()]);
+  const [tiles, videos] = await Promise.all([getFeaturedEvents(), getVideos()]);
 
   return (
     <main>

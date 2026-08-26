@@ -39,38 +39,15 @@ export const galleryPhoto = defineType({
       validation: (Rule) => Rule.integer(),
     }),
     defineField({
-      name: 'featuredOnHome',
-      title: 'Show on homepage gallery teaser',
-      type: 'boolean',
-      description: 'The homepage shows 3 curated photos with an event label — turn this on for those.',
-      initialValue: false,
-    }),
-    defineField({
-      name: 'eventLabel',
-      title: 'Event label (homepage teaser only)',
-      type: 'string',
-      description: 'e.g. "doxa 2025" — shown as the caption on the homepage teaser tile only.',
-      hidden: ({document}) => !document?.featuredOnHome,
-      validation: (Rule) =>
-        Rule.custom((value, context) => {
-          const doc = context.document as {featuredOnHome?: boolean} | undefined
-          if (doc?.featuredOnHome && !value) {
-            return 'Required when "Show on homepage gallery teaser" is on.'
-          }
-          return true
-        }),
-    }),
-    defineField({
-      name: 'featuredOrder',
-      title: 'Homepage teaser position',
-      type: 'number',
-      description: 'Left-to-right position among the 3 homepage teaser tiles.',
-      hidden: ({document}) => !document?.featuredOnHome,
-      validation: (Rule) => Rule.integer(),
+      name: 'event',
+      type: 'reference',
+      to: [{type: 'event'}],
+      description: 'Which event/category this photo belongs to. Choose "Rehearsal Moments" for casual rehearsal shots.',
+      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {
-    select: {title: 'alt', subtitle: 'eventLabel', media: 'image'},
+    select: {title: 'alt', subtitle: 'event.name', media: 'image'},
   },
   orderings: [
     {

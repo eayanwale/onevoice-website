@@ -50,17 +50,44 @@ export async function getMembers(): Promise<Voice[]> {
   }));
 }
 
+const EVENTS_QUERY = defineQuery(`
+  *[_type == "event"] | order(year asc, order asc) {
+    name,
+    "slug": slug.current,
+    year
+  }
+`);
+
+type RawEvent = { name: string; slug: string; year?: number };
+
+export type GalleryEvent = { name: string; slug: string; year?: number };
+
+export async function getEvents(): Promise<GalleryEvent[]> {
+  const events = await client.fetch<RawEvent[]>(EVENTS_QUERY, {}, FETCH_OPTIONS);
+  return events.map((event) => ({
+    name: event.name,
+    slug: event.slug,
+    year: event.year,
+  }));
+}
+
 const GALLERY_PHOTOS_QUERY = defineQuery(`
   *[_type == "galleryPhoto"] | order(order asc) {
     image,
     alt,
-    orientation
+    orientation,
+    "eventSlug": event->slug.current
   }
 `);
 
-type RawGalleryPhoto = { image: RawImage; alt: string; orientation: "tall" | "wide" };
+type RawGalleryPhoto = {
+  image: RawImage;
+  alt: string;
+  orientation: "tall" | "wide";
+  eventSlug: string;
+};
 
-export type GalleryPhoto = { src: string; alt: string; tall: boolean };
+export type GalleryPhoto = { src: string; alt: string; tall: boolean; eventSlug: string };
 
 export async function getGalleryPhotos(): Promise<GalleryPhoto[]> {
   const photos = await client.fetch<RawGalleryPhoto[]>(GALLERY_PHOTOS_QUERY, {}, FETCH_OPTIONS);
@@ -68,31 +95,29 @@ export async function getGalleryPhotos(): Promise<GalleryPhoto[]> {
     src: urlForImage(photo.image).width(1400).url(),
     alt: photo.alt,
     tall: photo.orientation === "tall",
+    eventSlug: photo.eventSlug,
   }));
 }
 
-const FEATURED_GALLERY_PHOTOS_QUERY = defineQuery(`
-  *[_type == "galleryPhoto" && featuredOnHome == true] | order(featuredOrder asc) {
-    image,
-    alt,
-    eventLabel
+const FEATURED_EVENTS_QUERY = defineQuery(`
+  *[_type == "event" && featuredOnHome == true] | order(featuredOrder asc) {
+    name,
+    "slug": slug.current,
+    coverImage
   }
 `);
 
-type RawFeaturedPhoto = { image: RawImage; alt: string; eventLabel: string };
+type RawFeaturedEvent = { name: string; slug: string; coverImage: RawImage };
 
-export type GalleryTile = { src: string; label: string; alt: string };
+export type GalleryTile = { src: string; label: string; alt: string; slug: string };
 
-export async function getFeaturedGalleryPhotos(): Promise<GalleryTile[]> {
-  const photos = await client.fetch<RawFeaturedPhoto[]>(
-    FEATURED_GALLERY_PHOTOS_QUERY,
-    {},
-    FETCH_OPTIONS
-  );
-  return photos.map((photo) => ({
-    src: urlForImage(photo.image).width(1000).url(),
-    label: photo.eventLabel,
-    alt: photo.alt,
+export async function getFeaturedEvents(): Promise<GalleryTile[]> {
+  const events = await client.fetch<RawFeaturedEvent[]>(FEATURED_EVENTS_QUERY, {}, FETCH_OPTIONS);
+  return events.map((event) => ({
+    src: urlForImage(event.coverImage).width(1200).url(),
+    label: event.name,
+    alt: `OneVoice at ${event.name}`,
+    slug: event.slug,
   }));
 }
 
