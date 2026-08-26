@@ -13,7 +13,7 @@ import DuotonePhoto, { HERO_FILTER } from "@/components/DuotonePhoto";
 const FLOATERS = [
   {
     src: "/images/float-planning.jpg",
-    className: "right-[6%] top-[11%] w-[96px] sm:w-[132px] lg:w-[158px]",
+    className: "right-[6%] top-[11%] hidden w-[132px] sm:block lg:w-[158px]",
     drift: "drift-a",
     duration: "19s",
     delay: "0s",
@@ -49,7 +49,7 @@ const FLOATERS = [
   },
   {
     src: "/images/visual-world/hands-on-keys-detail.jpg",
-    className: "left-[5%] top-[13%] w-[92px] sm:w-[118px] lg:w-[136px]",
+    className: "left-[5%] top-[13%] hidden w-[118px] sm:block lg:w-[136px]",
     drift: "drift-b",
     duration: "31s",
     delay: "-3s",
