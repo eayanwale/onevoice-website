@@ -1,13 +1,11 @@
 // scripts/seed-events.mjs
 //
-// One-off setup: creates the 8 `event` documents for the new gallery
-// taxonomy and uploads/attaches cover photos for the 4 homepage-featured
-// ones. Idempotent — uses deterministic _ids, so re-running just updates
-// the same documents instead of duplicating them.
-//
-// Does NOT touch existing `galleryPhoto` documents — nobody but a human who
-// was actually at these events can say which photo belongs to which, so
-// that tagging is left for Studio.
+// One-off setup: creates the 8 `event` documents for the gallery taxonomy,
+// each pointing at its Lightroom gallery (embedded on the site — no photos
+// live in Sanity), and uploads/attaches cover photos for the 4
+// homepage-featured ones. Idempotent — uses deterministic _ids and Sanity
+// dedupes uploaded assets by content hash, so re-running just updates the
+// same documents instead of duplicating anything.
 //
 // Needs SANITY_API_TOKEN in the environment (Editor permissions).
 //
@@ -34,15 +32,18 @@ const client = createClient({
 const COVER_DIR =
   "C:\\Users\\Enoch\\AppData\\Local\\Temp\\claude\\d--Enoch-workspace-personal-onevoice-website\\f00504a6-0239-4467-af47-811bed166df4\\scratchpad\\event-covers";
 
+// lightroomUrl is the resolved lightroom.adobe.com/shares/<id> address, not
+// the adobe.ly short link — short links can expire, and the site derives
+// the embed URL by string-replacing "/shares/" with "/embed/shares/".
 const EVENTS = [
-  { id: "rehearsal-moments", name: "Rehearsal Moments", slug: "rehearsal-moments", order: 0 },
-  { id: "doxa-2025", name: "DOXA 2025", slug: "doxa-2025", year: 2025, order: 1, cover: "doxa-2025.jpg", featuredOrder: 3 },
-  { id: "roc-2025", name: "ROC 2025", slug: "roc-2025", year: 2025, order: 2 },
-  { id: "freedomnow-2025", name: "FreedomNow 2025", slug: "freedomnow-2025", year: 2025, order: 3, cover: "freedomnow-2025.jpg", featuredOrder: 4 },
-  { id: "in-his-hands", name: "In His Hands", slug: "in-his-hands", year: 2026, order: 1, cover: "in-his-hands.jpg", featuredOrder: 1 },
-  { id: "virtues-25th", name: "Virtue's 25th", slug: "virtues-25th", year: 2026, order: 2 },
-  { id: "lov2026", name: "LOV2026", slug: "lov2026", year: 2026, order: 3, cover: "lov-2026.jpg", featuredOrder: 2 },
-  { id: "vtl-flow", name: "VTL Flow", slug: "vtl-flow", year: 2026, order: 4 },
+  { id: "rehearsal-moments", name: "Rehearsal Moments", slug: "rehearsal-moments", order: 0, lightroomUrl: "https://lightroom.adobe.com/shares/e8ecaa7722d7435aa033068484f55469" },
+  { id: "doxa-2025", name: "DOXA 2025", slug: "doxa-2025", year: 2025, order: 1, cover: "doxa-2025.jpg", featuredOrder: 3, lightroomUrl: "https://lightroom.adobe.com/shares/91cd23ec746b481ca9450cc8ca60cc08" },
+  { id: "roc-2025", name: "ROC 2025", slug: "roc-2025", year: 2025, order: 2, lightroomUrl: "https://lightroom.adobe.com/shares/45cb600ea7584f0bb92709e7a55720e6" },
+  { id: "freedomnow-2025", name: "FreedomNow 2025", slug: "freedomnow-2025", year: 2025, order: 3, cover: "freedomnow-2025.jpg", featuredOrder: 4, lightroomUrl: "https://lightroom.adobe.com/shares/a65cfd8a95604ad08b3da50c5dce8053" },
+  { id: "in-his-hands", name: "In His Hands", slug: "in-his-hands", year: 2026, order: 1, cover: "in-his-hands.jpg", featuredOrder: 1, lightroomUrl: "https://lightroom.adobe.com/shares/e4dfa9dca72849bfbcf8385ef6a5cf69" },
+  { id: "virtues-25th", name: "Virtue's 25th", slug: "virtues-25th", year: 2026, order: 2, lightroomUrl: "https://lightroom.adobe.com/shares/45cb2b9265f946e08b2e400f1deef397" },
+  { id: "lov2026", name: "LOV2026", slug: "lov2026", year: 2026, order: 3, cover: "lov-2026.jpg", featuredOrder: 2, lightroomUrl: "https://lightroom.adobe.com/shares/292b4ecb339b4462be4b2b5fd5e7cc33" },
+  { id: "vtl-flow", name: "VTL Flow", slug: "vtl-flow", year: 2026, order: 4, lightroomUrl: "https://lightroom.adobe.com/shares/942ee4a3d14848a39447f00aa2233765" },
 ];
 
 for (const e of EVENTS) {
@@ -52,6 +53,7 @@ for (const e of EVENTS) {
     name: e.name,
     slug: { _type: "slug", current: e.slug },
     order: e.order,
+    lightroomUrl: e.lightroomUrl,
     ...(e.year !== undefined ? { year: e.year } : {}),
   };
 
@@ -76,4 +78,4 @@ for (const e of EVENTS) {
   console.log(`${e.cover ? "featured" : "        "}  ${result._id}  ${e.name}`);
 }
 
-console.log("\ndone — existing galleryPhoto documents still need their `event` field set by hand in Studio.");
+console.log("\ndone");
