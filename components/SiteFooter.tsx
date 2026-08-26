@@ -35,7 +35,7 @@ export default function SiteFooter() {
             </a>
           </div>
 
-          <div className="grid items-center gap-12 sm:grid-cols-2">
+          <div className="grid grid-cols-2 items-center gap-x-6 gap-y-12">
             <div>
               <p className="label-text text-off-white/50">pages</p>
               <ul className="mt-5 space-y-3">
