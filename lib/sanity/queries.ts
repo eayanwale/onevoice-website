@@ -59,7 +59,9 @@ const EVENTS_QUERY = defineQuery(`
   }
 `);
 
-type RawEvent = { name: string; slug: string; year?: number; lightroomUrl: string };
+// GROQ projects a field that's absent on the document as `null`, not
+// `undefined` — evergreen events (no `year` set) come back this way.
+type RawEvent = { name: string; slug: string; year: number | null; lightroomUrl: string };
 
 export type GalleryEvent = { name: string; slug: string; year?: number; lightroomUrl: string };
 
@@ -68,14 +70,17 @@ export async function getEvents(): Promise<GalleryEvent[]> {
   return events.map((event) => ({
     name: event.name,
     slug: event.slug,
-    year: event.year,
+    year: event.year ?? undefined,
     lightroomUrl: event.lightroomUrl,
   }));
 }
 
-/** Turns a Lightroom share link into its embeddable form. */
+// Adobe's own "Get embed code" output is always this shape — a slideshow
+// view, no grid option exists for embedding. Colors match the brand's dark
+// band (charcoal bg, warm-sage text) instead of Adobe's default grays.
 export function toLightroomEmbedUrl(lightroomUrl: string): string {
-  return lightroomUrl.replace("/shares/", "/embed/shares/");
+  const embedBase = lightroomUrl.replace("/shares/", "/embed/shares/");
+  return `${embedBase}/slideshow?background_color=%231A1A1A&color=%23BEB7A7`;
 }
 
 const FEATURED_EVENTS_QUERY = defineQuery(`

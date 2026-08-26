@@ -15,10 +15,6 @@ export const SPOTIFY_URL = "/coming-soon";
 
 export const EMAIL = "hello@onev.live";
 
-/** The full photo archive, hosted on Adobe Lightroom. */
-export const LIGHTROOM_GALLERY_URL =
-  "https://lightroom.adobe.com/shares/727641021348473a88974458e47980f9";
-
 export type Platform = "instagram" | "youtube" | "spotify";
 
 /**
