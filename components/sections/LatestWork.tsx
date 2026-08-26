@@ -91,8 +91,8 @@ export default function LatestWork({ slides }: { slides: VideoSlide[] }) {
             // text column specifically — legibility that doesn't depend on
             // guessing how bright any given uploaded thumbnail is.
             background: [
-              "linear-gradient(to right, rgba(26,26,26,0.75) 0%, rgba(26,26,26,0.45) 40%, rgba(26,26,26,0.05) 70%)",
-              "linear-gradient(to top, rgba(26,26,26,0.75) 0%, rgba(71,50,55,0.4) 38%, rgba(26,26,26,0.08) 68%, rgba(26,26,26,0.25) 100%)",
+              "linear-gradient(to right, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.58) 45%, rgba(26,26,26,0.15) 75%)",
+              "linear-gradient(to top, rgba(26,26,26,0.85) 0%, rgba(71,50,55,0.5) 38%, rgba(26,26,26,0.15) 68%, rgba(26,26,26,0.35) 100%)",
             ].join(", "),
           }}
         />
