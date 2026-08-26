@@ -13,6 +13,7 @@ const SCROLL_THRESHOLD = 72;
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
+  { href: "/watch", label: "Watch" },
   { href: "/gallery", label: "Gallery" },
   { href: "/store", label: "Store" },
   { href: "/connect", label: "Connect" },
