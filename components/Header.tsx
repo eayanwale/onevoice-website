@@ -66,7 +66,14 @@ export default function Header() {
         initial={false}
         animate={{ opacity: scrolled ? 1 : 0 }}
         transition={glassTransition}
-        className="absolute inset-0 border-b border-off-white/10 bg-charcoal/45 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.55)] backdrop-blur-lg backdrop-saturate-150"
+        // blur radius is the dominant cost of backdrop-filter, roughly
+        // quadratic — measured `backdrop-blur-lg` (16px) against a maximized
+        // 1920px window: ~35ms/frame scrolling with it, ~17ms without.
+        // `backdrop-blur` (8px) recovers nearly all of that (~18ms) while
+        // keeping a visible frosted-glass effect. `backdrop-saturate-150`
+        // measured as a rounding error by comparison — dropped too since
+        // it's free to remove.
+        className="absolute inset-0 border-b border-off-white/10 bg-charcoal/45 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.55)] backdrop-blur"
       />
       <motion.div
         aria-hidden="true"
