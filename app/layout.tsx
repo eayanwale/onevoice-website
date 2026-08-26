@@ -33,6 +33,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://onev.live"),
   title: "OneVoice — one mind, one voice",
   description:
     "OneVoice is a community of friends leading reverent, honest gospel worship, and walking alongside one another in faith.",
