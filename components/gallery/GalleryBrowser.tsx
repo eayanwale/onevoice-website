@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { GalleryEvent } from "@/lib/sanity/queries";
+import { toLightroomEmbedUrl, type GalleryEvent } from "@/lib/sanity/queries";
 
 function Chevron({ open }: { open: boolean }) {
   return (
@@ -46,19 +46,27 @@ function MenuRow({
   );
 }
 
-function EventCard({ event }: { event: GalleryEvent }) {
+function EventEmbed({ event }: { event: GalleryEvent }) {
   return (
-    <a
-      href={event.lightroomUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block border border-ink/15 p-6 transition-colors duration-200 hover:border-warm-sage"
-    >
-      <span className="display-md block transition-colors duration-200 group-hover:text-warm-sage">
-        {event.name}
-      </span>
-      <span className="link-label mt-4 inline-block text-muted">view gallery ↗</span>
-    </a>
+    <div>
+      <p className="display-md mb-4">{event.name}</p>
+      <div className="relative h-0 w-full overflow-hidden pb-[50%]">
+        <iframe
+          src={toLightroomEmbedUrl(event.lightroomUrl)}
+          title={`${event.name} — Lightroom slideshow`}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full border-0"
+        />
+      </div>
+      <a
+        href={event.lightroomUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="link-label mt-4 inline-block text-muted"
+      >
+        open full gallery ↗
+      </a>
+    </div>
   );
 }
 
@@ -99,7 +107,7 @@ export default function GalleryBrowser({ events }: { events: GalleryEvent[] }) {
 
   return (
     <div className="grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-16">
-      <nav className="h-fit border border-ink/15">
+      <nav className="h-fit border border-ink/15 lg:sticky lg:top-24">
         <MenuRow active={selectedEvent === null} onClick={showAll}>
           all
         </MenuRow>
@@ -131,24 +139,18 @@ export default function GalleryBrowser({ events }: { events: GalleryEvent[] }) {
 
       <div>
         {selectedEvent ? (
-          <div className="max-w-md">
-            <EventCard event={selectedEvent} />
-          </div>
+          <EventEmbed event={selectedEvent} />
         ) : (
-          <div className="space-y-12">
-            {evergreen.length > 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {evergreen.map((e) => (
-                  <EventCard key={e.slug} event={e} />
-                ))}
-              </div>
-            ) : null}
+          <div className="space-y-16">
+            {evergreen.map((e) => (
+              <EventEmbed key={e.slug} event={e} />
+            ))}
             {byYear.map(([year, yearEvents]) => (
               <div key={year}>
-                <p className="label-text mb-4 text-muted">{year}</p>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <p className="label-text mb-6 text-muted">{year}</p>
+                <div className="space-y-16">
                   {yearEvents.map((e) => (
-                    <EventCard key={e.slug} event={e} />
+                    <EventEmbed key={e.slug} event={e} />
                   ))}
                 </div>
               </div>

@@ -75,6 +75,14 @@ export async function getEvents(): Promise<GalleryEvent[]> {
   }));
 }
 
+// Adobe's own "Get embed code" output is always this shape — a slideshow
+// view, no grid option exists for embedding. Colors match the brand's dark
+// band (charcoal bg, warm-sage text) instead of Adobe's default grays.
+export function toLightroomEmbedUrl(lightroomUrl: string): string {
+  const embedBase = lightroomUrl.replace("/shares/", "/embed/shares/");
+  return `${embedBase}/slideshow?background_color=%231A1A1A&color=%23BEB7A7`;
+}
+
 const FEATURED_EVENTS_QUERY = defineQuery(`
   *[_type == "event" && featuredOnHome == true] | order(featuredOrder asc) {
     name,
