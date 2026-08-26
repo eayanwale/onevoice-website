@@ -54,13 +54,14 @@ const EVENTS_QUERY = defineQuery(`
   *[_type == "event"] | order(year asc, order asc) {
     name,
     "slug": slug.current,
-    year
+    year,
+    lightroomUrl
   }
 `);
 
-type RawEvent = { name: string; slug: string; year?: number };
+type RawEvent = { name: string; slug: string; year?: number; lightroomUrl: string };
 
-export type GalleryEvent = { name: string; slug: string; year?: number };
+export type GalleryEvent = { name: string; slug: string; year?: number; lightroomUrl: string };
 
 export async function getEvents(): Promise<GalleryEvent[]> {
   const events = await client.fetch<RawEvent[]>(EVENTS_QUERY, {}, FETCH_OPTIONS);
@@ -68,35 +69,13 @@ export async function getEvents(): Promise<GalleryEvent[]> {
     name: event.name,
     slug: event.slug,
     year: event.year,
+    lightroomUrl: event.lightroomUrl,
   }));
 }
 
-const GALLERY_PHOTOS_QUERY = defineQuery(`
-  *[_type == "galleryPhoto"] | order(order asc) {
-    image,
-    alt,
-    orientation,
-    "eventSlug": event->slug.current
-  }
-`);
-
-type RawGalleryPhoto = {
-  image: RawImage;
-  alt: string;
-  orientation: "tall" | "wide";
-  eventSlug: string;
-};
-
-export type GalleryPhoto = { src: string; alt: string; tall: boolean; eventSlug: string };
-
-export async function getGalleryPhotos(): Promise<GalleryPhoto[]> {
-  const photos = await client.fetch<RawGalleryPhoto[]>(GALLERY_PHOTOS_QUERY, {}, FETCH_OPTIONS);
-  return photos.map((photo) => ({
-    src: urlForImage(photo.image).width(1400).url(),
-    alt: photo.alt,
-    tall: photo.orientation === "tall",
-    eventSlug: photo.eventSlug,
-  }));
+/** Turns a Lightroom share link into its embeddable form. */
+export function toLightroomEmbedUrl(lightroomUrl: string): string {
+  return lightroomUrl.replace("/shares/", "/embed/shares/");
 }
 
 const FEATURED_EVENTS_QUERY = defineQuery(`

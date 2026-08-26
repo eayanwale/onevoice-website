@@ -36,6 +36,14 @@ export const event = defineType({
       description: 'Used for the homepage gallery teaser tile when featured — leave blank otherwise.',
     }),
     defineField({
+      name: 'lightroomUrl',
+      title: 'Lightroom gallery link',
+      type: 'url',
+      description:
+        'The full Adobe Lightroom share link for this event\'s photos, e.g. https://lightroom.adobe.com/shares/xxxx — visit an adobe.ly short link once and paste the resulting full lightroom.adobe.com address here, since short links can expire. The gallery page embeds this directly, so photos never need to be uploaded to Sanity.',
+      validation: (Rule) => Rule.required().uri({scheme: ['http', 'https']}),
+    }),
+    defineField({
       name: 'featuredOnHome',
       title: 'Show on homepage gallery teaser',
       type: 'boolean',
