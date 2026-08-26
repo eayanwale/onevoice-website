@@ -59,7 +59,9 @@ const EVENTS_QUERY = defineQuery(`
   }
 `);
 
-type RawEvent = { name: string; slug: string; year?: number; lightroomUrl: string };
+// GROQ projects a field that's absent on the document as `null`, not
+// `undefined` — evergreen events (no `year` set) come back this way.
+type RawEvent = { name: string; slug: string; year: number | null; lightroomUrl: string };
 
 export type GalleryEvent = { name: string; slug: string; year?: number; lightroomUrl: string };
 
@@ -68,7 +70,7 @@ export async function getEvents(): Promise<GalleryEvent[]> {
   return events.map((event) => ({
     name: event.name,
     slug: event.slug,
-    year: event.year,
+    year: event.year ?? undefined,
     lightroomUrl: event.lightroomUrl,
   }));
 }
