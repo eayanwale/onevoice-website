@@ -111,6 +111,7 @@ const VIDEOS_QUERY = defineQuery(`
     title,
     accent,
     credit,
+    channel,
     youtubeUrl,
     duration,
     thumbnail,
@@ -122,6 +123,7 @@ type RawVideo = {
   title: string;
   accent: string;
   credit?: string;
+  channel: "onevoice" | "lov";
   youtubeUrl: string;
   duration?: string;
   thumbnail: RawImage;
@@ -132,6 +134,7 @@ export type VideoSlide = {
   title: string;
   accent: string;
   credit?: string;
+  channel: "onevoice" | "lov";
   href: string;
   duration?: string;
   image: string;
@@ -144,6 +147,7 @@ function toVideoSlide(video: RawVideo): VideoSlide {
     title: video.title,
     accent: video.accent,
     credit: video.credit,
+    channel: video.channel,
     href: video.youtubeUrl,
     duration: video.duration,
     // Full-bleed background, not a card thumbnail — needs more source
@@ -167,6 +171,7 @@ const ALL_VIDEOS_QUERY = defineQuery(`
     title,
     accent,
     credit,
+    channel,
     youtubeUrl,
     duration,
     thumbnail,
