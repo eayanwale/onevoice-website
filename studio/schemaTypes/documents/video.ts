@@ -23,6 +23,19 @@ export const video = defineType({
       description: 'e.g. "with Pastor Oluwatise Oyetunde." — shown under the title.',
     }),
     defineField({
+      name: 'channel',
+      type: 'string',
+      description: 'Which YouTube channel this video was published under — the watch page splits the archive by this.',
+      options: {
+        list: [
+          {title: 'OneVoice', value: 'onevoice'},
+          {title: 'Lift Our Voices (LOV)', value: 'lov'},
+        ],
+        layout: 'radio',
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'youtubeUrl',
       type: 'url',
       validation: (Rule) => Rule.required().uri({scheme: ['http', 'https']}),
