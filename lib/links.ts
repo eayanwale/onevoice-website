@@ -5,8 +5,11 @@
 /** The Lift Our Voices 2026 set — the "watch" button points here. */
 export const YOUTUBE_VIDEO_URL = "https://youtu.be/MdD71CNCSEw";
 
-/** The channel itself — the "youtube" social link points here. */
-export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@LiftOurVoicesUSA";
+/** OneVoice's own channel — the primary "youtube" social link points here. */
+export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@OneVoiceLive";
+
+/** The Lift Our Voices channel — older archive videos live here, linked from the watch page's LOV tab. */
+export const LOV_YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@LiftOurVoicesUSA";
 
 export const INSTAGRAM_URL = "https://www.instagram.com/onevo1ce_/";
 

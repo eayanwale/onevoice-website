@@ -2,7 +2,15 @@
 
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { LOV_YOUTUBE_CHANNEL_URL, YOUTUBE_CHANNEL_URL } from "@/lib/links";
 import type { VideoSlide } from "@/lib/sanity/queries";
+
+type Channel = VideoSlide["channel"];
+
+const CHANNELS: { value: Channel; label: string; url: string }[] = [
+  { value: "onevoice", label: "OneVoice", url: YOUTUBE_CHANNEL_URL },
+  { value: "lov", label: "Lift Our Voices", url: LOV_YOUTUBE_CHANNEL_URL },
+];
 
 function slugify(title: string) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -104,80 +112,132 @@ export default function WatchBrowser({ videos }: { videos: VideoSlide[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const initialSlug = searchParams.get("video");
+  const initialVideo = videos.find((v) => slugify(v.title) === initialSlug) ?? null;
+  const initialChannel: Channel =
+    (searchParams.get("channel") as Channel | null) ?? initialVideo?.channel ?? videos[0]?.channel ?? "onevoice";
+
+  const [selectedChannel, setSelectedChannel] = useState<Channel>(initialChannel);
+  const [selectedVideo, setSelectedVideo] = useState<VideoSlide | null>(initialVideo);
+  const [expandedYear, setExpandedYear] = useState<number | null>(initialVideo?.year ?? null);
+
+  const channelVideos = useMemo(
+    () => videos.filter((v) => v.channel === selectedChannel),
+    [videos, selectedChannel],
+  );
+
   const byYear = useMemo(() => {
     const years = new Map<number, VideoSlide[]>();
-    for (const v of videos) {
+    for (const v of channelVideos) {
       if (!years.has(v.year)) years.set(v.year, []);
       years.get(v.year)!.push(v);
     }
     return [...years.entries()].sort(([a], [b]) => b - a);
-  }, [videos]);
+  }, [channelVideos]);
 
-  const initialSlug = searchParams.get("video");
-  const initialVideo = videos.find((v) => slugify(v.title) === initialSlug) ?? null;
-
-  const [selectedVideo, setSelectedVideo] = useState<VideoSlide | null>(initialVideo);
-  const [expandedYear, setExpandedYear] = useState<number | null>(initialVideo?.year ?? null);
+  const selectChannel = (channel: Channel) => {
+    setSelectedChannel(channel);
+    setSelectedVideo(null);
+    setExpandedYear(null);
+    router.replace(`/watch?channel=${channel}`, { scroll: false });
+  };
 
   const select = (video: VideoSlide) => {
     setSelectedVideo(video);
-    router.replace(`/watch?video=${slugify(video.title)}`, { scroll: false });
+    router.replace(`/watch?channel=${selectedChannel}&video=${slugify(video.title)}`, { scroll: false });
   };
 
   const showAll = () => {
     setSelectedVideo(null);
-    router.replace("/watch", { scroll: false });
+    router.replace(`/watch?channel=${selectedChannel}`, { scroll: false });
   };
 
   const toggleYear = (year: number) => {
     setExpandedYear((current) => (current === year ? null : year));
   };
 
-  return (
-    <div className="grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-16">
-      <nav className="h-fit border border-ink/15 lg:sticky lg:top-24">
-        <MenuRow active={selectedVideo === null} onClick={showAll}>
-          all
-        </MenuRow>
-        {byYear.map(([year, yearVideos]) => (
-          <div key={year}>
-            <MenuRow onClick={() => toggleYear(year)} chevron={expandedYear === year}>
-              {year}
-            </MenuRow>
-            {expandedYear === year
-              ? yearVideos.map((v) => (
-                  <MenuRow
-                    key={v.title}
-                    indent
-                    active={selectedVideo?.title === v.title}
-                    onClick={() => select(v)}
-                  >
-                    {v.title} {v.accent}
-                  </MenuRow>
-                ))
-              : null}
-          </div>
-        ))}
-      </nav>
+  const activeChannelUrl = CHANNELS.find((c) => c.value === selectedChannel)?.url;
 
-      <div>
-        {selectedVideo ? (
-          <VideoEmbed video={selectedVideo} />
-        ) : (
-          <div className="space-y-16">
+  return (
+    <div>
+      <div className="mb-10 flex items-end justify-between gap-6 border-b border-ink/15">
+        <div className="flex gap-8">
+          {CHANNELS.map((c) => (
+            <button
+              key={c.value}
+              type="button"
+              onClick={() => selectChannel(c.value)}
+              className={`label-text -mb-px border-b-2 pb-4 transition-colors duration-200 ease-brand ${
+                selectedChannel === c.value
+                  ? "border-warm-sage text-warm-sage"
+                  : "border-transparent text-muted hover:text-ink"
+              }`}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+        {activeChannelUrl ? (
+          <a
+            href={activeChannelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="label-text hidden pb-4 text-muted transition-colors duration-200 ease-brand hover:text-ink sm:inline"
+          >
+            visit channel ↗
+          </a>
+        ) : null}
+      </div>
+
+      {channelVideos.length === 0 ? (
+        <p className="text-muted">No videos here yet — check back soon.</p>
+      ) : (
+        <div className="grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-16">
+          <nav className="h-fit border border-ink/15 lg:sticky lg:top-24">
+            <MenuRow active={selectedVideo === null} onClick={showAll}>
+              all
+            </MenuRow>
             {byYear.map(([year, yearVideos]) => (
               <div key={year}>
-                <p className="label-text mb-6 text-muted">{year}</p>
-                <div className="space-y-16">
-                  {yearVideos.map((v) => (
-                    <VideoEmbed key={v.title} video={v} />
-                  ))}
-                </div>
+                <MenuRow onClick={() => toggleYear(year)} chevron={expandedYear === year}>
+                  {year}
+                </MenuRow>
+                {expandedYear === year
+                  ? yearVideos.map((v) => (
+                      <MenuRow
+                        key={v.title}
+                        indent
+                        active={selectedVideo?.title === v.title}
+                        onClick={() => select(v)}
+                      >
+                        {v.title} {v.accent}
+                      </MenuRow>
+                    ))
+                  : null}
               </div>
             ))}
+          </nav>
+
+          <div>
+            {selectedVideo ? (
+              <VideoEmbed video={selectedVideo} />
+            ) : (
+              <div className="space-y-16">
+                {byYear.map(([year, yearVideos]) => (
+                  <div key={year}>
+                    <p className="label-text mb-6 text-muted">{year}</p>
+                    <div className="space-y-16">
+                      {yearVideos.map((v) => (
+                        <VideoEmbed key={v.title} video={v} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
