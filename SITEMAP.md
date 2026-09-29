@@ -10,7 +10,9 @@ onev.live
 │
 ├── /about                About Us — the collective's story, not a bio-card grid
 │
-├── /watch                Watch — every video, browsable by year, playing inline (Sanity `video` docs)
+├── /watch                Watch — every video, split by channel tab (OneVoice / Lift Our Voices)
+│                          then browsable by year within each, playing inline (Sanity `video`
+│                          docs, `channel` field)
 │
 ├── /coming-soon          Coming Soon — placeholder landing for links not live yet (e.g. Spotify)
 │
