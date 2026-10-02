@@ -198,16 +198,16 @@ export default function WatchBrowser({ videos }: { videos: VideoSlide[] }) {
               all
             </MenuRow>
             {byYear.map(([year, yearVideos]) => (
-              <div key={year}>
+              <div key={`${selectedChannel}-${year}`}>
                 <MenuRow onClick={() => toggleYear(year)} chevron={expandedYear === year}>
                   {year}
                 </MenuRow>
                 {expandedYear === year
                   ? yearVideos.map((v) => (
                       <MenuRow
-                        key={v.title}
+                        key={v.href}
                         indent
-                        active={selectedVideo?.title === v.title}
+                        active={selectedVideo?.href === v.href}
                         onClick={() => select(v)}
                       >
                         {v.title} {v.accent}
@@ -224,11 +224,11 @@ export default function WatchBrowser({ videos }: { videos: VideoSlide[] }) {
             ) : (
               <div className="space-y-16">
                 {byYear.map(([year, yearVideos]) => (
-                  <div key={year}>
+                  <div key={`${selectedChannel}-${year}`}>
                     <p className="label-text mb-6 text-muted">{year}</p>
                     <div className="space-y-16">
                       {yearVideos.map((v) => (
-                        <VideoEmbed key={v.title} video={v} />
+                        <VideoEmbed key={v.href} video={v} />
                       ))}
                     </div>
                   </div>
